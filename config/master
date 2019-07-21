@@ -1,0 +1,18 @@
+pki_dir: /home/femnad/.salt/pki
+
+cachedir: /home/femnad/.salt/cache
+
+file_roots:
+  base:
+    - /home/femnad/z/fm/anr/state
+
+pillar_roots:
+  base:
+    - /home/femnad/z/fm/anr/pillar
+
+master_roots: /home/femnad/.salt/roots
+
+osenv:
+  driver: env
+
+pillar_safe_render_error: False

@@ -1,0 +1,3 @@
+base:
+  self:
+    - all

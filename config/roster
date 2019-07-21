@@ -1,0 +1,4 @@
+self:
+  host: localhost
+  user: femnad
+  sudo: true
