@@ -1,4 +1,4 @@
 self:
   host: localhost
   user: femnad
-  sudo: true
+  priv: agent-forwarding
