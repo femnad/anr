@@ -10,6 +10,7 @@ packages:
   - pass
   - stumpwm
   - vim-gtk3
+  - tilix
   - tmux
 
 castles:
