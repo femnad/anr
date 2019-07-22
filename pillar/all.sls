@@ -20,6 +20,7 @@ packages:
   - vim-gtk3
   - tilix
   - tmux
+  - xdotool
   - zeal
 
 castles:

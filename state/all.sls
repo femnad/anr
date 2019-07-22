@@ -89,6 +89,7 @@ Vim Plug:
     - name: {{ home }}/.vim/autoload/plug.vim
     - source: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     - skip_verify: true
+    - makedirs: true
   cmd.run:
     - name: vim -c ":PlugInstall" -c ":quitall"
 
