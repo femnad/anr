@@ -33,14 +33,19 @@ Go get {{ pkg }}:
 {% endfor %}
 
 {% for pkg in pillar['go_get_gopath'] %}
+{% set name = pkg.split('/')[-1] %}
+{% set gopath = pillar['go_path'] %}
 Go get {{ pkg }}:
   environ.setenv:
     - name: GOPATH
-    - value: {{ pillar['go_path'] }}
+    - value: {{ gopath }}
   cmd.run:
     - name: {{ go_bin }} get {{ pkg }}
     - require:
       - go
+  file.copy:
+    - name: {{ home }}/bin/{{ name }}
+    - source: {{ gopath }}/bin/{{ name }}
 {% endfor %}
 
 {% set homeshick_repos = home + '/.homesick/repos' %}
