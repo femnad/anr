@@ -20,7 +20,8 @@ Hub:
     - require:
         - go
 
-{% set homeshick = home + '/.homeshick/repos/homeshick' %}
+{% set homeshick_repos = home + '/.homesick/repos' %}
+{% set homeshick = homeshick_repos + '/homeshick' %}
 {% set homeshick_bin = homeshick + '/bin/homeshick' %}
 
 homeshick:
@@ -33,10 +34,9 @@ homeshick:
 Add castle {{ castle }}:
   git.cloned:
     - name: {{ castle }}
-    - target: {{ home + '/.homeshick/repos/' + castle_name }}
+    - target: {{ home_repos + '/' + castle_name }}
   cmd.run:
     - name: {{ homeshick_bin }} link -b {{ castle_name }}
-    - cwd: {{ homeshick }}
     - required:
         - homeshick
 {% endfor %}
