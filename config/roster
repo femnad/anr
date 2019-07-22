@@ -1,4 +1,9 @@
+# -*- mode: yaml -*-
 self:
   host: localhost
   user: femnad
   priv: agent-forwarding
+self-sudo:
+  host: localhost
+  user: femnad
+  sudo: true
