@@ -14,6 +14,7 @@ packages:
   - python3-boto
   - python3-botocore
   - python3-boto3
+  - rofi
   - stumpwm
   - vim-gtk3
   - tilix
