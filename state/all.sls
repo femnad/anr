@@ -34,7 +34,7 @@ homeshick:
 Add castle {{ castle }}:
   git.cloned:
     - name: {{ castle }}
-    - target: {{ home_repos + '/' + castle_name }}
+    - target: {{ homeshick_repos + '/' + castle_name }}
   cmd.run:
     - name: {{ homeshick_bin }} link -b {{ castle_name }}
     - required:
