@@ -1,22 +1,10 @@
 {% set go_base = pillar['package_dir'] + '/go' %}
 {% set go_bin = go_base + '/bin/go' %}
-
-libasound2-dev:
-  pkg.installed
-
-Spotifyd:
-  git.cloned:
-    - name: https://github.com/Spotifyd/spotifyd
-    - target: {{ pillar['clone_dir'] }}/spotifyd
-  cmd.run:
-    - name: cargo build
-    - cwd: {{ pillar['clone_dir'] }}/spotifyd
-    - require:
-        - libasound2-dev
+{% set home = pillar['home'] %}
 
 go:
   archive.extracted:
-    - name: {{ pillar['home'] }}/z/dy
+    - name: {{ home }}/z/dy
     - source: https://dl.google.com/go/go1.12.7.linux-amd64.tar.gz
     - source_hash: 66d83bfb5a9ede000e33c6579a91a29e6b101829ad41fffb5c5bb6c900e109d9
     - clean: true
@@ -24,10 +12,29 @@ go:
 
 Hub:
   git.cloned:
-    - name:   https://github.com/github/hub.git
+    - name: https://github.com/github/hub.git
     - target: {{ pillar['clone_dir'] }}/hub
   cmd.run:
     - name: {{ go_bin}} install
     - cwd: {{ pillar['clone_dir'] }}/hub
     - require:
         - go
+
+homeshick:
+  git.cloned:
+    - name: https://github.com/andsens/homeshick.git
+    - target: {{ home }}/.homeshick/repos/homeshick
+
+{% set homeshick = home + '/.homeshick/repos/homeshick/bin/homeshick' %}
+
+{% for castle in pillar['castles'] %}
+{% set castle_name = castle.split('/')[-1].split('.')[0] %}
+Add castle {{ castle }}:
+  git.cloned:
+    - name: {{ castle }}
+    - target: {{ home + '/.homeshick/repos/' + castle_name }}
+  cmd.run:
+    - name: {{ homeshick }} link -b {{ castle_name }}
+    - required:
+        - homeshick
+{% endfor %}
