@@ -7,6 +7,7 @@ packages:
   - emacs
   - fish
   - firefox
+  - gnupg2
   - lightdm
   - pass
   - python3-boto
