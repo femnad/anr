@@ -35,7 +35,7 @@ Add castle {{ castle }}:
     - name: {{ castle }}
     - target: {{ home + '/.homeshick/repos/' + castle_name }}
   cmd.run:
-    - name: {{ homeshick_bin }} -b {{ castle_name }}
+    - name: {{ homeshick_bin }} link -b {{ castle_name }}
     - cwd: {{ homeshick }}
     - required:
         - homeshick
