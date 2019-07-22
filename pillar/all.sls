@@ -17,6 +17,7 @@ packages:
   - vim-gtk3
   - tilix
   - tmux
+  - zeal
 
 castles:
   - https://gitlab.com/femnad/base.git

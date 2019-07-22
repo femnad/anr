@@ -76,3 +76,8 @@ Add castle {{ castle }}:
     - required:
         - homeshick
 {% endfor %}
+
+Vim Plug:
+  file.managed:
+    - name: {{ home }}/.vim/autoload/plug.vim
+    - source: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
