@@ -3,11 +3,13 @@ clone_dir: {{ salt.sdb.get('sdb://osenv/HOME') + '/z/gl' }}
 package_dir: {{ salt.sdb.get('sdb://osenv/HOME') + '/z/dy' }}
 
 packages:
+  - ansible
   - emacs
   - fish
   - firefox
   - lightdm
   - pass
+  - python3-boto
   - python3-botocore
   - python3-boto3
   - stumpwm
