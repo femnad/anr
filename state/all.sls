@@ -4,9 +4,17 @@
 
 go:
   archive.extracted:
-    - name: {{ home }}/z/dy
+    - name: {{ package_dir }}
     - source: https://dl.google.com/go/go1.12.7.linux-amd64.tar.gz
     - source_hash: 66d83bfb5a9ede000e33c6579a91a29e6b101829ad41fffb5c5bb6c900e109d9
+    - clean: true
+    - trim_output: true
+
+rust:
+  archive.extracted:
+    - name: {{ package_dir }}
+    - source: https://static.rust-lang.org/dist/rust-1.36.0-x86_64-unknown-linux-gnu.tar.gz
+    - source_hash: 15e592ec52f14a0586dcebc87a957e472c4544e07359314f6354e2b8bd284c55
     - clean: true
     - trim_output: true
 

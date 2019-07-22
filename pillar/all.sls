@@ -8,6 +8,8 @@ packages:
   - firefox
   - lightdm
   - pass
+  - python3-botocore
+  - python3-boto3
   - stumpwm
   - vim-gtk3
   - tilix
