@@ -77,11 +77,25 @@ Add castle {{ castle }}:
         - homeshick
 {% endfor %}
 
+{% for dir in pillar['vim_dirs'] %}
+Initialize directory {{ dir }}:
+  file.directory:
+    - name: {{ home }}/.vim/{{ dir }}
+    - makedirs: true
+{% endfor %}
+
 Vim Plug:
   file.managed:
     - name: {{ home }}/.vim/autoload/plug.vim
     - source: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     - skip_verify: true
+  cmd.run:
+    - name: vim -c ":PlugInstall" -c ":quitall"
+
+YouCompleteMe:
+  cmd.run:
+    - name: python3 ./install.py
+    - cwd: {{ home }}/.vim/plugged/YouCompleteMe
 
 Tilix schemes:
 {% set target = pillar['clone_dir'] + '/Tilix-Themes' %}
