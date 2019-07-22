@@ -4,6 +4,7 @@ package_dir: {{ salt.sdb.get('sdb://osenv/HOME') + '/z/dy' }}
 
 packages:
   - ansible
+  - dzen2
   - emacs
   - fish
   - firefox
@@ -33,3 +34,7 @@ go_get:
 
 go_get_gopath:
   - github.com/junegunn/fzf
+
+home_bins:
+  - url: https://github.com/femnad/loco/releases/download/untagged-54ba4752f764e03bbdbc/ysnp
+    hash: 7402098eee98d892845b83cdd563e998eaac2307afa84fc2e214746c90dcabd2

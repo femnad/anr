@@ -4,7 +4,7 @@
 
 go:
   archive.extracted:
-    - name: {{ package_dir }}
+    - name: {{ pillar['package_dir'] }}
     - source: https://dl.google.com/go/go1.12.7.linux-amd64.tar.gz
     - source_hash: 66d83bfb5a9ede000e33c6579a91a29e6b101829ad41fffb5c5bb6c900e109d9
     - clean: true
@@ -12,7 +12,7 @@ go:
 
 rust:
   archive.extracted:
-    - name: {{ package_dir }}
+    - name: {{ pillar['package_dir'] }}
     - source: https://static.rust-lang.org/dist/rust-1.36.0-x86_64-unknown-linux-gnu.tar.gz
     - source_hash: 15e592ec52f14a0586dcebc87a957e472c4544e07359314f6354e2b8bd284c55
     - clean: true
@@ -81,3 +81,20 @@ Vim Plug:
   file.managed:
     - name: {{ home }}/.vim/autoload/plug.vim
     - source: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+Tilix schemes:
+{% set target = pillar['clone_dir'] + '/Tilix-Themes' %}
+  git.cloned:
+    - name: https://github.com/storm119/Tilix-Themes.git
+    - target: {{ target }}
+  file.directory:
+    - name: {{ home }}/.config/tilix/schemes
+  cmd.run:
+    - name: find . -name '*.json' -exec mv '{}' {{ home }}/.config/tilix/schemes \;
+
+{% for bin in pillar['home_bins'] %}
+Download {{ bin.url }}:
+  file.managed:
+    - name: {{ home }}/{{ bin.url.split('/')[-1] }}
+    - source_hash: {{ bin.hash }}
+{% endfor %}
