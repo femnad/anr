@@ -91,7 +91,7 @@ Tilix schemes:
   file.directory:
     - name: {{ home }}/.config/tilix/schemes
   cmd.run:
-    - name: find . -name '*.json' -exec mv '{}' {{ home }}/.config/tilix/schemes \;
+    - name: find {{ target }} -name '*.json' -exec mv '{}' {{ home }}/.config/tilix/schemes \;
 
 {% for bin in pillar['home_bins'] %}
 Download {{ bin.url }}:
