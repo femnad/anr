@@ -81,6 +81,7 @@ Vim Plug:
   file.managed:
     - name: {{ home }}/.vim/autoload/plug.vim
     - source: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    - skip_verify: true
 
 Tilix schemes:
 {% set target = pillar['clone_dir'] + '/Tilix-Themes' %}
@@ -95,6 +96,7 @@ Tilix schemes:
 {% for bin in pillar['home_bins'] %}
 Download {{ bin.url }}:
   file.managed:
-    - name: {{ home }}/{{ bin.url.split('/')[-1] }}
+    - name: {{ home }}/bin/{{ bin.url.split('/')[-1] }}
+    - source: {{ bin.url }}
     - source_hash: {{ bin.hash }}
 {% endfor %}
