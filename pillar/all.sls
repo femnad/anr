@@ -19,8 +19,11 @@ castles:
   - https://gitlab.com/femnad/disposable.git
   - https://github.com/femnad/homebin.git
 
-go_install:
-  - https://github.com/junegunn/fzf.git
+go_install: []
+go_path: {{ salt.sdb.get('sdb://osenv/HOME') + '/z/sc/go' }}
 
 go_get:
-  - github.com/femnad/stuff
+  - github.com/femnad/stuff/...
+
+go_get_gopath:
+  - github.com/junegunn/fzf

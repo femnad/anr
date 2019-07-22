@@ -32,6 +32,17 @@ Go get {{ pkg }}:
       - go
 {% endfor %}
 
+{% for pkg in pillar['go_get_gopath'] %}
+Go get {{ pkg }}:
+  environ.setenv:
+    - name: GOPATH
+    - value: {{ pillar['go_path'] }}
+  cmd.run:
+    - name: {{ go_bin }} get {{ pkg }}
+    - require:
+      - go
+{% endfor %}
+
 {% set homeshick_repos = home + '/.homesick/repos' %}
 {% set homeshick = homeshick_repos + '/homeshick' %}
 {% set homeshick_bin = homeshick + '/bin/homeshick' %}
