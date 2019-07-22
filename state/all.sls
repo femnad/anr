@@ -90,6 +90,7 @@ Tilix schemes:
     - target: {{ target }}
   file.directory:
     - name: {{ home }}/.config/tilix/schemes
+    - makedirs: true
   cmd.run:
     - name: find {{ target }} -name '*.json' -exec mv '{}' {{ home }}/.config/tilix/schemes \;
 
@@ -99,4 +100,5 @@ Download {{ bin.url }}:
     - name: {{ home }}/bin/{{ bin.url.split('/')[-1] }}
     - source: {{ bin.url }}
     - source_hash: {{ bin.hash }}
+    - mode: 755
 {% endfor %}
