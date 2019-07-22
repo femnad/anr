@@ -18,3 +18,9 @@ castles:
   - https://gitlab.com/femnad/basic.git
   - https://gitlab.com/femnad/disposable.git
   - https://github.com/femnad/homebin.git
+
+go_install:
+  - https://github.com/junegunn/fzf.git
+
+go_get:
+  - github.com/femnad/stuff

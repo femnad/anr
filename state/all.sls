@@ -10,15 +10,27 @@ go:
     - clean: true
     - trim_output: true
 
-Hub:
+{% for pkg in pillar['go_install'] %}
+{% set name = pkg.split('/')[-1].split('.')[0] %}
+{% set target = pillar['clone_dir'] + '/' + name %}
+Install Go Package {{ name }}:
   git.cloned:
-    - name: https://github.com/github/hub.git
-    - target: {{ pillar['clone_dir'] }}/hub
+    - name: {{ pkg }}
+    - target: {{ target }}
   cmd.run:
     - name: {{ go_bin}} install
-    - cwd: {{ pillar['clone_dir'] }}/hub
+    - cwd: {{ target }}
     - require:
         - go
+{% endfor %}
+
+{% for pkg in pillar['go_get'] %}
+Go get {{ pkg }}:
+  cmd.run:
+    - name: {{ go_bin }} get {{ pkg }}
+    - require:
+      - go
+{% endfor %}
 
 {% set homeshick_repos = home + '/.homesick/repos' %}
 {% set homeshick = homeshick_repos + '/homeshick' %}
