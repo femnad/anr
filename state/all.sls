@@ -27,7 +27,7 @@ Install Go Package {{ name }}:
 {% for pkg in pillar['go_get'] %}
 Go get {{ pkg }}:
   cmd.run:
-    - name: {{ go_bin }} get {{ pkg }}
+    - name: {{ go_bin }} get -u {{ pkg }}
     - require:
       - go
 {% endfor %}
@@ -40,7 +40,7 @@ Go get {{ pkg }}:
     - name: GOPATH
     - value: {{ gopath }}
   cmd.run:
-    - name: {{ go_bin }} get {{ pkg }}
+    - name: {{ go_bin }} get -u {{ pkg }}
     - require:
       - go
   file.copy:
