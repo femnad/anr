@@ -20,12 +20,13 @@ Hub:
     - require:
         - go
 
+{% set homeshick = home + '/.homeshick/repos/homeshick' %}
+{% set homeshick_bin = homeshick + '/bin/homeshick' %}
+
 homeshick:
   git.cloned:
     - name: https://github.com/andsens/homeshick.git
-    - target: {{ home }}/.homeshick/repos/homeshick
-
-{% set homeshick = home + '/.homeshick/repos/homeshick/bin/homeshick' %}
+    - target: {{ homeshick }}
 
 {% for castle in pillar['castles'] %}
 {% set castle_name = castle.split('/')[-1].split('.')[0] %}
@@ -34,7 +35,8 @@ Add castle {{ castle }}:
     - name: {{ castle }}
     - target: {{ home + '/.homeshick/repos/' + castle_name }}
   cmd.run:
-    - name: {{ homeshick }} link -b {{ castle_name }}
+    - name: {{ homeshick_bin }} -b {{ castle_name }}
+    - cwd: {{ homeshick }}
     - required:
         - homeshick
 {% endfor %}
