@@ -3,3 +3,5 @@ base:
     - all
   self-sudo:
     - all-sudo
+  private:
+    - private

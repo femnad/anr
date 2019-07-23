@@ -3,6 +3,8 @@ clone_dir: {{ salt.sdb.get('sdb://osenv/HOME') + '/z/gl' }}
 package_dir: {{ salt.sdb.get('sdb://osenv/HOME') + '/z/dy' }}
 
 packages:
+  - alsa-utils
+  - autoconf
   - ansible
   - cmake
   - dzen2
@@ -20,7 +22,9 @@ packages:
   - vim-gtk3
   - tilix
   - tmux
+  - x11-utils
   - xdotool
+  - texinfo
   - zeal
 
 castles:
