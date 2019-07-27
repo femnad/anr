@@ -5,4 +5,5 @@ base:
     - all
     - sudo
   private:
+    - all
     - private

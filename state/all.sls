@@ -117,3 +117,12 @@ Download {{ bin.url }}:
     - source_hash: {{ bin.hash }}
     - mode: 755
 {% endfor %}
+
+{% for prefix in pillar['mutt_dirs'] %}
+  {% for cache in ['header', 'message'] %}
+mutt init {{ prefix }} {{ cache }}:
+  file.directory:
+    - name: {{ home }}/.mutt/{{ prefix }}{{ cache }}
+    - makedirs: true
+  {% endfor %}
+{% endfor %}

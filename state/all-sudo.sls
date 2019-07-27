@@ -20,3 +20,14 @@ Pamixer installed:
   cmd.run:
     - name: make install
     - cwd: {{ pillar['clone_dir'] }}/pamixer
+
+Python 3 Headers:
+  pkg.installed:
+    - names:
+        - python3-dev
+        - libpython3-dev
+
+Python linked to Python3:
+  file.symlink:
+    - name: /usr/bin/python
+    - target: /usr/bin/python3

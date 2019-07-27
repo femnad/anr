@@ -1,5 +1,5 @@
-castles:
-  - https://gitlab.com/femnad/cache.git
-  - https://gitlab.com/femnad/francium.git
-  - https://github.com/femnad/homeless.git
-  - https://gitlab.com/femnad/natrium.git
+private_castles:
+  - git@gitlab.com:femnad/cache.git
+  - git@gitlab.com:femnad/francium.git
+  - git@github.com:femnad/homeless.git
+  - git@gitlab.com:femnad/natrium.git

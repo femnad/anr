@@ -13,6 +13,7 @@ packages:
   - firefox
   - gnupg2
   - lightdm
+  - mutt
   - pass
   - python3-boto
   - python3-botocore
@@ -50,3 +51,8 @@ vim_dirs:
   - autoload
   - plugged
   - swap
+
+mutt_dirs:
+  - eb
+  - fm
+  - gm
