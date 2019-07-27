@@ -1,3 +1,6 @@
+{% set user = pillar['user'] %}
+{% set home = pillar['home'] %}
+
 Packages:
   pkg.installed:
     - names: {{ pillar['packages'] }}

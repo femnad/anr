@@ -18,6 +18,7 @@ packages:
   - python3-boto
   - python3-botocore
   - python3-boto3
+  - ripgrep
   - rofi
   - stumpwm
   - vim-gtk3
@@ -26,6 +27,8 @@ packages:
   - x11-utils
   - xdotool
   - texinfo
+  - zathura
+  - zathura-pdf-poppler
   - zeal
 
 castles:
@@ -39,6 +42,7 @@ go_path: {{ salt.sdb.get('sdb://osenv/HOME') + '/z/sc/go' }}
 
 go_get:
   - github.com/femnad/stuff/...
+  - github.com/aykamko/tag/...
 
 go_get_gopath:
   - github.com/junegunn/fzf

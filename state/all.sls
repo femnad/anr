@@ -11,12 +11,16 @@ go:
     - trim_output: true
 
 rust:
-  archive.extracted:
-    - name: {{ pillar['package_dir'] }}
-    - source: https://static.rust-lang.org/dist/rust-1.36.0-x86_64-unknown-linux-gnu.tar.gz
-    - source_hash: 15e592ec52f14a0586dcebc87a957e472c4544e07359314f6354e2b8bd284c55
-    - clean: true
-    - trim_output: true
+  file.managed:
+    - name: {{ pillar['package_dir'] }}/rustup/rustup-init
+    - source: https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-gnu/rustup-init
+    - makedirs: true
+    - mode: 755
+    - skip_verify: true
+    - unless:
+        - cargo
+  cmd.run:
+    - name: "echo 1 | {{ pillar['package_dir'] }}/rustup/rustup-init"
 
 {% for pkg in pillar['go_install'] %}
 {% set name = pkg.split('/')[-1].split('.')[0] %}
@@ -108,15 +112,6 @@ Tilix schemes:
     - makedirs: true
   cmd.run:
     - name: find {{ target }} -name '*.json' -exec mv '{}' {{ home }}/.config/tilix/schemes \;
-
-{% for bin in pillar['home_bins'] %}
-Download {{ bin.url }}:
-  file.managed:
-    - name: {{ home }}/bin/{{ bin.url.split('/')[-1] }}
-    - source: {{ bin.url }}
-    - source_hash: {{ bin.hash }}
-    - mode: 755
-{% endfor %}
 
 {% for prefix in pillar['mutt_dirs'] %}
   {% for cache in ['header', 'message'] %}
