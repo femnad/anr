@@ -77,7 +77,7 @@ Add castle {{ castle }}:
     - target: {{ homeshick_repos + '/' + castle_name }}
   cmd.run:
     - name: {{ homeshick_bin }} link -b {{ castle_name }}
-    - required:
+    - require:
         - homeshick
 {% endfor %}
 
@@ -88,7 +88,7 @@ Initialize directory {{ dir }}:
     - makedirs: true
 {% endfor %}
 
-Vim Plug:
+VimPlug:
   file.managed:
     - name: {{ home }}/.vim/autoload/plug.vim
     - source: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -97,10 +97,19 @@ Vim Plug:
   cmd.run:
     - name: vim -c ":PlugInstall" -c ":quitall"
 
+Module:
+  cmd.run:
+    - name: git submodule update --init --recursivekte
+    - cwd: {{ home }}/.vim/plugged/YouCompleteMe
+    - require:
+      - VimPlug
+
 YouCompleteMe:
   cmd.run:
-    - name: python3 ./install.py
+    - name: python3 ./install.py --rust-completer --go-completer
     - cwd: {{ home }}/.vim/plugged/YouCompleteMe
+    - require:
+      - Module
 
 Tilix schemes:
 {% set target = pillar['clone_dir'] + '/Tilix-Themes' %}
@@ -120,4 +129,13 @@ mutt init {{ prefix }} {{ cache }}:
     - name: {{ home }}/.mutt/{{ prefix }}{{ cache }}
     - makedirs: true
   {% endfor %}
+{% endfor %}
+
+{% for archive in pillar['archives'] %}
+Download {{ archive }}:
+  archive.extracted:
+    - name: {{ pillar['package_dir'] }}
+    - source: {{ archive }}
+    - skip_verify: true
+    - trim_output: true
 {% endfor %}

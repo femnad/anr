@@ -60,3 +60,6 @@ mutt_dirs:
   - eb
   - fm
   - gm
+
+archives:
+  - https://az764295.vo.msecnd.net/stable/2213894ea0415ee8c85c5eea0d0ff81ecc191529/code-stable-1562627471.tar.gz
