@@ -99,7 +99,7 @@ VimPlug:
 
 Module:
   cmd.run:
-    - name: git submodule update --init --recursivekte
+    - name: git submodule update --init --recursive
     - cwd: {{ home }}/.vim/plugged/YouCompleteMe
     - require:
       - VimPlug
@@ -138,4 +138,12 @@ Download {{ archive }}:
     - source: {{ archive }}
     - skip_verify: true
     - trim_output: true
+{% endfor %}
+
+{% for crate in pillar['cargo'] %}
+Cargo install {{ crate.crate }}:
+  cmd.run:
+    - name: {{ home }}/.cargo/bin/cargo install {{ crate.crate }}
+    - unless:
+        - {{ home }}/.cargo/bin/{{ crate.exec }}
 {% endfor %}

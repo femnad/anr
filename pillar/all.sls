@@ -22,6 +22,7 @@ packages:
   - rofi
   - stumpwm
   - vim-gtk3
+  - tig
   - tilix
   - tmux
   - x11-utils
@@ -63,3 +64,11 @@ mutt_dirs:
 
 archives:
   - https://az764295.vo.msecnd.net/stable/2213894ea0415ee8c85c5eea0d0ff81ecc191529/code-stable-1562627471.tar.gz
+
+python:
+  - name: ranger
+    package: ranger-fm
+
+cargo:
+  - crate: fd-find
+    exec: fd

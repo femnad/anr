@@ -34,3 +34,21 @@ Python linked to Python3:
   file.symlink:
     - name: /usr/bin/python
     - target: /usr/bin/python3
+
+Virtualenv:
+  pkg.installed:
+    - name: python-virtualenv
+
+{% for pkg in pillar['python'] %}
+Install {{ pkg.name }}:
+  virtualenv.managed:
+    - name: {{ home }}/.venv/{{ pkg.name }}
+    - user: {{ user }}
+    - python: /usr/bin/python3
+    - require:
+        - Virtualenv
+  pip.installed:
+    - name: {{ pkg.package }}
+    - user: {{ user }}
+    - bin_env: {{ home }}/.venv/{{ pkg.name }}/bin/pip3
+{% endfor %}
