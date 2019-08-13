@@ -164,4 +164,5 @@ Download {{ exec_name }}:
     - source: {{ bin }}
     - skip_verify: true
     - makedirs: true
+    - mode: 0755
 {% endfor %}
