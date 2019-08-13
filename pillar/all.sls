@@ -20,6 +20,7 @@ packages:
   - firefox
   - gnupg2
   - jq
+  - libnotify-bin
   - lightdm
   - mutt
   - pass
