@@ -1,6 +1,10 @@
 {% set user = pillar['user'] %}
 {% set home = pillar['home'] %}
 
+Update packages:
+  pkg.update:
+    - refresh: true
+
 Packages:
   pkg.installed:
     - names: {{ pillar['packages'] }}
