@@ -154,3 +154,14 @@ Cargo install {{ crate.crate }}:
     - unless:
         - {{ home }}/.cargo/bin/{{ crate.exec }}
 {% endfor %}
+
+
+{% for bin in pillar['home_bins'] %}
+  {% set exec_name = bin.split('/')[-1] %}
+Download {{ exec_name }}:
+  file.managed:
+    - name: {{ home }}/{{ exec_name }}
+    - source: {{ bin }}
+    - skip_verify: true
+    - makedirs: true
+{% endfor %}

@@ -57,8 +57,10 @@ go_get_gopath:
   - github.com/junegunn/fzf
 
 home_bins:
-  - url: https://github.com/femnad/loco/releases/download/untagged-54ba4752f764e03bbdbc/ysnp
-    hash: 7402098eee98d892845b83cdd563e998eaac2307afa84fc2e214746c90dcabd2
+  - https://github.com/femnad/loco/releases/download/0.2.0/bakl
+  - https://github.com/femnad/loco/releases/download/0.2.0/tosm
+  - https://github.com/femnad/loco/releases/download/0.2.0/ysnp
+  - https://github.com/femnad/loco/releases/download/0.2.0/zenv
 
 vim_dirs:
   - autoload
