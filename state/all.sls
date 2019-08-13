@@ -2,6 +2,13 @@
 {% set go_bin = go_base + '/bin/go' %}
 {% set home = pillar['home'] %}
 
+{% for dir in pillar['home_dirs'] %}
+Home Dir {{ dir }}:
+  file.directory:
+    - name: {{ dir }}
+    - makedirs: true
+{% endfor %}
+
 go:
   archive.extracted:
     - name: {{ pillar['package_dir'] }}
