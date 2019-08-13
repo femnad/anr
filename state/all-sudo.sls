@@ -2,7 +2,7 @@
 {% set home = pillar['home'] %}
 
 Update packages:
-  pkg.update:
+  pkg.uptodate:
     - refresh: true
 
 Packages:
