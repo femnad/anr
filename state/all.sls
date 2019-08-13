@@ -5,7 +5,7 @@
 {% for dir in pillar['home_dirs'] %}
 Home Dir {{ dir }}:
   file.directory:
-    - name: {{ dir }}
+    - name: {{ home }}/{{ dir }}
     - makedirs: true
 {% endfor %}
 
