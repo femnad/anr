@@ -7,7 +7,7 @@ Update packages:
 
 Packages:
   pkg.installed:
-    - names: {{ pillar['packages'] }}
+    - pkgs: {{ pillar['packages'] }}
 
 Pamixer:
   git.cloned:
@@ -15,7 +15,7 @@ Pamixer:
     - target: {{ pillar['clone_dir'] }}/pamixer
     - user: {{ pillar['user'] }}
   pkg.installed:
-    - names:
+    - pkgs:
         - libboost-program-options-dev
         - libpulse-dev
   cmd.run:
@@ -30,7 +30,7 @@ Pamixer installed:
 
 Python 3 Headers:
   pkg.installed:
-    - names:
+    - pkgs:
         - python3-dev
         - libpython3-dev
 
