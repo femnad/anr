@@ -6,6 +6,7 @@ self:
 self-sudo:
   host: localhost
   user: femnad
+  priv: agent-forwarding
   sudo: true
 private:
   host: localhost
