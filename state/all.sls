@@ -1,6 +1,7 @@
 {% set go_base = pillar['package_dir'] + '/go' %}
 {% set go_bin = go_base + '/bin/go' %}
 {% set home = pillar['home'] %}
+{% set home_bin = home + '/bin' %}
 
 {% for dir in pillar['home_dirs'] %}
 Home Dir {{ dir }}:
@@ -9,13 +10,27 @@ Home Dir {{ dir }}:
     - makedirs: true
 {% endfor %}
 
-go:
+{% set package_dir = pillar['package_dir'] %}
+{% for archive in pillar['archives'] %}
+Install {{ archive.name | default(archive.url) }}:
   archive.extracted:
-    - name: {{ pillar['package_dir'] }}
-    - source: https://dl.google.com/go/go1.12.7.linux-amd64.tar.gz
-    - source_hash: 66d83bfb5a9ede000e33c6579a91a29e6b101829ad41fffb5c5bb6c900e109d9
-    - clean: true
+    - name: {{ package_dir }}
+    - source: {{ archive.url }}
+{% if archive.hash is defined %}
+    - source_hash: {{ archive.hash }}
+{% else %}
+    - skip_verify: true
+{% endif %}
+{% if archive.clean is defined %}
+    - clean: {{ archive.clean }}
+{% endif %}
     - trim_output: true
+{% if archive.exec is defined and archive.exec_dir is defined %}
+  file.symlink:
+    - name: {{ home_bin }}/{{ archive.exec }}
+    - target: {{ package_dir }}/{{ archive.exec_dir }}/{{ archive.exec }}
+{% endif %}
+{% endfor %}
 
 rust:
   file.managed:
@@ -40,7 +55,7 @@ Install Go Package {{ name }}:
     - name: {{ go_bin}} install
     - cwd: {{ target }}
     - require:
-        - go
+        - Install go
 {% endfor %}
 
 {% for pkg in pillar['go_get'] %}
@@ -48,7 +63,7 @@ Go get {{ pkg }}:
   cmd.run:
     - name: {{ go_bin }} get -u {{ pkg }}
     - require:
-      - go
+      - Install go
 {% endfor %}
 
 {% for pkg in pillar['go_get_gopath'] %}
@@ -61,9 +76,9 @@ Go get {{ pkg }}:
   cmd.run:
     - name: {{ go_bin }} get -u {{ pkg }}
     - require:
-      - go
+      - Install go
   file.copy:
-    - name: {{ home }}/bin/{{ name }}
+    - name: {{ home_bin }}/{{ name }}
     - source: {{ gopath }}/bin/{{ name }}
 {% endfor %}
 
@@ -138,14 +153,7 @@ mutt init {{ prefix }} {{ cache }}:
   {% endfor %}
 {% endfor %}
 
-{% for archive in pillar['archives'] %}
-Download {{ archive }}:
-  archive.extracted:
-    - name: {{ pillar['package_dir'] }}
-    - source: {{ archive }}
-    - skip_verify: true
-    - trim_output: true
-{% endfor %}
+
 
 {% for crate in pillar['cargo'] %}
 Cargo install {{ crate.crate }}:
@@ -160,7 +168,7 @@ Cargo install {{ crate.crate }}:
   {% set exec_name = bin.split('/')[-1] %}
 Download {{ exec_name }}:
   file.managed:
-    - name: {{ home }}/bin/{{ exec_name }}
+    - name: {{ home_bin }}/{{ exec_name }}
     - source: {{ bin }}
     - skip_verify: true
     - makedirs: true

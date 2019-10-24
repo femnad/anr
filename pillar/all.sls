@@ -30,7 +30,11 @@ packages:
   - ripgrep
   - rofi
   - stumpwm
+  {% if grains['os'] == 'Fedora' %}
+  - vim-X11
+  {% else %}
   - vim-gtk3
+  {% endif %}
   - tig
   - tilix
   - tmux
@@ -74,7 +78,15 @@ mutt_dirs:
   - gm
 
 archives:
-  - https://az764295.vo.msecnd.net/stable/2213894ea0415ee8c85c5eea0d0ff81ecc191529/code-stable-1562627471.tar.gz
+  - url: https://dl.google.com/go/go1.13.3.linux-amd64.tar.gz
+    exec_dir: bin
+    exec: go
+    clean: true
+    hash: 0804bf02020dceaa8a7d7275ee79f7a142f1996bfd0c39216ccb405f93f994c0
+    name: go
+  - url: https://az764295.vo.msecnd.net/stable/2213894ea0415ee8c85c5eea0d0ff81ecc191529/code-stable-1562627471.tar.gz
+    exec_dir: VSCode-linux-x64
+    exec: code
 
 cargo:
   - crate: fd-find
