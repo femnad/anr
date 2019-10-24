@@ -8,6 +8,7 @@ home_dirs:
   - y
   - z
 
+{% set is_fedora = grains['os'] == 'Fedora' %}
 packages:
   - alsa-utils
   - autoconf
@@ -20,7 +21,9 @@ packages:
   - firefox
   - gnupg2
   - jq
+  {% if not is_fedora %}
   - libnotify-bin
+  {% endif %}
   - lightdm
   - mutt
   - pass
@@ -29,8 +32,13 @@ packages:
   - python3-boto3
   - ripgrep
   - rofi
+  {% if is_fedora %}
+  # too lazy to compile Stumpwm
+  - ratpoison
+  {% else %}
   - stumpwm
-  {% if grains['os'] == 'Fedora' %}
+  {% endif %}
+  {% if is_fedora %}
   - vim-X11
   {% else %}
   - vim-gtk3
@@ -38,7 +46,11 @@ packages:
   - tig
   - tilix
   - tmux
+  {% if is_fedora %}
+  - xorg-x11-utils
+  {% else %}
   - x11-utils
+  {% endif %}
   - xdotool
   - texinfo
   - zathura
