@@ -91,7 +91,7 @@ mutt_dirs:
 
 archives:
   - url: https://dl.google.com/go/go1.13.3.linux-amd64.tar.gz
-    exec_dir: bin
+    exec_dir: go/bin
     exec: go
     clean: true
     hash: 0804bf02020dceaa8a7d7275ee79f7a142f1996bfd0c39216ccb405f93f994c0
