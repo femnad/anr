@@ -67,7 +67,7 @@ castles:
   - https://gitlab.com/femnad/basic.git
   - https://gitlab.com/femnad/disposable.git
   - https://github.com/femnad/homebin.git
-  - https://github.com/femnad/homeless.git
+  - https://gitlab.com/femnad/homeless.git
 
 go_install: []
 go_path: {{ salt.sdb.get('sdb://osenv/HOME') + '/z/sc/go' }}
