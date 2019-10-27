@@ -182,11 +182,3 @@ Download {{ exec_name }}:
     - makedirs: true
     - mode: 0755
 {% endfor %}
-
-Ratpoison Session file:
-  file.managed:
-    - name: /usr/share/xsessions
-    - source: salt://xsessions/ratpoison.desktop.j2
-    - makedirs: true
-    - require:
-      - pkg: ratpoison

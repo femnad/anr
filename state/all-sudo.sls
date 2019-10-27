@@ -60,3 +60,11 @@ Enable Lightdm:
     - name: lightdm
     - require:
       - pkg: lightdm
+
+Ratpoison Session file:
+  file.managed:
+    - name: /usr/share/xsessions
+    - source: salt://xsessions/ratpoison.desktop.j2
+    - makedirs: true
+    - require:
+      - pkg: ratpoison
