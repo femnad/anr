@@ -55,16 +55,10 @@ Virtualenv:
   pkg.installed:
     - name: python-virtualenv
 
-Enable Lightdm:
-  service.enabled:
-    - name: lightdm
-    - require:
-      - pkg: lightdm
-
+{% if pillar['is_arch'] %}
 Ratpoison Session file:
   file.managed:
     - name: /usr/share/xsessions
     - source: salt://xsessions/ratpoison.desktop.j2
     - makedirs: true
-    - require:
-      - pkg: ratpoison
+{% endif %}
