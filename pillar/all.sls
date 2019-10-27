@@ -14,12 +14,14 @@ packages:
   - autoconf
   - ansible
   - cmake
+  - curl
   - dunst
   - dzen2
   - emacs
   - fish
   - firefox
   - gnupg2
+  - htop
   - jq
   {% if not is_fedora %}
   - libnotify-bin
@@ -43,6 +45,7 @@ packages:
   {% else %}
   - vim-gtk3
   {% endif %}
+  - sxiv
   - tig
   - tilix
   - tmux
@@ -51,6 +54,8 @@ packages:
   {% else %}
   - x11-utils
   {% endif %}
+  - w3m
+  - wget
   - xdotool
   - texinfo
   - zathura
@@ -62,6 +67,7 @@ castles:
   - https://gitlab.com/femnad/basic.git
   - https://gitlab.com/femnad/disposable.git
   - https://github.com/femnad/homebin.git
+  - https://github.com/femnad/homeless.git
 
 go_install: []
 go_path: {{ salt.sdb.get('sdb://osenv/HOME') + '/z/sc/go' }}
@@ -69,6 +75,7 @@ go_path: {{ salt.sdb.get('sdb://osenv/HOME') + '/z/sc/go' }}
 go_get:
   - github.com/femnad/stuff/...
   - github.com/aykamko/tag/...
+  - github.com/github/hub
 
 go_get_gopath:
   - github.com/junegunn/fzf
@@ -99,6 +106,9 @@ archives:
   - url: https://az764295.vo.msecnd.net/stable/2213894ea0415ee8c85c5eea0d0ff81ecc191529/code-stable-1562627471.tar.gz
     exec_dir: VSCode-linux-x64
     exec: code
+
+binary_only_archives:
+  - https://releases.hashicorp.com/terraform/0.12.6/terraform_0.12.6_linux_amd64.zip
 
 cargo:
   - crate: fd-find

@@ -155,6 +155,15 @@ mutt init {{ prefix }} {{ cache }}:
 
 
 
+{% for archive in pillar['binary_only_archives'] %}
+Download binary {{ archive }}:
+  archive.extracted:
+    - name: {{ home }}/bin
+    - source: {{ archive }}
+    - skip_verify: true
+    - enforce_toplevel: false
+{% endfor %}
+
 {% for crate in pillar['cargo'] %}
 Cargo install {{ crate.crate }}:
   cmd.run:
@@ -162,7 +171,6 @@ Cargo install {{ crate.crate }}:
     - unless:
         - {{ home }}/.cargo/bin/{{ crate.exec }}
 {% endfor %}
-
 
 {% for bin in pillar['home_bins'] %}
   {% set exec_name = bin.split('/')[-1] %}
