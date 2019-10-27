@@ -25,8 +25,13 @@ Pamixer:
     - user: {{ pillar['user'] }}
   pkg.installed:
     - pkgs:
+    {% if pillar['is_arch'] %}
+        - boost-libs
+        - libpulse
+    {% else %}
         - libboost-program-options-dev
         - libpulse-dev
+    {% endif %}
   cmd.run:
     - name: make
     - runas: {{ pillar['user'] }}

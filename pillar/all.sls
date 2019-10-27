@@ -23,6 +23,7 @@ packages:
   - emacs
   - fish
   - firefox
+  - gcc
   {% if not is_arch %}
   - gnupg2
   {% else %}
