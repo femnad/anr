@@ -28,7 +28,7 @@ Pamixer installed:
     - name: make install
     - cwd: {{ pillar['clone_dir'] }}/pamixer
 
-{% if not is_arch %}
+{% if not pillar['is_arch'] %}
 Python 3 Headers:
   pkg.installed:
     - pkgs:
