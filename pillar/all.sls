@@ -37,6 +37,8 @@ packages:
   - lxdm
   - make
   - mutt
+  - man-db
+  - man-pages
   - pass
   {% if not is_arch %}
   - python3-boto
@@ -65,6 +67,7 @@ packages:
   {% if is_arch %}
   - ttf-dejavu
   {% endif %}
+  - unzip
   {% if is_fedora %}
   - xorg-x11-utils
   {% elif not is_arch %}
