@@ -54,3 +54,9 @@ Python 3 Headers:
 Virtualenv:
   pkg.installed:
     - name: python-virtualenv
+
+Enable Lightdm:
+  service.enabled:
+    - name: lightdm
+    - require:
+      - pkg: lightdm

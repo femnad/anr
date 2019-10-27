@@ -35,6 +35,7 @@ packages:
   - libnotify-bin
   {% endif %}
   - lightdm
+  - lightdm-gtk-greeter
   - make
   - mutt
   - pass
