@@ -34,11 +34,6 @@ Python 3 Headers:
         - python3-dev
         - libpython3-dev
 
-Python linked to Python3:
-  file.symlink:
-    - name: /usr/bin/python
-    - target: /usr/bin/python3
-
 Virtualenv:
   pkg.installed:
     - name: python-virtualenv
