@@ -26,6 +26,7 @@ Pamixer:
   pkg.installed:
     - pkgs:
     {% if pillar['is_arch'] %}
+        - boost
         - boost-libs
         - libpulse
     {% else %}
