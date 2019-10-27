@@ -182,3 +182,9 @@ Download {{ exec_name }}:
     - makedirs: true
     - mode: 0755
 {% endfor %}
+
+Build Ratpoison helpers:
+  cmd.run:
+    - name: go get github.com/ratilf/cmd/...
+    - onlyif:
+      - ratpoison -v
