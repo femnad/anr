@@ -7,7 +7,7 @@ Update packages:
 
 Packages:
   pkg.installed:
-    - pkgs: {{ pillar['packages'] }}
+    - pkgs: {{ pillar['packages'] | tojson }}
 
 Pamixer:
   git.cloned:
@@ -28,11 +28,13 @@ Pamixer installed:
     - name: make install
     - cwd: {{ pillar['clone_dir'] }}/pamixer
 
+{% if not is_arch %}
 Python 3 Headers:
   pkg.installed:
     - pkgs:
         - python3-dev
         - libpython3-dev
+{% endif %}
 
 Virtualenv:
   pkg.installed:
