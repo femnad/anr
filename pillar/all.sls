@@ -34,8 +34,7 @@ packages:
   {% if not (is_fedora or is_arch) %}
   - libnotify-bin
   {% endif %}
-  - lightdm
-  - lightdm-gtk-greeter
+  - lxdm
   - make
   - mutt
   - pass
@@ -63,6 +62,9 @@ packages:
   - tig
   - tilix
   - tmux
+  {% if is_arch %}
+  - ttf-dejavu
+  {% endif %}
   {% if is_fedora %}
   - xorg-x11-utils
   {% elif not is_arch %}
