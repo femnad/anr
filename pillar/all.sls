@@ -27,6 +27,7 @@ packages:
   - libnotify-bin
   {% endif %}
   - lightdm
+  - make
   - mutt
   - pass
   - python3-boto
