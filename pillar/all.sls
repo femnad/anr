@@ -9,7 +9,7 @@ home_dirs:
   - z
 
 {% set is_fedora = grains['os'] == 'Fedora' %}
-{% set is_arch = grains['os'] == 'Arch' %}
+is_arch: {{ grains['os'] == 'Arch' }}
 
 packages:
   - alsa-utils
