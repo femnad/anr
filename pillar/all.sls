@@ -76,7 +76,9 @@ packages:
   - w3m
   - wget
   - xdotool
+  {% if is_arch %}
   - xorg-server
+  {% endif %}
   - texinfo
   - zathura
   - zathura-pdf-poppler
