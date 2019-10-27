@@ -5,6 +5,15 @@ Update packages:
   pkg.uptodate:
     - refresh: true
 
+{% if pillar['is_arch'] %}
+Break dependency cycles:
+  pkg.installed:
+    - pkgs:
+      - freetype2
+      - mesa
+      - ffmpeg
+{% endif %}
+
 Packages:
   pkg.installed:
     - pkgs: {{ pillar['packages'] | tojson }}
