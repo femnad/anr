@@ -9,7 +9,8 @@ home_dirs:
   - z
 
 {% set is_fedora = grains['os'] == 'Fedora' %}
-is_arch: {{ grains['os'] == 'Arch' }}
+{% set is_arch = {{ grains['os'] == 'Arch' %}
+is_arch: {{ is_arch }}
 
 packages:
   - alsa-utils
@@ -22,22 +23,28 @@ packages:
   - emacs
   - fish
   - firefox
+  {% if not is_arch %}
   - gnupg2
+  {% else %}
+  - gnupg
+  {% endif %}
   - htop
   - jq
-  {% if not is_fedora %}
+  {% if not (is_fedora or is_arch) %}
   - libnotify-bin
   {% endif %}
   - lightdm
   - make
   - mutt
   - pass
+  {% if not is_arch %}
   - python3-boto
   - python3-botocore
   - python3-boto3
+  {% endif %}
   - ripgrep
   - rofi
-  {% if is_fedora %}
+  {% if is_fedora or is_arch %}
   # too lazy to compile Stumpwm
   - ratpoison
   {% else %}
@@ -45,6 +52,8 @@ packages:
   {% endif %}
   {% if is_fedora %}
   - vim-X11
+  {% elif is_arch %}
+  - vim
   {% else %}
   - vim-gtk3
   {% endif %}
@@ -54,7 +63,7 @@ packages:
   - tmux
   {% if is_fedora %}
   - xorg-x11-utils
-  {% else %}
+  {% elif not is_arch %}
   - x11-utils
   {% endif %}
   - w3m
