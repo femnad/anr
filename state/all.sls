@@ -185,6 +185,6 @@ Download {{ exec_name }}:
 
 Build Ratpoison helpers:
   cmd.run:
-    - name: go get github.com/ratilf/cmd/...
+    - name: go get github.com/femnad/ratilf/cmd/...
     - onlyif:
       - ratpoison -v
