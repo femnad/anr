@@ -55,6 +55,7 @@ packages:
   {% endif %}
   {% if is_fedora %}
   - vim-X11
+  - vim-enhanced
   {% elif is_arch %}
   - vim
   {% else %}
