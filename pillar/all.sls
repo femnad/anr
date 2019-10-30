@@ -140,8 +140,9 @@ archives:
     clean: true
     hash: 0804bf02020dceaa8a7d7275ee79f7a142f1996bfd0c39216ccb405f93f994c0
     name: go
-  - url: https://az764295.vo.msecnd.net/stable/2213894ea0415ee8c85c5eea0d0ff81ecc191529/code-stable-1562627471.tar.gz
+  - url: https://az764295.vo.msecnd.net/stable/6ab598523be7a800d7f3eb4d92d7ab9a66069390/code-stable-1571154019.tar.gz
     exec_dir: VSCode-linux-x64
+    clean: true
     exec: code
 
 binary_only_archives:
