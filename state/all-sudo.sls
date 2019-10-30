@@ -29,6 +29,10 @@ Pamixer:
         - boost
         - boost-libs
         - libpulse
+    {% elif pillar['is_fedora'] %}
+        - boost-devel
+        - boost-program-options
+        - pulseaudio-libs-devel
     {% else %}
         - libboost-program-options-dev
         - libpulse-dev
@@ -42,18 +46,6 @@ Pamixer installed:
   cmd.run:
     - name: make install
     - cwd: {{ pillar['clone_dir'] }}/pamixer
-
-{% if not pillar['is_arch'] %}
-Python 3 Headers:
-  pkg.installed:
-    - pkgs:
-        - python3-dev
-        - libpython3-dev
-{% endif %}
-
-Virtualenv:
-  pkg.installed:
-    - name: python-virtualenv
 
 {% if pillar['is_arch'] %}
 Ratpoison Session file:

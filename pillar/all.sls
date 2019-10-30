@@ -8,9 +8,11 @@ home_dirs:
   - y
   - z
 
-{% set is_fedora = grains['os'] == 'Fedora' %}
 {% set is_arch = grains['os'] == 'Arch' %}
+{% set is_fedora = grains['os'] == 'Fedora' %}
+{% set is_ubuntu = grains['os'] == 'Ubuntu' %}
 is_arch: {{ is_arch }}
+is_fedora: {{ is_fedora }}
 
 packages:
   - alsa-utils
@@ -40,6 +42,11 @@ packages:
   - man-db
   - man-pages
   - pass
+  - pinentry-gtk
+  {% if is_ubuntu %}
+  - python3-dev
+  - libpython3-dev
+  {% endif %}
   {% if not is_arch %}
   - python3-boto
   - python3-botocore
@@ -54,6 +61,7 @@ packages:
   - stumpwm
   {% endif %}
   {% if is_fedora %}
+  - python3-virtualenv
   - vim-X11
   - vim-enhanced
   {% elif is_arch %}
