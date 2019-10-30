@@ -142,7 +142,7 @@ Tilix schemes:
     - name: {{ home }}/.config/tilix/schemes
     - makedirs: true
   cmd.run:
-    - name: find {{ target }} -name '*.json' -exec mv '{}' {{ home }}/.config/tilix/schemes \;
+    - name: find {{ target }} -name '*.json' -exec cp '{}' {{ home }}/.config/tilix/schemes \;
 
 {% for prefix in pillar['mutt_dirs'] %}
   {% for cache in ['header', 'message'] %}
@@ -152,8 +152,6 @@ mutt init {{ prefix }} {{ cache }}:
     - makedirs: true
   {% endfor %}
 {% endfor %}
-
-
 
 {% for archive in pillar['binary_only_archives'] %}
 Download binary {{ archive }}:

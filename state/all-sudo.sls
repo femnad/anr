@@ -18,7 +18,7 @@ Packages:
   pkg.installed:
     - pkgs: {{ pillar['packages'] | tojson }}
 
-Pamixer:
+Pamixer compiled:
   git.cloned:
     - name: https://github.com/cdemoulins/pamixer.git
     - target: {{ pillar['clone_dir'] }}/pamixer
@@ -41,11 +41,15 @@ Pamixer:
     - name: make
     - runas: {{ pillar['user'] }}
     - cwd: {{ pillar['clone_dir'] }}/pamixer
+    - unless:
+      - pamixer
 
 Pamixer installed:
   cmd.run:
     - name: make install
     - cwd: {{ pillar['clone_dir'] }}/pamixer
+    - unless:
+      - pamixer
 
 {% if pillar['is_arch'] %}
 Ratpoison Session file:

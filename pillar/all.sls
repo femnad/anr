@@ -39,10 +39,14 @@ packages:
   - lxdm
   - make
   - mutt
+  {% if is_arch %}
   - man-db
   - man-pages
+  {% endif %}
   - pass
+  {% if is_arch %}
   - pinentry-gtk
+  {% endif %}
   {% if is_ubuntu %}
   - python3-dev
   - libpython3-dev
@@ -52,7 +56,9 @@ packages:
   - python3-botocore
   - python3-boto3
   {% endif %}
+  {% if not (is_ubuntu and grains['osmajorrelease'] < 19) %}
   - ripgrep
+  {% endif %}
   - rofi
   {% if is_fedora or is_arch %}
   # too lazy to compile Stumpwm
@@ -144,3 +150,6 @@ binary_only_archives:
 cargo:
   - crate: fd-find
     exec: fd
+  {% if not (is_ubuntu and grains['osmajorrelease'] < 19) %}
+  - crate: ripgrep
+  {% endif %}
