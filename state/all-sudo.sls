@@ -37,6 +37,9 @@ Pamixer compiled:
         - libboost-program-options-dev
         - libpulse-dev
     {% endif %}
+  file.directory:
+    - name: /usr/local/man/man1
+    - makedirs: True
   cmd.run:
     - name: make
     - runas: {{ pillar['user'] }}
@@ -50,6 +53,24 @@ Pamixer installed:
     - cwd: {{ pillar['clone_dir'] }}/pamixer
     - unless:
       - pamixer
+
+{% if grains['manufacturer'] == 'LENOVO' %}
+Acpilight installed:
+  git.cloned:
+    - name: https://gitlab.com/femnad/acpilight.git
+    - target: {{ pillar['clone_dir'] }}/acpilight
+    - user: {{ pillar['user'] }}
+  cmd.run:
+    - name: make install
+    - cwd: {{ pillar['clone_dir'] }}/acpilight
+  group.present:
+    - name: brightness
+  user.present:
+    - name: {{ pillar['user'] }}
+    - groups:
+        - brightness
+    - remove_groups: False
+{% endif %}
 
 {% if pillar['is_arch'] %}
 Ratpoison Session file:

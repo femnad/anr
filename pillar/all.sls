@@ -15,6 +15,9 @@ is_arch: {{ is_arch }}
 is_fedora: {{ is_fedora }}
 
 packages:
+  {% if grains['manufacturer'] == 'LENOVO' %}
+  - acpi
+  {% endif %}
   - alsa-utils
   - autoconf
   - ansible
@@ -26,6 +29,9 @@ packages:
   - fish
   - firefox
   - gcc
+  {% if is_fedora %}
+  - gcc-c++
+  {% endif %}
   {% if not is_arch %}
   - gnupg2
   {% else %}
@@ -67,6 +73,7 @@ packages:
   - stumpwm
   {% endif %}
   {% if is_fedora %}
+  - python3-devel
   - python3-virtualenv
   - vim-X11
   - vim-enhanced
@@ -153,4 +160,5 @@ cargo:
     exec: fd
   {% if not (is_ubuntu and grains['osmajorrelease'] < 19) %}
   - crate: ripgrep
+    exec: rg
   {% endif %}
