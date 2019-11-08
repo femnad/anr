@@ -1,0 +1,16 @@
+[Unit]
+Description={{ service.description }}
+{%- if service.before is defined %}
+Before={{ service.before }}.target
+{%- endif %}
+
+[Service]
+ExecStart={{ service.exec }}
+{%- if service.options is defined %}
+{%- for key, value in service.options.items() %}
+{{ key }}={{ value }}
+{%- endfor %}
+{%- endif %}
+
+[Install]
+WantedBy={{ service.wanted_by }}.target

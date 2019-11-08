@@ -11,11 +11,14 @@ home_dirs:
 {% set is_arch = grains['os'] == 'Arch' %}
 {% set is_fedora = grains['os'] == 'Fedora' %}
 {% set is_ubuntu = grains['os'] == 'Ubuntu' %}
+{% set is_laptop = grains['manufacturer'] in ['LENOVO'] %}
+
 is_arch: {{ is_arch }}
 is_fedora: {{ is_fedora }}
+is_laptop: {{ is_laptop }}
 
 packages:
-  {% if grains['manufacturer'] == 'LENOVO' %}
+  {% if is_laptop %}
   - acpi
   {% endif %}
   - alsa-utils
@@ -50,7 +53,7 @@ packages:
   - man-pages
   {% endif %}
   - pass
-  {% if is_arch %}
+  {% if is_arch or is_fedora %}
   - pinentry-gtk
   {% endif %}
   {% if is_ubuntu %}
@@ -147,8 +150,9 @@ archives:
     clean: true
     hash: 0804bf02020dceaa8a7d7275ee79f7a142f1996bfd0c39216ccb405f93f994c0
     name: go
-  - url: https://az764295.vo.msecnd.net/stable/6ab598523be7a800d7f3eb4d92d7ab9a66069390/code-stable-1571154019.tar.gz
+  - url: https://az764295.vo.msecnd.net/stable/86405ea23e3937316009fc27c9361deee66ffbf5/code-stable-1573064450.tar.gz
     exec_dir: VSCode-linux-x64
+    hash: 4fa1ae53452e76aebca3665c74b542aa19414c4804da8a910d869ef07c70b2cb
     clean: true
     exec: code
 

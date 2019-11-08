@@ -98,7 +98,7 @@ Add castle {{ castle }}:
     - name: {{ castle }}
     - target: {{ homeshick_repos + '/' + castle_name }}
   cmd.run:
-    - name: {{ homeshick_bin }} link -b {{ castle_name }}
+    - name: {{ homeshick_bin }} link -f {{ castle_name }}
     - require:
         - homeshick
 {% endfor %}

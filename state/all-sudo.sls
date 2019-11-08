@@ -54,7 +54,15 @@ Pamixer installed:
     - unless:
       - pamixer
 
-{% if grains['manufacturer'] == 'LENOVO' %}
+{% if pillar['is_arch'] %}
+Ratpoison Session file:
+  file.managed:
+    - name: /usr/share/xsessions
+    - source: salt://xsessions/ratpoison.desktop.j2
+    - makedirs: true
+{% endif %}
+
+{% if pillar['is_laptop'] %}
 Acpilight installed:
   git.cloned:
     - name: https://gitlab.com/femnad/acpilight.git
@@ -63,6 +71,8 @@ Acpilight installed:
   cmd.run:
     - name: make install
     - cwd: {{ pillar['clone_dir'] }}/acpilight
+    - unless:
+      - xbacklight -list
   group.present:
     - name: brightness
   user.present:
@@ -70,12 +80,24 @@ Acpilight installed:
     - groups:
         - brightness
     - remove_groups: False
-{% endif %}
 
-{% if pillar['is_arch'] %}
-Ratpoison Session file:
+Lock on suspend:
+  pkg.installed:
+    - name: i3lock
   file.managed:
-    - name: /usr/share/xsessions
-    - source: salt://xsessions/ratpoison.desktop.j2
-    - makedirs: true
+    - name: /etc/systemd/system/suspend@.service
+    - source: salt://services/service.j2
+    - template: jinja
+    - context:
+      service:
+        description: Lock on suspend
+        before: sleep
+        exec: /usr/bin/i3lock -e -c 000000
+        wanted_by: sleep
+        options:
+          User: '%I'
+          Type: forking
+          Environment: 'DISPLAY=:0'
+  service.enabled:
+    - name: suspend@{{ user }}
 {% endif %}
