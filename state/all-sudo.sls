@@ -60,8 +60,8 @@ Pamixer installed:
 {% if pillar['is_arch'] %}
 Ratpoison Session file:
   file.managed:
-    - name: /usr/share/xsessions
-    - source: salt://xsessions/ratpoison.desktop.j2
+    - name: /usr/share/xsessions/ratpoison.desktop
+    - source: salt://xsessions/ratpoison.desktop
     - makedirs: true
 {% endif %}
 
@@ -139,7 +139,7 @@ Install Quicklisp package {{ pkg }}:
   - runas: {{ user }}
 {% endfor %}
 
-Stumpwm installed:
+Stumpwm compiled:
   git.cloned:
     - name: https://github.com/stumpwm/stumpwm.git
     - target: {{ clone_dir }}/stumpwm
@@ -151,4 +151,13 @@ Stumpwm installed:
         make
     - cwd: {{ clone_dir }}/stumpwm
     - runas: {{ user }}
+
+Stumpwm installed:
+  cmd.run:
+    - name: make install
+    - cwd: {{ clone_dir }}/stumpwm
+  file.managed:
+    - name: /usr/share/xsessions/stumpwm.desktop
+    - source: salt://xsessions/stumpwm.desktop
+    - makedirs: true
 {% endif %}

@@ -110,6 +110,7 @@ packages:
   - xorg-server
   {% endif %}
   - xsel
+  - terminus-fonts
   - texinfo
   - zathura
   - zathura-pdf-poppler
