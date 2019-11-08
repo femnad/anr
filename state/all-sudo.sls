@@ -1,6 +1,8 @@
 {% set user = pillar['user'] %}
 {% set home = pillar['home'] %}
 {% set clone_dir = pillar['clone_dir'] %}
+{% set is_fedora = pillar['is_fedora'] %}
+{% set package_dir = pillar['package_dir'] %}
 
 Update packages:
   pkg.uptodate:
@@ -113,3 +115,40 @@ Clipnotify installed:
   file.copy:
     - name: /usr/local/bin/clipnotify
     - source: {{ clone_dir }}/clipnotify/clipnotify
+
+{% if is_fedora %}
+{% set quicklisp = package_dir + '/quicklisp/quicklisp.lisp' %}
+Quicklisp installed:
+  file.managed:
+    - name: {{ quicklisp }}
+    - user: {{ user }}
+    - group: {{ user }}
+    - source: https://beta.quicklisp.org/quicklisp.lisp
+    - source_hash: 4a7a5c2aebe0716417047854267397e24a44d0cce096127411e9ce9ccfeb2c17
+    - makedirs: True
+  cmd.run:
+    - name: "sbcl --load '{{ quicklisp }}' --eval '(quicklisp-quickstart:install)' --non-interactive"
+    - runas: {{ user }}
+    - unless:
+      - ls {{ home }}/quicklisp
+
+{% for pkg in ['alexandria', 'clx', 'cl-ppcre'] %}
+Install Quicklisp package {{ pkg }}:
+  cmd.run:
+  - name: sbcl --eval '(ql:quickload "{{ pkg }}")' --non-interactive
+  - runas: {{ user }}
+{% endfor %}
+
+Stumpwm installed:
+  git.cloned:
+    - name: https://github.com/stumpwm/stumpwm.git
+    - target: {{ clone_dir }}/stumpwm
+    - user: {{ user }}
+  cmd.run:
+    - name: |
+        ./autogen.sh
+        ./configure
+        make
+    - cwd: {{ clone_dir }}/stumpwm
+    - runas: {{ user }}
+{% endif %}

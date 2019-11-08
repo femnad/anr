@@ -99,6 +99,7 @@ packages:
   - libXfixes-devel
   - xorg-x11-utils
   - xorg-x11-proto-devel
+  - sbcl
   {% elif not is_arch %}
   - x11-utils
   {% endif %}
