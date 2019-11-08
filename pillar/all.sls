@@ -97,6 +97,7 @@ packages:
   {% if is_fedora %}
   - libX11-devel
   - libXfixes-devel
+  - xorg-x11-apps
   - xorg-x11-utils
   - xorg-x11-proto-devel
   - sbcl
