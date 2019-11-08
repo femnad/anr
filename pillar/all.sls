@@ -86,6 +86,7 @@ packages:
   - vim-gtk3
   {% endif %}
   - sxiv
+  - strace
   - tig
   - tilix
   - tmux
@@ -94,7 +95,10 @@ packages:
   {% endif %}
   - unzip
   {% if is_fedora %}
+  - libX11-devel
+  - libXfixes-devel
   - xorg-x11-utils
+  - xorg-x11-proto-devel
   {% elif not is_arch %}
   - x11-utils
   {% endif %}
@@ -104,6 +108,7 @@ packages:
   {% if is_arch %}
   - xorg-server
   {% endif %}
+  - xsel
   - texinfo
   - zathura
   - zathura-pdf-poppler
@@ -162,7 +167,7 @@ binary_only_archives:
 cargo:
   - crate: fd-find
     exec: fd
-  {% if not (is_ubuntu and grains['osmajorrelease'] < 19) %}
+  {% if (is_ubuntu and grains['osmajorrelease'] < 19) %}
   - crate: ripgrep
     exec: rg
   {% endif %}

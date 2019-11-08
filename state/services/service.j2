@@ -6,9 +6,14 @@ Before={{ service.before }}.target
 
 [Service]
 ExecStart={{ service.exec }}
+{%- if service.environment is defined %}
+{%- for env in service.environment %}
+Environment={{ env }}
+{%- endfor %}
+{%- endif %}
 {%- if service.options is defined %}
 {%- for key, value in service.options.items() %}
-{{ key }}={{ value }}
+{{ key }}={% if value != None %}{{ value }}{% endif %}
 {%- endfor %}
 {%- endif %}
 

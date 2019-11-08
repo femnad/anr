@@ -2,6 +2,8 @@
 {% set go_bin = go_base + '/bin/go' %}
 {% set home = pillar['home'] %}
 {% set home_bin = home + '/bin' %}
+{% set clone_dir = pillar['clone_dir'] %}
+{% set is_fedora = pillar['is_fedora'] %}
 
 {% for dir in pillar['home_dirs'] %}
 Home Dir {{ dir }}:
@@ -43,6 +45,8 @@ rust:
         - cargo
   cmd.run:
     - name: "echo 1 | {{ pillar['package_dir'] }}/rustup/rustup-init"
+    - unless:
+        - cargo
 
 {% for pkg in pillar['go_install'] %}
 {% set name = pkg.split('/')[-1].split('.')[0] %}
@@ -132,6 +136,8 @@ YouCompleteMe:
     - cwd: {{ home }}/.vim/plugged/YouCompleteMe
     - require:
       - Module
+    - unless:
+      - ls {{ home }}/.vim/plugged/YouCompleteMe/python/ycm/__pycache__/__init__.cpython-37.pyc
 
 Tilix schemes:
 {% set target = pillar['clone_dir'] + '/Tilix-Themes' %}
@@ -179,6 +185,8 @@ Download {{ exec_name }}:
     - skip_verify: true
     - makedirs: true
     - mode: 0755
+    - unless:
+      - {{ exec_name }}
 {% endfor %}
 
 Build Ratpoison helpers:
@@ -186,3 +194,61 @@ Build Ratpoison helpers:
     - name: {{ go_bin }} get github.com/femnad/ratilf/cmd/...
     - onlyif:
       - ratpoison -v
+
+Clipmenu cloned:
+  git.cloned:
+    - name: https://github.com/cdown/clipmenu
+    - target: {{ clone_dir }}/clipmenu
+
+{% for bin in ['del', 'menu', 'menud'] %}
+Clipmenu {{ bin }} linked:
+  file.line:
+    - name: {{ clone_dir }}/clipmenu/clip{{ bin }}
+    - mode: insert
+    - content: CM_DIR={{ home }}/.cache/clipmenu
+    - after: '#!/usr/bin/env bash'
+{% endfor %}
+
+{% if is_fedora %}
+{% for bin in ['del', 'menu', 'menud'] %}
+Edit Clipmenu {{ bin }}:
+  file.symlink:
+    - name: {{home_bin}}/clip{{ bin }}
+    - target: {{ clone_dir }}/clipmenu/clip{{ bin }}
+{% endfor %}
+
+Clipmenud cache directory:
+  file.directory:
+    - name: {{ home }}/.cache/clipmenu
+{% endif %}
+
+Clipmenud user service:
+  file.managed:
+    - name: {{ home }}/.config/systemd/user/clipmenud.service
+    - makedirs: True
+    - source: salt://services/service.j2
+    - template: jinja
+    - context:
+      service:
+        description: Clipmenu daemon
+        exec: {{ home_bin }}/clipmenud
+        wanted_by: default
+        environment:
+          - 'DISPLAY=:0'
+          {% if is_fedora %}
+          - 'CM_DIR={{ home }}/.cache/clipmenu'
+          {% endif %}
+        options:
+          Restart: always
+          RestartSec: 500ms
+          MemoryDenyWriteExecute: yes
+          NoNewPrivileges: yes
+          ProtectControlGroups: yes
+          ProtectKernelTunables: yes
+          RestrictAddressFamilies:
+          RestrictRealtime: yes
+  cmd.run:
+    - name: |
+        systemctl --user daemon-reload
+        systemctl --user start clipmenud
+        systemctl --user enable clipmenud

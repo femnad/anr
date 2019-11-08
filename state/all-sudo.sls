@@ -1,5 +1,6 @@
 {% set user = pillar['user'] %}
 {% set home = pillar['home'] %}
+{% set clone_dir = pillar['clone_dir'] %}
 
 Update packages:
   pkg.uptodate:
@@ -101,3 +102,14 @@ Lock on suspend:
   service.enabled:
     - name: suspend@{{ user }}
 {% endif %}
+
+Clipnotify installed:
+  git.cloned:
+    - name: https://github.com/cdown/clipnotify.git
+    - target: {{ clone_dir }}/clipnotify
+  cmd.run:
+    - name: make
+    - cwd: {{ clone_dir }}/clipnotify
+  file.copy:
+    - name: /usr/local/bin/clipnotify
+    - source: {{ clone_dir }}/clipnotify/clipnotify
