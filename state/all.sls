@@ -252,3 +252,11 @@ Clipmenud user service:
         systemctl --user daemon-reload
         systemctl --user start clipmenud
         systemctl --user enable clipmenud
+
+Stumpwm contrib:
+  git.cloned:
+    - name: https://github.com/stumpwm/stumpwm-contrib.git
+    - target: {{ clone_dir }}/stumpwm-contrib
+  file.symlink:
+    - name: {{ home_bin }}/stumpish
+    - target: {{ clone_dir }}/stumpwm-contrib/util/stumpish/stumpish
