@@ -10,12 +10,13 @@ home_dirs:
 
 {% set is_arch = grains['os'] == 'Arch' %}
 {% set is_fedora = grains['os'] == 'Fedora' %}
-{% set is_ubuntu = grains['os'] == 'Ubuntu' %}
 {% set is_laptop = grains['manufacturer'] in ['LENOVO'] %}
+{% set is_ubuntu = grains['os'] == 'Ubuntu' %}
 
 is_arch: {{ is_arch }}
 is_fedora: {{ is_fedora }}
 is_laptop: {{ is_laptop }}
+is_ubuntu: {{ is_ubuntu }}
 
 packages:
   {% if is_laptop %}
@@ -25,6 +26,7 @@ packages:
   - autoconf
   - ansible
   - cmake
+  - colordiff
   - curl
   - dunst
   - dzen2
@@ -41,6 +43,7 @@ packages:
   - gnupg
   {% endif %}
   - htop
+  - ipython3
   - jq
   {% if not (is_fedora or is_arch) %}
   - libnotify-bin
@@ -97,10 +100,11 @@ packages:
   {% if is_fedora %}
   - libX11-devel
   - libXfixes-devel
+  - sbcl
+  - terminus-fonts
   - xorg-x11-apps
   - xorg-x11-utils
   - xorg-x11-proto-devel
-  - sbcl
   {% elif not is_arch %}
   - x11-utils
   {% endif %}
@@ -111,7 +115,6 @@ packages:
   - xorg-server
   {% endif %}
   - xsel
-  - terminus-fonts
   - texinfo
   - zathura
   - zathura-pdf-poppler

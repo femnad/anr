@@ -260,3 +260,8 @@ Stumpwm contrib:
   file.symlink:
     - name: {{ home_bin }}/stumpish
     - target: {{ clone_dir }}/stumpwm-contrib/util/stumpish/stumpish
+
+Clone Tmux plugin manager:
+  git.cloned:
+    - name: https://github.com/tmux-plugins/tpm
+    - target: {{ home }}/.tmux/plugins/tpm

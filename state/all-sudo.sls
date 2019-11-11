@@ -161,3 +161,9 @@ Stumpwm installed:
     - source: salt://xsessions/stumpwm.desktop
     - makedirs: true
 {% endif %}
+
+{% if pillar['is_ubuntu'] %}
+Install Spotify:
+  cmd.run:
+    - name: snap install spotify
+{% endif %}
