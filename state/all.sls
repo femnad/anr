@@ -265,3 +265,7 @@ Clone Tmux plugin manager:
   git.cloned:
     - name: https://github.com/tmux-plugins/tpm
     - target: {{ home }}/.tmux/plugins/tpm
+
+Load Tilix configuration:
+  cmd.run:
+    - name: dconf load /com/gexperts/Tilix/ < {{ homeshick_repos }}/homeless/tilix/tilix.dump
