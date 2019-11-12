@@ -43,7 +43,11 @@ packages:
   - gnupg
   {% endif %}
   - htop
+  {% if is_arch %}
+  - ipython
+  {% else %}
   - ipython3
+  {% endif %}
   - jq
   {% if not (is_fedora or is_arch) %}
   - libnotify-bin
@@ -56,7 +60,7 @@ packages:
   - man-pages
   {% endif %}
   - pass
-  {% if is_arch or is_fedora %}
+  {% if is_fedora %}
   - pinentry-gtk
   {% endif %}
   {% if is_ubuntu %}

@@ -1,7 +1,6 @@
 {% set home = pillar['home'] %}
-{% set homeshick_repos = home + '/.homesick/repos' %}
-{% set homeshick = homeshick_repos + '/homeshick' %}
-{% set homeshick_bin = homeshick + '/bin/homeshick' %}
+{% set homeshick_repos = home + '/.homesick/repos/' %}
+{% set homeshick_bin = homeshick_repos + 'homeshick/bin/homeshick' %}
 
 
 {% for castle in pillar['private_castles'] %}
@@ -9,7 +8,7 @@
 Add castle {{ castle }}:
   git.cloned:
     - name: {{ castle }}
-    - target: {{ homeshick_repos + '/' + castle_name }}
+    - target: {{ homeshick_repos + castle_name }}
   cmd.run:
     - name: {{ homeshick_bin }} link -b {{ castle_name }}
     - required:
