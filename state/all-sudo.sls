@@ -167,3 +167,9 @@ Install Spotify:
   cmd.run:
     - name: snap install spotify
 {% endif %}
+
+{% if pillar['is_arch'] %}
+Enable lxdm:
+  service.enabled:
+    - name: lxdm
+{% endif %}

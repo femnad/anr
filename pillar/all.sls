@@ -45,6 +45,7 @@ packages:
   - htop
   {% if is_arch %}
   - ipython
+  - python-virtualenv
   {% else %}
   - ipython3
   {% endif %}
@@ -52,10 +53,10 @@ packages:
   {% if not (is_fedora or is_arch) %}
   - libnotify-bin
   {% endif %}
-  - lxdm
   - make
   - mutt
   {% if is_arch %}
+  - lxdm-gtk3
   - man-db
   - man-pages
   {% endif %}
