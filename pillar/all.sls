@@ -80,10 +80,8 @@ packages:
   - ripgrep
   {% endif %}
   - rofi
-  {% if is_fedora or is_arch %}
-  # too lazy to compile Stumpwm
   - ratpoison
-  {% else %}
+  {% if is_ubuntu %}
   - stumpwm
   {% endif %}
   {% if is_fedora %}
