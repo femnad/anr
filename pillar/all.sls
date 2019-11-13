@@ -68,6 +68,7 @@ packages:
   - python3-dev
   - libpython3-dev
   - libx11-dev
+  - libxfixes-dev
   - x11proto-dev
   {% endif %}
   {% if not is_arch %}
