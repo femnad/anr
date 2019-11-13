@@ -16,3 +16,4 @@ shadow:
   host: localhost
   user: femnad
   priv: agent-forwarding
+  sudo: true
