@@ -5,3 +5,5 @@ base:
     - all-sudo
   private:
     - private
+  shadow:
+    - shadow
