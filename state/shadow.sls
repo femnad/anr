@@ -19,8 +19,7 @@ Download Shadow:
     - group: {{ user }}
 
 Disable ERTM for Xbox Wireless Controller:
-  file.line:
+  file.managed:
     - name: /etc/modprobe.d/xbox_bt.conf
-    - mode: ensure
-    - content: options bluetooth disable_ertm=1
-    - create: true
+    - contents: options bluetooth disable_ertm=1
+    - makedirs: true
