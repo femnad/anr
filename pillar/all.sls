@@ -82,6 +82,7 @@ packages:
   - rofi
   - ratpoison
   {% if is_ubuntu %}
+  - xfonts-terminus
   - stumpwm
   {% endif %}
   {% if is_fedora %}
