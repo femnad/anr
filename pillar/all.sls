@@ -121,6 +121,7 @@ packages:
   {% endif %}
   - xsel
   - texinfo
+  - urlview
   - zathura
   - zathura-pdf-poppler
   - zeal
