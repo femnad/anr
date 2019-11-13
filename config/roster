@@ -12,3 +12,7 @@ private:
   host: localhost
   user: femnad
   priv: agent-forwarding
+shadow:
+  host: localhost
+  user: femnad
+  priv: agent-forwarding

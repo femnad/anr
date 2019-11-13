@@ -67,6 +67,7 @@ packages:
   {% if is_ubuntu %}
   - python3-dev
   - libpython3-dev
+  - x11proto-dev
   {% endif %}
   {% if not is_arch %}
   - python3-boto
