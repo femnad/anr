@@ -1,7 +1,7 @@
 base:
   L@self,self-sudo,private,shadow:
     - all
-  self-sudo:
+  L@self-sudo,shadow:
     - sudo
   private:
     - private
