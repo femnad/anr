@@ -122,6 +122,8 @@ VimPlug:
     - makedirs: true
   cmd.run:
     - name: vim -c ":PlugInstall" -c ":quitall"
+    - unless:
+      - ls {{ home }}/.vim/plugged/YouCompleteMe/third_party/ycmd
 
 Module:
   cmd.run:
@@ -129,6 +131,8 @@ Module:
     - cwd: {{ home }}/.vim/plugged/YouCompleteMe
     - require:
       - VimPlug
+    - unless:
+      - ls {{ home }}/.vim/plugged/YouCompleteMe/third_party/ycmd
 
 YouCompleteMe:
   cmd.run:
