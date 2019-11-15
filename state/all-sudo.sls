@@ -57,7 +57,7 @@ Pamixer installed:
     - unless:
       - pamixer
 
-{% if pillar['is_arch'] %}
+{% if pillar['is_arch'] or (pillar['is_ubuntu'] and grains['osrelease'] == '19.10') %}
 Ratpoison Session file:
   file.managed:
     - name: /usr/share/xsessions/ratpoison.desktop
