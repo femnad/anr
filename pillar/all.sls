@@ -39,7 +39,6 @@ packages:
   - pass
   - rofi
   - ratpoison
-  - resolvconf
   - sxiv
   - strace
   - tig
@@ -89,7 +88,6 @@ packages:
   - python3-dev
   - stumpwm
   - vim-gtk3
-  - wireguard
   - x11proto-dev
   - xfonts-terminus
   {% endif %}
