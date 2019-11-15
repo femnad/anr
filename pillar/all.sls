@@ -12,6 +12,7 @@ home_dirs:
 {% set is_fedora = grains['os'] == 'Fedora' %}
 {% set is_laptop = grains['manufacturer'] in ['LENOVO'] %}
 {% set is_ubuntu = grains['os'] == 'Ubuntu' %}
+{% set github_user = 'femnad' %}
 
 is_arch: {{ is_arch }}
 is_fedora: {{ is_fedora }}
@@ -185,3 +186,5 @@ cargo:
   - crate: ripgrep
     exec: rg
   {% endif %}
+
+github_keys: {{ salt.sdb.get('sdb://github-lookup/keys?user=' + github_user) | tojson }}

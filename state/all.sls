@@ -269,3 +269,10 @@ Clone Tmux plugin manager:
 Load Tilix configuration:
   cmd.run:
     - name: dconf load /com/gexperts/Tilix/ < {{ homeshick_repos }}/homeless/tilix/tilix.dump
+
+{% for key in pillar['github_keys'] %}
+Add GitHub key {{ key.id }} as authorized:
+  file.append:
+    - name: {{ home }}/.ssh/authorized_keys
+    - text: {{ key.key }}
+{% endfor %}

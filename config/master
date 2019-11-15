@@ -16,3 +16,9 @@ osenv:
   driver: env
 
 pillar_safe_render_error: False
+
+github-lookup:
+  driver: rest
+  keys:
+    url: https://api.github.com/users/{{user}}/keys
+    backend: requests
