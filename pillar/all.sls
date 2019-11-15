@@ -20,9 +20,6 @@ is_laptop: {{ is_laptop }}
 is_ubuntu: {{ is_ubuntu }}
 
 packages:
-  {% if is_laptop %}
-  - acpi
-  {% endif %}
   - alsa-utils
   - autoconf
   - ansible
@@ -35,77 +32,79 @@ packages:
   - fish
   - firefox
   - gcc
-  {% if is_fedora %}
-  - gcc-c++
-  {% endif %}
-  {% if not is_arch %}
-  - gnupg2
-  {% else %}
-  - gnupg
-  {% endif %}
   - htop
-  {% if is_arch %}
-  - ipython
-  - python-virtualenv
-  {% else %}
-  - ipython3
-  {% endif %}
   - jq
-  {% if not (is_fedora or is_arch) %}
-  - libnotify-bin
-  {% endif %}
   - make
   - mutt
-  {% if is_arch %}
-  - lxdm-gtk3
-  - man-db
-  - man-pages
-  {% endif %}
   - pass
-  {% if is_fedora %}
-  - pinentry-gtk
-  {% endif %}
-  {% if is_ubuntu %}
-  - python3-dev
-  - libpython3-dev
-  - libx11-dev
-  - libxfixes-dev
-  - x11proto-dev
-  {% endif %}
-  {% if not is_arch %}
-  - python3-boto
-  - python3-botocore
-  - python3-boto3
-  {% endif %}
-  {% if not (is_ubuntu and grains['osmajorrelease'] < 19) %}
-  - ripgrep
-  {% endif %}
   - rofi
   - ratpoison
-  {% if is_ubuntu %}
-  - xfonts-terminus
-  - stumpwm
-  {% endif %}
-  {% if is_fedora %}
-  - python3-devel
-  - python3-virtualenv
-  - vim-X11
-  - vim-enhanced
-  {% elif is_arch %}
-  - vim
-  {% else %}
-  - vim-gtk3
-  {% endif %}
+  - resolvconf
   - sxiv
   - strace
   - tig
   - tilix
   - tmux
-  {% if is_arch %}
-  - ttf-dejavu
-  {% endif %}
   - unzip
+  - w3m
+  - wget
+  - xdotool
+  - xsel
+  - texinfo
+  - urlview
+  - zathura
+  - zathura-pdf-poppler
+  - zeal
+
+  {% if not is_arch %}
+  - gnupg2
+  - ipython3
+  - python3-boto
+  - python3-botocore
+  - python3-boto3
+  - x11-utils
+  {% endif %}
+
+  {% if is_laptop %}
+  - acpi
+  {% endif %}
+
+  {% if is_arch %}
+  - gnupg
+  - ipython
+  - python-virtualenv
+  - xorg-server
+  - lxdm-gtk3
+  - man-db
+  - man-pages
+  - ttf-dejavu
+  - vim
+  {% endif %}
+
+  {% if is_ubuntu %}
+  - libnotify-bin
+  - libpython3-dev
+  - libx11-dev
+  - libxfixes-dev
+  - python3-dev
+  - stumpwm
+  - vim-gtk3
+  - wireguard
+  - x11proto-dev
+  - xfonts-terminus
+  {% endif %}
+
+  {% if not (is_ubuntu and grains['osmajorrelease'] < 19) %}
+  - ripgrep
+  {% endif %}
+
   {% if is_fedora %}
+  - gcc-c++
+  - pinentry-gtk
+  - python3-devel
+  - python3-virtualenv
+  - vim-X11
+  - vim-enhanced
   - libX11-devel
   - libXfixes-devel
   - sbcl
@@ -113,21 +112,7 @@ packages:
   - xorg-x11-apps
   - xorg-x11-utils
   - xorg-x11-proto-devel
-  {% elif not is_arch %}
-  - x11-utils
   {% endif %}
-  - w3m
-  - wget
-  - xdotool
-  {% if is_arch %}
-  - xorg-server
-  {% endif %}
-  - xsel
-  - texinfo
-  - urlview
-  - zathura
-  - zathura-pdf-poppler
-  - zeal
 
 castles:
   - https://gitlab.com/femnad/base.git

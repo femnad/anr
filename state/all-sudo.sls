@@ -166,6 +166,7 @@ Stumpwm installed:
 Install Spotify:
   cmd.run:
     - name: snap install spotify
+
 Enable bitmap fonts:
   file.absent:
     - name: /etc/fonts/conf.d/70-no-bitmaps.conf

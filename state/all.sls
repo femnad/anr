@@ -36,7 +36,7 @@ Install {{ archive.name | default(archive.url) }}:
 
 rust:
   file.managed:
-    - name: {{ pillar['package_dir'] }}/rustup/rustup-init
+    - name: {{ pillar['package_dir'] }}/rustup/rustup-init --no-modify-path
     - source: https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-gnu/rustup-init
     - makedirs: true
     - mode: 755
@@ -270,6 +270,8 @@ Clone Tmux plugin manager:
   git.cloned:
     - name: https://github.com/tmux-plugins/tpm
     - target: {{ home }}/.tmux/plugins/tpm
+  cmd.run:
+    - name: tmux run-shell {{ home }}/.tmux/plugins/tpm/bin/install_plugins
 
 Load Tilix configuration:
   cmd.run:
