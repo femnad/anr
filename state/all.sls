@@ -205,20 +205,21 @@ Clipmenu cloned:
     - target: {{ clone_dir }}/clipmenu
 
 {% for bin in ['del', 'menu', 'menud'] %}
-Clipmenu {{ bin }} linked:
+Link Clipmenu {{ bin }}:
+  file.symlink:
+    - name: {{home_bin}}/clip{{ bin }}
+    - target: {{ clone_dir }}/clipmenu/clip{{ bin }}
+{% endfor %}
+
+{% if is_fedora %}
+# unwilligness to investigate flock issues in Fedora
+{% for bin in ['del', 'menu', 'menud'] %}
+Clipmenu {{ bin }} modified:
   file.line:
     - name: {{ clone_dir }}/clipmenu/clip{{ bin }}
     - mode: insert
     - content: CM_DIR={{ home }}/.cache/clipmenu
     - after: '#!/usr/bin/env bash'
-{% endfor %}
-
-{% if is_fedora %}
-{% for bin in ['del', 'menu', 'menud'] %}
-Edit Clipmenu {{ bin }}:
-  file.symlink:
-    - name: {{home_bin}}/clip{{ bin }}
-    - target: {{ clone_dir }}/clipmenu/clip{{ bin }}
 {% endfor %}
 
 Clipmenud cache directory:
