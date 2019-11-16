@@ -1,6 +1,7 @@
 home: {{ salt.sdb.get('sdb://osenv/HOME') }}
 clone_dir: {{ salt.sdb.get('sdb://osenv/HOME') + '/z/gl' }}
 package_dir: {{ salt.sdb.get('sdb://osenv/HOME') + '/z/dy' }}
+tmux: {{ salt.sdb.get('sdb://osenv/TMUX') }}
 
 home_dirs:
   - bin
@@ -153,9 +154,8 @@ archives:
     clean: true
     hash: 0804bf02020dceaa8a7d7275ee79f7a142f1996bfd0c39216ccb405f93f994c0
     name: go
-  - url: https://az764295.vo.msecnd.net/stable/86405ea23e3937316009fc27c9361deee66ffbf5/code-stable-1573064450.tar.gz
+  - url: https://az764295.vo.msecnd.net/stable/8795a9889db74563ddd43eb0a897a2384129a619/code-stable-1573664143.tar.gz
     exec_dir: VSCode-linux-x64
-    hash: 4fa1ae53452e76aebca3665c74b542aa19414c4804da8a910d869ef07c70b2cb
     clean: true
     exec: code
 

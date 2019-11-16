@@ -270,8 +270,10 @@ Clone Tmux plugin manager:
   git.cloned:
     - name: https://github.com/tmux-plugins/tpm
     - target: {{ home }}/.tmux/plugins/tpm
+  {% if pillar['tmux'].startswith('/tmp/tmux-') %}
   cmd.run:
     - name: tmux run-shell {{ home }}/.tmux/plugins/tpm/bin/install_plugins
+  {% endif %}
 
 Load Tilix configuration:
   cmd.run:
