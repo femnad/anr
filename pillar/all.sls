@@ -84,6 +84,7 @@ packages:
   {% if is_ubuntu %}
   - libnotify-bin
   - libpython3-dev
+  - libssl-dev
   - libx11-dev
   - libxfixes-dev
   - python3-dev

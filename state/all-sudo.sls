@@ -112,6 +112,8 @@ Clipnotify installed:
   cmd.run:
     - name: make
     - cwd: {{ clone_dir }}/clipnotify
+    - unless:
+      - which clipnotify
   file.copy:
     - name: /usr/local/bin/clipnotify
     - source: {{ clone_dir }}/clipnotify/clipnotify
@@ -166,6 +168,8 @@ Stumpwm installed:
 Install Spotify:
   cmd.run:
     - name: snap install spotify
+    - unless:
+      - snap list | grep spotify
 
 Enable bitmap fonts:
   file.absent:
@@ -195,6 +199,8 @@ Compile WireGuard:
     - cwd: {{ wireguard_source }}
     - user: {{ user }}
     - group: {{ user }}
+    - unless:
+      - wg
 
 Install WireGuard:
   cmd.run:
@@ -202,3 +208,5 @@ Install WireGuard:
     - require:
         - Compile WireGuard
     - cwd: {{ wireguard_source }}
+    - unless:
+      - wg
