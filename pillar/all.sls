@@ -120,7 +120,9 @@ castles:
   - https://github.com/femnad/homebin.git
   - https://gitlab.com/femnad/homeless.git
 
-go_install: []
+go_install:
+  - https://github.com/zaquestion/lab
+
 go_path: {{ salt.sdb.get('sdb://osenv/HOME') + '/z/sc/go' }}
 
 go_get:
