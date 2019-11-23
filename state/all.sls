@@ -36,7 +36,7 @@ Install {{ archive.name | default(archive.url) }}:
 
 rust:
   file.managed:
-    - name: {{ pillar['package_dir'] }}/rustup/rustup-init --no-modify-path
+    - name: {{ pillar['package_dir'] }}/rustup/rustup-init
     - source: https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-gnu/rustup-init
     - makedirs: true
     - mode: 755
@@ -44,7 +44,7 @@ rust:
     - unless:
         - cargo
   cmd.run:
-    - name: "echo 1 | {{ pillar['package_dir'] }}/rustup/rustup-init"
+    - name: "echo 1 | {{ pillar['package_dir'] }}/rustup/rustup-init --no-modify-path"
     - unless:
         - cargo
 
