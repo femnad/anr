@@ -2,6 +2,7 @@ home: {{ salt.sdb.get('sdb://osenv/HOME') }}
 clone_dir: {{ salt.sdb.get('sdb://osenv/HOME') + '/z/gl' }}
 package_dir: {{ salt.sdb.get('sdb://osenv/HOME') + '/z/dy' }}
 tmux: {{ salt.sdb.get('sdb://osenv/TMUX') }}
+virtualenv_dir: {{ '.venv' }}
 
 home_dirs:
   - bin
@@ -189,3 +190,6 @@ cargo:
   {% endif %}
 
 github_keys: {{ salt.sdb.get('sdb://github-lookup/keys?user=' + github_user) | tojson }}
+
+python_pkgs:
+  - podman-compose

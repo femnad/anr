@@ -5,6 +5,7 @@
 {% set clone_dir = pillar['clone_dir'] %}
 {% set is_fedora = pillar['is_fedora'] %}
 {% set cargo = home + '/.cargo/bin/cargo' %}
+{% set virtualenv_base = home + '/' + pillar['virtualenv_dir'] %}
 
 {% for dir in pillar['home_dirs'] %}
 Home Dir {{ dir }}:
@@ -285,4 +286,14 @@ Add GitHub key {{ key.id }} as authorized:
   file.append:
     - name: {{ home }}/.ssh/authorized_keys
     - text: {{ key.key }}
+{% endfor %}
+
+{% for package in pillar['python_pkgs'] %}
+{% set venv = virtualenv_base + '/' + package %}
+Install Python package {{ package }}:
+  virtualenv.managed:
+    - name: {{ venv }}
+  pip.installed:
+    - name: {{ package }}
+    - bin_env: {{ venv }}
 {% endfor %}
