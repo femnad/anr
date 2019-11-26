@@ -4,6 +4,7 @@
 {% set home_bin = home + '/bin' %}
 {% set clone_dir = pillar['clone_dir'] %}
 {% set is_fedora = pillar['is_fedora'] %}
+{% set cargo = home + '/.cargo/bin/cargo' %}
 
 {% for dir in pillar['home_dirs'] %}
 Home Dir {{ dir }}:
@@ -42,11 +43,11 @@ rust:
     - mode: 755
     - skip_verify: true
     - unless:
-        - cargo
+        - {{ cargo }}
   cmd.run:
     - name: "echo 1 | {{ pillar['package_dir'] }}/rustup/rustup-init --no-modify-path"
     - unless:
-        - cargo
+        - {{ cargo }}
 
 {% for pkg in pillar['go_install'] %}
 {% set name = pkg.split('/')[-1].split('.')[0] %}
@@ -175,7 +176,7 @@ Download binary {{ archive }}:
 {% for crate in pillar['cargo'] %}
 Cargo install {{ crate.crate }}:
   cmd.run:
-    - name: {{ home }}/.cargo/bin/cargo install {{ crate.crate }}
+    - name: {{ cargo }} install {{ crate.crate }}
     - unless:
         - {{ home }}/.cargo/bin/{{ crate.exec }}
 {% endfor %}

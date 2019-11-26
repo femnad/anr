@@ -31,7 +31,6 @@ packages:
   - dzen2
   - emacs
   - fish
-  - firefox
   - gcc
   - htop
   - jq
@@ -58,11 +57,9 @@ packages:
 
   {% if not is_arch %}
   - gnupg2
-  - ipython3
   - python3-boto
   - python3-botocore
   - python3-boto3
-  - x11-utils
   {% endif %}
 
   {% if is_laptop %}
@@ -82,15 +79,19 @@ packages:
   {% endif %}
 
   {% if is_ubuntu %}
+  - ipython3
+  - libmnl-dev
   - libnotify-bin
   - libpython3-dev
   - libssl-dev
   - libx11-dev
   - libxfixes-dev
   - python3-dev
+  - resolvconf
   - stumpwm
   - vim-gtk3
   - x11proto-dev
+  - x11-utils
   - xfonts-terminus
   {% endif %}
 
@@ -100,8 +101,13 @@ packages:
 
   {% if is_fedora %}
   - gcc-c++
+  - kernel-devel
+  - kernel-headers
+  - libmnl-devel
   - pinentry-gtk
+  - podman
   - python3-devel
+  - python3-ipython
   - python3-virtualenv
   - vim-X11
   - vim-enhanced
@@ -112,6 +118,10 @@ packages:
   - xorg-x11-apps
   - xorg-x11-utils
   - xorg-x11-proto-devel
+  {% endif %}
+
+  {% if not is_fedora %}
+  - firefox
   {% endif %}
 
 castles:
@@ -161,6 +171,11 @@ archives:
     exec_dir: VSCode-linux-x64
     clean: true
     exec: code
+  # Undetermined weirdness with packaged Firefox ctrl+t behavior in Ratpoison/Stumpwm
+  {% if is_fedora %}
+  - url: https://download-installer.cdn.mozilla.net/pub/firefox/releases/70.0.1/linux-x86_64/en-US/firefox-70.0.1.tar.bz2
+    exec: firefox
+  {% endif %}
 
 binary_only_archives:
   - https://releases.hashicorp.com/terraform/0.12.6/terraform_0.12.6_linux_amd64.zip

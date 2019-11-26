@@ -185,12 +185,6 @@ Enable lxdm:
 Compile WireGuard:
 {% set wireguard = clone_dir + '/WireGuard' %}
 {% set wireguard_source = wireguard + '/src' %}
-  pkg.installed:
-  {% if pillar['is_ubuntu'] %}
-    - pkgs:
-      - libmnl-dev
-      - resolvconf
-  {% endif %}
   git.cloned:
     - name: https://git.zx2c4.com/WireGuard
     - target: {{ wireguard }}
