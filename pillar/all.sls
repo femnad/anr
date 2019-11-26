@@ -52,6 +52,7 @@ packages:
   - xsel
   - texinfo
   - urlview
+  - xautolock
   - zathura
   - zathura-pdf-poppler
   - zeal
@@ -146,10 +147,14 @@ go_get_gopath:
   - github.com/junegunn/fzf
 
 home_bins:
-  - https://github.com/femnad/loco/releases/download/0.2.0/bakl
-  - https://github.com/femnad/loco/releases/download/0.2.0/tosm
-  - https://github.com/femnad/loco/releases/download/0.2.0/ysnp
-  - https://github.com/femnad/loco/releases/download/0.2.0/zenv
+  - url: https://github.com/femnad/loco/releases/download/0.2.0/bakl
+    hash: cee33e7caad5634afe6520de60d4a3680f5fafbe92ad3723dc8e01451e0d2dba
+  - url: https://github.com/femnad/loco/releases/download/0.2.0/tosm
+    hash: b954689a141ede5526de49d3200f36f0323b73922d9f745d3fe0e8b80c0901c0
+  - url: https://github.com/femnad/loco/releases/download/0.2.0/ysnp
+    hash: d5c90190b23980827fdc4a640eb4d4f7c52e85ff849426a403e9d6d44e2e6369
+  - url: https://github.com/femnad/loco/releases/download/0.2.0/zenv
+    hash: 07640220819f7e16ad4438dd1e2b2b7cfa978333e2d5e21df98a7ee169fcd7b9
 
 vim_dirs:
   - autoload

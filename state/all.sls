@@ -183,16 +183,15 @@ Cargo install {{ crate.crate }}:
 {% endfor %}
 
 {% for bin in pillar['home_bins'] %}
-  {% set exec_name = bin.split('/')[-1] %}
+  {% set exec_name = bin.url.split('/')[-1] %}
 Download {{ exec_name }}:
   file.managed:
     - name: {{ home_bin }}/{{ exec_name }}
-    - source: {{ bin }}
+    - source: {{ bin.url }}
+    - source_hash: {{ bin.hash }}
     - skip_verify: true
     - makedirs: true
     - mode: 0755
-    - unless:
-      - {{ exec_name }}
 {% endfor %}
 
 Build Ratpoison helpers:
@@ -260,6 +259,28 @@ Clipmenud user service:
         systemctl --user start clipmenud
         systemctl --user enable clipmenud
 
+Lock user service:
+  file.managed:
+    - name: {{ home }}/.config/systemd/user/xautolock.service
+    - makedirs: True
+    - source: salt://services/service.j2
+    - template: jinja
+    - context:
+        service:
+          description: Xautolock daemon
+          exec: /usr/bin/xautolock
+          wanted_by: default
+          environment:
+            - 'DISPLAY=:0'
+          options:
+            Restart: always
+            RestartSec: 5
+  cmd.run:
+    - name: |
+        systemctl --user daemon-reload
+        systemctl --user start clipmenud
+        systemctl --user enable clipmenud
+
 Stumpwm contrib:
   git.cloned:
     - name: https://github.com/stumpwm/stumpwm-contrib.git
@@ -297,3 +318,9 @@ Install Python package {{ package }}:
     - name: {{ package }}
     - bin_env: {{ venv }}
 {% endfor %}
+
+Initialize Jedi for Emacs:
+  cmd.run:
+    - name: emacs -nw --load ~/.emacs --batch --eval '(jedi:install-server)'
+    - unless:
+      - ls ~/.emacs.d/elpa/jedi-core* -d
