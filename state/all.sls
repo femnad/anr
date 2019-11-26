@@ -310,12 +310,12 @@ Add GitHub key {{ key.id }} as authorized:
 {% endfor %}
 
 {% for package in pillar['python_pkgs'] %}
-{% set venv = virtualenv_base + '/' + package %}
-Install Python package {{ package }}:
+{% set venv = virtualenv_base + '/' + (package.venv | default(package.name)) %}
+Install Python package {{ package.name }}:
   virtualenv.managed:
     - name: {{ venv }}
   pip.installed:
-    - name: {{ package }}
+    - name: {{ package.name }}
     - bin_env: {{ venv }}
 {% endfor %}
 

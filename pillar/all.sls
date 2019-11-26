@@ -197,4 +197,6 @@ cargo:
 github_keys: {{ salt.sdb.get('sdb://github-lookup/keys?user=' + github_user) | tojson }}
 
 python_pkgs:
-  - podman-compose
+  - name: podman-compose
+  - name: ranger-fm
+    venv: ranger
