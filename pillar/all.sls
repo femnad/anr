@@ -2,6 +2,7 @@ home: {{ salt.sdb.get('sdb://osenv/HOME') }}
 clone_dir: {{ salt.sdb.get('sdb://osenv/HOME') + '/z/gl' }}
 package_dir: {{ salt.sdb.get('sdb://osenv/HOME') + '/z/dy' }}
 tmux: {{ salt.sdb.get('sdb://osenv/TMUX') }}
+user: {{ salt.sdb.get('sdb://osenv/USER') }}
 virtualenv_dir: {{ '.venv' }}
 
 home_dirs:
