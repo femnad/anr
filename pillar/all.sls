@@ -13,7 +13,7 @@ home_dirs:
 
 {% set is_arch = grains['os'] == 'Arch' %}
 {% set is_fedora = grains['os'] == 'Fedora' %}
-{% set is_laptop = grains['manufacturer'] in ['LENOVO'] %}
+{% set is_laptop = grains['manufacturer'] in ['LENOVO', 'Dell Inc.'] %}
 {% set is_ubuntu = grains['os'] == 'Ubuntu' %}
 {% set github_user = 'femnad' %}
 
