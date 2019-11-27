@@ -146,6 +146,9 @@ go_get:
   - github.com/aykamko/tag/...
   - github.com/github/hub
 
+go_cloned_install:
+  - https://github.com/mikefarah/yq.git
+
 go_get_gopath:
   - github.com/junegunn/fzf
 

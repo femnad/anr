@@ -88,6 +88,18 @@ Go get {{ pkg }}:
     - source: {{ gopath }}/bin/{{ name }}
 {% endfor %}
 
+{% for repo in pillar['go_cloned_install'] %}
+{% set dir = repo.split('/')[-1].split('.')[0] %}
+{% set clone_path = pillar['clone_dir'] + '/' + dir %}
+Install Go package from {{ repo }}:
+  git.cloned:
+    - name: {{ repo }}
+    - target: {{ clone_path }}
+  cmd.run:
+    - name: go install
+    - cwd: {{ clone_path }}
+{% endfor %}
+
 {% set homeshick_repos = home + '/.homesick/repos' %}
 {% set homeshick = homeshick_repos + '/homeshick' %}
 {% set homeshick_bin = homeshick + '/bin/homeshick' %}
