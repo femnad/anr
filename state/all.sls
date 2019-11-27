@@ -298,6 +298,14 @@ Clone Tmux plugin manager:
     - name: tmux run-shell {{ home }}/.tmux/plugins/tpm/bin/install_plugins
   {% endif %}
 
+Clone Tmux thumbs:
+  git.cloned:
+    - name: https://github.com/fcsonline/tmux-thumbs
+    - target: {{ home }}/.tmux/plugins/tmux-thums
+  cmd.run:
+    - name: {{ cargo }} build --release
+    - cwd: {{ home }}/.tmux/plugins/tmux-thumbs
+
 Load Tilix configuration:
   cmd.run:
     - name: dconf load /com/gexperts/Tilix/ < {{ homeshick_repos }}/homeless/tilix/tilix.dump
