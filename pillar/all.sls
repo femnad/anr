@@ -182,6 +182,7 @@ archives:
   {% if is_fedora %}
   - url: https://download-installer.cdn.mozilla.net/pub/firefox/releases/70.0.1/linux-x86_64/en-US/firefox-70.0.1.tar.bz2
     exec: firefox
+    exec_dir: firefox
   {% endif %}
 
 binary_only_archives:

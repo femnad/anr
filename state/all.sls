@@ -188,8 +188,11 @@ Download {{ exec_name }}:
   file.managed:
     - name: {{ home_bin }}/{{ exec_name }}
     - source: {{ bin.url }}
+    {% if bin.hash is defined %}
     - source_hash: {{ bin.hash }}
+    {% else %}
     - skip_verify: true
+    {% endif %}
     - makedirs: true
     - mode: 0755
 {% endfor %}
@@ -301,7 +304,7 @@ Clone Tmux plugin manager:
 Clone Tmux thumbs:
   git.cloned:
     - name: https://github.com/fcsonline/tmux-thumbs
-    - target: {{ home }}/.tmux/plugins/tmux-thums
+    - target: {{ home }}/.tmux/plugins/tmux-thumbs
   cmd.run:
     - name: {{ cargo }} build --release
     - cwd: {{ home }}/.tmux/plugins/tmux-thumbs
