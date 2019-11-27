@@ -303,7 +303,11 @@ Clone Tmux plugin manager:
 
 Clone Tmux thumbs:
   git.cloned:
+    {% if is_fedora %}
+    - name: https://github.com/femnad/tmux-thumbs
+    {% else %}
     - name: https://github.com/fcsonline/tmux-thumbs
+    {% endif %}
     - target: {{ home }}/.tmux/plugins/tmux-thumbs
   cmd.run:
     - name: {{ cargo }} build --release

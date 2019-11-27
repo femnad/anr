@@ -44,6 +44,7 @@ packages:
   - sxiv
   - strace
   - tig
+  - thunderbird
   - tilix
   - tmux
   - unzip
@@ -53,6 +54,7 @@ packages:
   - xsel
   - texinfo
   - urlview
+  - weechat
   - xautolock
   - zathura
   - zathura-pdf-poppler
@@ -148,14 +150,15 @@ go_get_gopath:
   - github.com/junegunn/fzf
 
 home_bins:
-  - url: https://github.com/femnad/loco/releases/download/0.2.0/bakl
+  - url: https://github.com/femnad/loco/releases/download/0.3.4/bakl
     hash: cee33e7caad5634afe6520de60d4a3680f5fafbe92ad3723dc8e01451e0d2dba
-  - url: https://github.com/femnad/loco/releases/download/0.2.0/tosm
+  - url: https://github.com/femnad/loco/releases/download/0.3.4/tosm
     hash: b954689a141ede5526de49d3200f36f0323b73922d9f745d3fe0e8b80c0901c0
-  - url: https://github.com/femnad/loco/releases/download/0.2.0/ysnp
+  - url: https://github.com/femnad/loco/releases/download/0.3.4/ysnp
     hash: d5c90190b23980827fdc4a640eb4d4f7c52e85ff849426a403e9d6d44e2e6369
-  - url: https://github.com/femnad/loco/releases/download/0.2.0/zenv
+  - url: https://github.com/femnad/loco/releases/download/0.3.4/zenv
     hash: 07640220819f7e16ad4438dd1e2b2b7cfa978333e2d5e21df98a7ee169fcd7b9
+  - url: https://storage.googleapis.com/kubernetes-release/release/v1.16.0/bin/linux/amd64/kubectl
 
 vim_dirs:
   - autoload
@@ -187,6 +190,7 @@ archives:
 
 binary_only_archives:
   - https://releases.hashicorp.com/terraform/0.12.6/terraform_0.12.6_linux_amd64.zip
+  - https://releases.hashicorp.com/vault/1.3.0/vault_1.3.0_linux_amd64.zip
 
 cargo:
   - crate: fd-find

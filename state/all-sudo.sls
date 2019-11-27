@@ -139,6 +139,8 @@ Install Quicklisp package {{ pkg }}:
   cmd.run:
   - name: sbcl --eval '(ql:quickload "{{ pkg }}")' --non-interactive
   - runas: {{ user }}
+  - unless:
+    - stumpwm --version
 {% endfor %}
 
 Stumpwm compiled:
@@ -153,11 +155,15 @@ Stumpwm compiled:
         make
     - cwd: {{ clone_dir }}/stumpwm
     - runas: {{ user }}
+    - unless:
+      - stumpwm --version
 
 Stumpwm installed:
   cmd.run:
     - name: make install
     - cwd: {{ clone_dir }}/stumpwm
+    - unless:
+      - stumpwm --version
   file.managed:
     - name: /usr/share/xsessions/stumpwm.desktop
     - source: salt://xsessions/stumpwm.desktop
