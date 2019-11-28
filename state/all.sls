@@ -33,7 +33,6 @@ Install {{ archive.name | default(archive.url) }}:
   file.symlink:
     - name: {{ home_bin }}/{{ basename }}
     - target: {{ package_dir }}/{{ archive.exec }}
-{% endif %}
 {% endfor %}
 
 rust:
