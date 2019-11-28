@@ -29,10 +29,10 @@ Install {{ archive.name | default(archive.url) }}:
     - clean: {{ archive.clean }}
 {% endif %}
     - trim_output: true
-{% if archive.exec is defined and archive.exec_dir is defined %}
+{% set basename = archive.exec.split('/')[-1] %}
   file.symlink:
-    - name: {{ home_bin }}/{{ archive.exec }}
-    - target: {{ package_dir }}/{{ archive.exec_dir }}/{{ archive.exec }}
+    - name: {{ home_bin }}/{{ basename }}
+    - target: {{ package_dir }}/{{ archive.exec }}
 {% endif %}
 {% endfor %}
 
@@ -87,6 +87,12 @@ Go get {{ pkg }}:
     - name: {{ home_bin }}/{{ name }}
     - source: {{ gopath }}/bin/{{ name }}
 {% endfor %}
+
+Unset Gopath:
+  environ.setenv:
+    - name: GOPATH
+    - value: false
+    - false_unsets: true
 
 {% for repo in pillar['go_cloned_install'] %}
 {% set dir = repo.split('/')[-1].split('.')[0] %}
@@ -351,3 +357,12 @@ Initialize Jedi for Emacs:
     - name: emacs -nw --load ~/.emacs --batch --eval '(jedi:install-server)'
     - unless:
       - ls ~/.emacs.d/elpa/jedi-core* -d
+
+{% set pass_helper_path = home + '/go/src/github.com/docker/docker-credential-helpers' %}
+Install Docker pass credential helper:
+  git.cloned:
+    - name: https://github.com/docker/docker-credential-helpers.git
+    - target: {{ pass_helper_path }}
+  cmd.run:
+    - name: {{ go_bin }} build -o {{ home_bin }}/docker-credential-pass pass/cmd/main_linux.go
+    - cwd: {{ pass_helper_path }}

@@ -39,6 +39,7 @@ packages:
   - make
   - mutt
   - pass
+  - playerctl
   - rofi
   - ratpoison
   - sxiv
@@ -175,21 +176,20 @@ mutt_dirs:
 
 archives:
   - url: https://dl.google.com/go/go1.13.3.linux-amd64.tar.gz
-    exec_dir: go/bin
-    exec: go
+    exec: go/bin/go
     clean: true
     hash: 0804bf02020dceaa8a7d7275ee79f7a142f1996bfd0c39216ccb405f93f994c0
     name: go
   - url: https://az764295.vo.msecnd.net/stable/8795a9889db74563ddd43eb0a897a2384129a619/code-stable-1573664143.tar.gz
-    exec_dir: VSCode-linux-x64
+    exec: VSCode-linux-x64/code
     clean: true
-    exec: code
   # Undetermined weirdness with packaged Firefox ctrl+t behavior in Ratpoison/Stumpwm
   {% if is_fedora %}
   - url: https://download-installer.cdn.mozilla.net/pub/firefox/releases/70.0.1/linux-x86_64/en-US/firefox-70.0.1.tar.bz2
-    exec: firefox
-    exec_dir: firefox
+    exec: firefox/firefox
   {% endif %}
+  - url: https://download.jetbrains.com/idea/ideaIC-2019.3.tar.gz
+    exec: idea-IC-193.5233.102/bin/idea.sh
 
 binary_only_archives:
   - https://releases.hashicorp.com/terraform/0.12.6/terraform_0.12.6_linux_amd64.zip
