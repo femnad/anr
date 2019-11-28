@@ -188,8 +188,9 @@ archives:
   - url: https://download-installer.cdn.mozilla.net/pub/firefox/releases/70.0.1/linux-x86_64/en-US/firefox-70.0.1.tar.bz2
     exec: firefox/firefox
   {% endif %}
-  - url: https://download.jetbrains.com/idea/ideaIC-2019.3.tar.gz
-    exec: idea-IC-193.5233.102/bin/idea.sh
+  # 2019.1.4? don't ask
+  - url: https://download.jetbrains.com/idea/ideaIC-2019.1.4.tar.gz
+    exec: idea-IC-191.8026.42/bin/idea.sh
 
 binary_only_archives:
   - https://releases.hashicorp.com/terraform/0.12.6/terraform_0.12.6_linux_amd64.zip
