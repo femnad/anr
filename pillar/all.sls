@@ -199,6 +199,7 @@ archives:
 binary_only_archives:
   - https://releases.hashicorp.com/terraform/0.12.6/terraform_0.12.6_linux_amd64.zip
   - https://releases.hashicorp.com/vault/1.3.0/vault_1.3.0_linux_amd64.zip
+  - https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v3.4.0/kustomize_v3.4.0_linux_amd64.tar.gz
 
 cargo:
   - crate: fd-find

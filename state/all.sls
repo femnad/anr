@@ -288,6 +288,7 @@ Clipmenud user service:
         systemctl --user start clipmenud
         systemctl --user enable clipmenud
 
+{% if pillar['is_laptop'] %}
 Lock user service:
   file.managed:
     - name: {{ home }}/.config/systemd/user/xautolock.service
@@ -297,7 +298,7 @@ Lock user service:
     - context:
         service:
           description: Xautolock daemon
-          exec: /usr/bin/xautolock-time 10 -locker 'i3lock -e -c 000000' -notifier "notify-send 'Heads Up!' 'Locking in 60 seconds'" -detectsleep
+          exec: /usr/bin/xautolock -time 10 -locker 'i3lock -e -c 000000' -notifier "notify-send 'Heads Up!' 'Locking in 60 seconds'" -detectsleep
           wanted_by: default
           environment:
             - 'DISPLAY=:0'
@@ -309,6 +310,7 @@ Lock user service:
         systemctl --user daemon-reload
         systemctl --user start xautolock
         systemctl --user enable xautolock
+{% endif %}
 
 Stumpwm contrib:
   git.cloned:
