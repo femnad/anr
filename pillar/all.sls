@@ -107,6 +107,7 @@ packages:
 
   {% if is_fedora %}
   - gcc-c++
+  - git-crypt
   - kernel-devel
   - kernel-headers
   - libmnl-devel
@@ -143,15 +144,16 @@ go_install:
 go_path: {{ salt.sdb.get('sdb://osenv/HOME') + '/z/sc/go' }}
 
 go_get:
-  - github.com/femnad/stuff/...
-  - github.com/aykamko/tag/...
-  - github.com/github/hub
+  - pkg: github.com/femnad/stuff/...
+  - pkg: github.com/aykamko/tag/...
+    unless: tag -V
 
 go_cloned_install:
   - https://github.com/mikefarah/yq.git
 
 go_get_gopath:
-  - github.com/junegunn/fzf
+  - pkg: github.com/junegunn/fzf
+    unless: fzf --version
 
 home_bins:
   - url: https://github.com/femnad/loco/releases/download/0.3.4/bakl

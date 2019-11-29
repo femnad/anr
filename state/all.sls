@@ -64,27 +64,32 @@ Install Go Package {{ name }}:
 {% endfor %}
 
 {% for pkg in pillar['go_get'] %}
-Go get {{ pkg }}:
+Go get {{ pkg.pkg }}:
   cmd.run:
-    - name: {{ go_bin }} get -u {{ pkg }}
+    - name: {{ go_bin }} get -u {{ pkg.pkg }}
     - require:
       - Install go
+    {% if pkg.unless is defined %}
+    - unless:
+      - {{ pkg.unless }}
+    {% endif %}
 {% endfor %}
 
 {% for pkg in pillar['go_get_gopath'] %}
-{% set name = pkg.split('/')[-1] %}
+{% set name = pkg.pkg.split('/')[-1] %}
 {% set gopath = pillar['go_path'] %}
-Go get {{ pkg }}:
+Go get {{ pkg.pkg }}:
   environ.setenv:
     - name: GOPATH
     - value: {{ gopath }}
   cmd.run:
-    - name: {{ go_bin }} get -u {{ pkg }}
+    - name: {{ go_bin }} get -u {{ pkg.pkg }}
     - require:
       - Install go
-  file.copy:
-    - name: {{ home_bin }}/{{ name }}
-    - source: {{ gopath }}/bin/{{ name }}
+    {% if pkg.unless is defined %}
+    - unless:
+      - {{ pkg.unless }}
+    {% endif %}
 {% endfor %}
 
 Unset Gopath:
@@ -362,6 +367,10 @@ Install Docker pass credential helper:
   git.cloned:
     - name: https://github.com/docker/docker-credential-helpers.git
     - target: {{ pass_helper_path }}
+    - unless:
+      - {{ home_bin }}/docker-credential-pass version
   cmd.run:
     - name: {{ go_bin }} build -o {{ home_bin }}/docker-credential-pass pass/cmd/main_linux.go
     - cwd: {{ pass_helper_path }}
+    - unless:
+      - {{ home_bin }}/docker-credential-pass version
