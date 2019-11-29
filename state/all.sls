@@ -288,7 +288,7 @@ Lock user service:
     - context:
         service:
           description: Xautolock daemon
-          exec: /usr/bin/xautolock
+          exec: /usr/bin/xautolock-time 10 -locker 'i3lock -e -c 000000' -notifier "notify-send 'Heads Up!' 'Locking in 60 seconds'" -detectsleep
           wanted_by: default
           environment:
             - 'DISPLAY=:0'
@@ -298,8 +298,8 @@ Lock user service:
   cmd.run:
     - name: |
         systemctl --user daemon-reload
-        systemctl --user start clipmenud
-        systemctl --user enable clipmenud
+        systemctl --user start xautolock
+        systemctl --user enable xautolock
 
 Stumpwm contrib:
   git.cloned:
