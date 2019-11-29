@@ -149,7 +149,9 @@ go_get:
     unless: tag -V
 
 go_cloned_install:
-  - https://github.com/mikefarah/yq.git
+  - url: https://github.com/mikefarah/yq.git
+  - url: https://github.com/boz/kail.git
+    path: cmd/kail
 
 go_get_gopath:
   - pkg: github.com/junegunn/fzf

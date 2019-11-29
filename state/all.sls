@@ -99,15 +99,19 @@ Unset Gopath:
     - false_unsets: true
 
 {% for repo in pillar['go_cloned_install'] %}
-{% set dir = repo.split('/')[-1].split('.')[0] %}
+{% set dir = repo.url.split('/')[-1].split('.')[0] %}
 {% set clone_path = pillar['clone_dir'] + '/' + dir %}
-Install Go package from {{ repo }}:
+Install Go package from {{ repo.url }}:
   git.cloned:
-    - name: {{ repo }}
+    - name: {{ repo.url }}
     - target: {{ clone_path }}
   cmd.run:
     - name: go install
+    {% if repo.path is defined %}
+    - cwd: {{ clone_path }}/{{ repo.path }}
+    {% else %}
     - cwd: {{ clone_path }}
+    {% endif %}
 {% endfor %}
 
 {% set homeshick_repos = home + '/.homesick/repos' %}
@@ -334,6 +338,8 @@ Clone Tmux thumbs:
   cmd.run:
     - name: {{ cargo }} build --release
     - cwd: {{ home }}/.tmux/plugins/tmux-thumbs
+    - unless:
+      - {{ home }}/.tmux/plugins/tmux-thumbs/target/release/tmux-thumbs
 
 Load Tilix configuration:
   cmd.run:
