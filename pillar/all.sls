@@ -148,6 +148,9 @@ go_get:
   - pkg: github.com/aykamko/tag/...
     unless: tag -V
   - pkg: github.com/googlecloudplatform/gcsfuse
+    unless: gcsfuse -v
+  - pkg: github.com/rclone/rclone
+    unless: rclone version
 
 go_cloned_install:
   - url: https://github.com/mikefarah/yq.git
