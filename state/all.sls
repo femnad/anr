@@ -5,6 +5,7 @@
 {% set clone_dir = pillar['clone_dir'] %}
 {% set is_fedora = pillar['is_fedora'] %}
 {% set cargo = home + '/.cargo/bin/cargo' %}
+{% set package_dir = pillar['package_dir'] %}
 {% set virtualenv_base = home + '/' + pillar['virtualenv_dir'] %}
 
 {% for dir in pillar['home_dirs'] %}
@@ -14,7 +15,6 @@ Home Dir {{ dir }}:
     - makedirs: true
 {% endfor %}
 
-{% set package_dir = pillar['package_dir'] %}
 {% for archive in pillar['archives'] %}
 Install {{ archive.name | default(archive.url) }}:
   archive.extracted:
@@ -34,6 +34,16 @@ Install {{ archive.name | default(archive.url) }}:
     - name: {{ home_bin }}/{{ basename }}
     - target: {{ package_dir }}/{{ archive.exec }}
 {% endfor %}
+
+Enable gsutil:
+  {% set gcloud_bin = (pillar['archives'] | selectattr('name', 'defined') | selectattr('name', 'equalto', 'gcloud') | list)[0].exec.split('/')[:-1] | join('/') %}
+  cmd.run:
+    - name: {{ home_bin }}/gcloud components install gsutil
+    - require:
+      - Install gcloud
+  file.symlink:
+    - name: {{ home_bin }}/gsutil
+      target: {{ package_dir }}/{{ gcloud_bin }}/gsutil
 
 rust:
   file.managed:
@@ -106,7 +116,7 @@ Install Go package from {{ repo.url }}:
     - name: {{ repo.url }}
     - target: {{ clone_path }}
   cmd.run:
-    - name: go install
+    - name: {{ go_bin }} install
     {% if repo.path is defined %}
     - cwd: {{ clone_path }}/{{ repo.path }}
     {% else %}
@@ -221,6 +231,7 @@ Download {{ exec_name }}:
     {% endif %}
     - makedirs: true
     - mode: 0755
+
 {% endfor %}
 
 Build Ratpoison helpers:

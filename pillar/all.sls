@@ -147,6 +147,7 @@ go_get:
   - pkg: github.com/femnad/stuff/...
   - pkg: github.com/aykamko/tag/...
     unless: tag -V
+  - pkg: github.com/googlecloudplatform/gcsfuse
 
 go_cloned_install:
   - url: https://github.com/mikefarah/yq.git
@@ -167,6 +168,7 @@ home_bins:
   - url: https://github.com/femnad/loco/releases/download/0.3.4/zenv
     hash: 07640220819f7e16ad4438dd1e2b2b7cfa978333e2d5e21df98a7ee169fcd7b9
   - url: https://storage.googleapis.com/kubernetes-release/release/v1.16.0/bin/linux/amd64/kubectl
+    hash: 4fc8a7024ef17b907820890f11ba7e59a6a578fa91ea593ce8e58b3260f7fb88
 
 vim_dirs:
   - autoload
@@ -195,6 +197,9 @@ archives:
   # 2019.1.4? don't ask
   - url: https://download.jetbrains.com/idea/ideaIC-2019.1.4.tar.gz
     exec: idea-IC-191.8026.42/bin/idea.sh
+  - url: https://dl.google.com/dl/cloudsdk/channels/rapid/google-cloud-sdk.tar.gz
+    exec: google-cloud-sdk/bin/gcloud
+    name: gcloud
 
 binary_only_archives:
   - https://releases.hashicorp.com/terraform/0.12.6/terraform_0.12.6_linux_amd64.zip

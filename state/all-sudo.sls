@@ -210,3 +210,9 @@ Install WireGuard:
     - cwd: {{ wireguard_source }}
     - unless:
       - wg
+
+{% if pillar['is_ubuntu'] %}
+Set default Python:
+  - cmd.run:
+    - name: update-alternatives --install /usr/bin/python python $(which python3) 1
+{% endif %}
