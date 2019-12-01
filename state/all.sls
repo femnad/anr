@@ -22,6 +22,7 @@ Install {{ archive.name | default(archive.url) }}:
     - source: {{ archive.url }}
 {% if archive.hash is defined %}
     - source_hash: {{ archive.hash }}
+    - source_hash_update: true
 {% else %}
     - skip_verify: true
 {% endif %}
@@ -202,12 +203,18 @@ mutt init {{ prefix }} {{ cache }}:
 {% endfor %}
 
 {% for archive in pillar['binary_only_archives'] %}
-Download binary {{ archive }}:
+Download binary archive {{ archive.name | default(archive.url) }}:
   archive.extracted:
     - name: {{ home }}/bin
-    - source: {{ archive }}
+    - source: {{ archive.url }}
+    {% if archive.hash is defined %}
+    - source_hash: {{ archive.hash }}
+    - source_hash_update: true
+    {% else %}
     - skip_verify: true
+    {% endif %}
     - enforce_toplevel: false
+    - overwrite: true
 {% endfor %}
 
 {% for crate in pillar['cargo'] %}

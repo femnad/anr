@@ -34,12 +34,15 @@ packages:
   - emacs
   - fish
   - gcc
+  - git
+  - git-crypt
   - htop
   - jq
   - make
   - mutt
   - pass
   - playerctl
+  - pwgen
   - rofi
   - ratpoison
   - sxiv
@@ -189,9 +192,10 @@ archives:
     clean: true
     hash: 0804bf02020dceaa8a7d7275ee79f7a142f1996bfd0c39216ccb405f93f994c0
     name: go
-  - url: https://az764295.vo.msecnd.net/stable/8795a9889db74563ddd43eb0a897a2384129a619/code-stable-1573664143.tar.gz
+  - url: https://az764295.vo.msecnd.net/stable/f359dd69833dd8800b54d458f6d37ab7c78df520/code-stable-1574694065.tar.gz
     exec: VSCode-linux-x64/code
     clean: true
+    hash: 6278e0838490aa25a6a58f667576945e6fe49491707be441e41faeeb89ef8ed4
   # Undetermined weirdness with packaged Firefox ctrl+t behavior in Ratpoison/Stumpwm
   {% if is_fedora %}
   - url: https://download-installer.cdn.mozilla.net/pub/firefox/releases/70.0.1/linux-x86_64/en-US/firefox-70.0.1.tar.bz2
@@ -200,14 +204,18 @@ archives:
   # 2019.1.4? don't ask
   - url: https://download.jetbrains.com/idea/ideaIC-2019.1.4.tar.gz
     exec: idea-IC-191.8026.42/bin/idea.sh
+  - url: https://download.jetbrains.com/go/goland-2019.3.tar.gz
+    exec: GoLand-2019.3/bin/goland.sh
   - url: https://dl.google.com/dl/cloudsdk/channels/rapid/google-cloud-sdk.tar.gz
     exec: google-cloud-sdk/bin/gcloud
     name: gcloud
 
 binary_only_archives:
-  - https://releases.hashicorp.com/terraform/0.12.6/terraform_0.12.6_linux_amd64.zip
-  - https://releases.hashicorp.com/vault/1.3.0/vault_1.3.0_linux_amd64.zip
-  - https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v3.4.0/kustomize_v3.4.0_linux_amd64.tar.gz
+  - url: https://releases.hashicorp.com/terraform/0.12.16/terraform_0.12.16_linux_amd64.zip
+    hash: fcc719314660adc66cbd688918d13baa1095301e2e507f9ac92c9e22acf4cc02
+    name: terraform
+  - url: https://releases.hashicorp.com/vault/1.3.0/vault_1.3.0_linux_amd64.zip
+  - url: https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v3.4.0/kustomize_v3.4.0_linux_amd64.tar.gz
 
 cargo:
   - crate: fd-find
