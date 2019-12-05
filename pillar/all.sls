@@ -39,6 +39,7 @@ packages:
   - highlight
   - htop
   - jq
+  - maim
   - make
   - mutt
   - pass
@@ -54,14 +55,14 @@ packages:
   - tilix
   - tmux
   - unzip
-  - w3m
-  - wget
-  - xdotool
-  - xsel
   - texinfo
   - urlview
   - weechat
+  - w3m
+  - wget
   - wireshark
+  - xdotool
+  - xsel
   - xautolock
   - zathura
   - zathura-pdf-poppler

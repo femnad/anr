@@ -4,23 +4,6 @@
 {% set is_fedora = pillar['is_fedora'] %}
 {% set package_dir = pillar['package_dir'] %}
 
-Update packages:
-  pkg.uptodate:
-    - refresh: true
-
-{% if pillar['is_arch'] %}
-Break dependency cycles:
-  pkg.installed:
-    - pkgs:
-      - freetype2
-      - mesa
-      - ffmpeg
-{% endif %}
-
-Packages:
-  pkg.installed:
-    - pkgs: {{ pillar['packages'] | tojson }}
-
 Pamixer compiled:
   git.cloned:
     - name: https://github.com/cdemoulins/pamixer.git
