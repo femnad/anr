@@ -228,6 +228,9 @@ cargo:
   - crate: ripgrep
     exec: rg
   {% endif %}
+  - crate: bat
+  - crate: git-delta
+    exec: delta
 
 github_keys: {{ salt.sdb.get('sdb://github-lookup/keys?user=' + github_user) | tojson }}
 
@@ -235,3 +238,6 @@ python_pkgs:
   - name: podman-compose
   - name: ranger-fm
     venv: ranger
+
+unlocked:
+  rubidium:

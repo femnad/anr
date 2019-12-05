@@ -222,7 +222,7 @@ Cargo install {{ crate.crate }}:
   cmd.run:
     - name: {{ cargo }} install {{ crate.crate }}
     - unless:
-        - {{ home }}/.cargo/bin/{{ crate.exec }}
+        - {{ home }}/.cargo/bin/{{ crate.exec | default(crate.crate) }}
 {% endfor %}
 
 {% for bin in pillar['home_bins'] %}
@@ -306,7 +306,7 @@ Clipmenud user service:
         systemctl --user start clipmenud
         systemctl --user enable clipmenud
 
-{% if pillar['is_laptop'] %}
+{% if pillar['is_laptop'] and grains['host'] not in pillar['unlocked'] %}
 Lock user service:
   file.managed:
     - name: {{ home }}/.config/systemd/user/xautolock.service
