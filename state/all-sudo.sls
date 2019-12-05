@@ -216,3 +216,10 @@ Set default Python:
   cmd.run:
     - name: update-alternatives --install /usr/bin/python python $(which python3) 1
 {% endif %}
+
+Add user to wireshark group:
+  user.present:
+    - name: {{ user }}
+    - groups:
+        - wireshark
+    - remove_groups: False

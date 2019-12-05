@@ -36,6 +36,7 @@ packages:
   - gcc
   - git
   - git-crypt
+  - highlight
   - htop
   - jq
   - make
@@ -43,6 +44,7 @@ packages:
   - pass
   - playerctl
   - pwgen
+  - qutebrowser
   - rofi
   - ratpoison
   - sxiv
@@ -59,6 +61,7 @@ packages:
   - texinfo
   - urlview
   - weechat
+  - wireshark
   - xautolock
   - zathura
   - zathura-pdf-poppler
