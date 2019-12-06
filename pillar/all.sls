@@ -48,6 +48,7 @@ packages:
   - qutebrowser
   - rofi
   - ratpoison
+  - rlwrap
   - sxiv
   - strace
   - tig
@@ -115,6 +116,7 @@ packages:
   {% if is_fedora %}
   - gcc-c++
   - git-crypt
+  - java-11-openjdk
   - kernel-devel
   - kernel-headers
   - libmnl-devel
@@ -241,3 +243,6 @@ python_pkgs:
 
 unlocked:
   rubidium:
+
+clone_compile:
+  - repo: https://github.com/jpmens/jo.git

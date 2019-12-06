@@ -7,6 +7,10 @@ Break dependency cycles:
       - ffmpeg
 {% endif %}
 
+Up-to-date packages:
+  pkg.uptodate:
+    - refresh: true
+
 Packages:
-  pkg.latest:
+  pkg.installed:
     - pkgs: {{ pillar['packages'] | tojson }}

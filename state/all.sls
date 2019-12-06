@@ -6,7 +6,6 @@
 {% set is_fedora = pillar['is_fedora'] %}
 {% set cargo = home + '/.cargo/bin/cargo' %}
 {% set package_dir = pillar['package_dir'] %}
-{% set virtualenv_base = home + '/' + pillar['virtualenv_dir'] %}
 
 {% for dir in pillar['home_dirs'] %}
 Home Dir {{ dir }}:
@@ -370,16 +369,6 @@ Add GitHub key {{ key.id }} as authorized:
   file.append:
     - name: {{ home }}/.ssh/authorized_keys
     - text: {{ key.key }}
-{% endfor %}
-
-{% for package in pillar['python_pkgs'] %}
-{% set venv = virtualenv_base + '/' + (package.venv | default(package.name)) %}
-Install Python package {{ package.name }}:
-  virtualenv.managed:
-    - name: {{ venv }}
-  pip.installed:
-    - name: {{ package.name }}
-    - bin_env: {{ venv }}
 {% endfor %}
 
 Initialize Jedi for Emacs:
