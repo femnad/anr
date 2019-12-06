@@ -33,6 +33,7 @@ packages:
   - dzen2
   - emacs
   - fish
+  - ffmpeg
   - gcc
   - git
   - git-crypt
@@ -246,3 +247,7 @@ unlocked:
 
 clone_compile:
   - repo: https://github.com/jpmens/jo.git
+
+rpmfusion_releases:
+  - free
+  - nonfree
