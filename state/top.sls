@@ -6,6 +6,7 @@ base:
     - compile
     - packages
     - python-packages
+    - rust-packages
     - all-sudo
   private:
     - private

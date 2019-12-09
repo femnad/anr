@@ -33,7 +33,6 @@ packages:
   - dzen2
   - emacs
   - fish
-  - ffmpeg
   - gcc
   - git
   - git-crypt
@@ -42,6 +41,7 @@ packages:
   - jq
   - maim
   - make
+  - most
   - mutt
   - pass
   - playerctl
@@ -101,6 +101,7 @@ packages:
   - libpython3-dev
   - libssl-dev
   - libx11-dev
+  - libxcb-screensaver0-dev
   - libxfixes-dev
   - python3-dev
   - resolvconf
@@ -115,6 +116,7 @@ packages:
   {% endif %}
 
   {% if is_fedora %}
+  - ffmpeg
   - gcc-c++
   - git-crypt
   - java-11-openjdk
@@ -225,17 +227,17 @@ binary_only_archives:
 
 cargo:
   - crate: fd-find
-    exec: fd
+    unless: fd -V
   {% if (is_ubuntu and grains['osmajorrelease'] < 19) %}
   - crate: ripgrep
-    exec: rg
   {% endif %}
   - crate: bat
   - crate: git-delta
-    exec: delta
+    unless: delta -V
+  {% if is_laptop %}
   - crate: xidlehook
     bins: true
-    exec: xidlehook --version
+  {% endif %}
 
 github_keys: {{ salt.sdb.get('sdb://github-lookup/keys?user=' + github_user) | tojson }}
 
@@ -244,9 +246,6 @@ python_pkgs:
   - name: ranger-fm
     venv: ranger
 
-unlocked:
-  rubidium:
-
 clone_compile:
   - repo: https://github.com/jpmens/jo.git
 
@@ -254,5 +253,10 @@ rpmfusion_releases:
   - free
   - nonfree
 
+unlocked:
+  rubidium:
+
 xidlehook_options:
   lithium: --not-when-fullscreen
+
+rust_update: false
