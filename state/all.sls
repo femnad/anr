@@ -6,6 +6,7 @@
 {% set is_fedora = pillar['is_fedora'] %}
 {% set cargo = home + '/.cargo/bin/cargo' %}
 {% set package_dir = pillar['package_dir'] %}
+{% set host = grains['host'] %}
 
 {% for dir in pillar['home_dirs'] %}
 Home Dir {{ dir }}:
@@ -145,42 +146,6 @@ Add castle {{ castle }}:
         - homeshick
 {% endfor %}
 
-{% for dir in pillar['vim_dirs'] %}
-Initialize directory {{ dir }}:
-  file.directory:
-    - name: {{ home }}/.vim/{{ dir }}
-    - makedirs: true
-{% endfor %}
-
-VimPlug:
-  file.managed:
-    - name: {{ home }}/.vim/autoload/plug.vim
-    - source: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    - skip_verify: true
-    - makedirs: true
-  cmd.run:
-    - name: vim -c ":PlugInstall" -c ":quitall"
-    - unless:
-      - ls {{ home }}/.vim/plugged/YouCompleteMe/third_party/ycmd
-
-Module:
-  cmd.run:
-    - name: git submodule update --init --recursive
-    - cwd: {{ home }}/.vim/plugged/YouCompleteMe
-    - require:
-      - VimPlug
-    - unless:
-      - ls {{ home }}/.vim/plugged/YouCompleteMe/third_party/ycmd
-
-YouCompleteMe:
-  cmd.run:
-    - name: python3 ./install.py --rust-completer --go-completer
-    - cwd: {{ home }}/.vim/plugged/YouCompleteMe
-    - require:
-      - Module
-    - unless:
-      - ls {{ home }}/.vim/plugged/YouCompleteMe/python/ycm/__pycache__/__init__.cpython-37.pyc
-
 Tilix schemes:
 {% set target = pillar['clone_dir'] + '/Tilix-Themes' %}
   git.cloned:
@@ -219,7 +184,7 @@ Download binary archive {{ archive.name | default(archive.url) }}:
 {% for crate in pillar['cargo'] %}
 Cargo install {{ crate.crate }}:
   cmd.run:
-    - name: {{ cargo }} install {{ crate.crate }}
+    - name: {{ cargo }} install {{ crate.crate }}{% if crate.bins is defined and crate.bins %} --bins{% endif %}
     - unless:
         - {{ home }}/.cargo/bin/{{ crate.exec | default(crate.crate) }}
 {% endfor %}
@@ -305,17 +270,24 @@ Clipmenud user service:
         systemctl --user start clipmenud
         systemctl --user enable clipmenud
 
-{% if pillar['is_laptop'] and grains['host'] not in pillar['unlocked'] %}
+{% if pillar['is_laptop'] and host not in pillar['unlocked'] %}
+Disable Xautolock:
+  cmd.run:
+    - name: |
+        systemctl --user disable xautolock
+        systemctl --user stop xautolock
+
+{% set host_specific_options = pillar['xidlehook_options'].get(host, None) %}
 Lock user service:
   file.managed:
-    - name: {{ home }}/.config/systemd/user/xautolock.service
+    - name: {{ home }}/.config/systemd/user/xidlehook.service
     - makedirs: True
     - source: salt://services/service.j2
     - template: jinja
     - context:
         service:
-          description: Xautolock daemon
-          exec: /usr/bin/xautolock -time 10 -locker 'i3lock -e -c 000000' -notifier "notify-send 'Heads Up!' 'Locking in 60 seconds'" -detectsleep
+          description: Xidlehook daemon
+          exec: {{ home }}/.cargo/bin/xidlehook --timer 600{% if host_specific_options != None %} 'i3lock -e -c 000000' '' {{ ' '.join(host_specific_options) }}{% endif %}
           wanted_by: default
           environment:
             - 'DISPLAY=:0'
@@ -325,8 +297,8 @@ Lock user service:
   cmd.run:
     - name: |
         systemctl --user daemon-reload
-        systemctl --user start xautolock
-        systemctl --user enable xautolock
+        systemctl --user enable xidlehook
+        systemctl --user start xidlehook
 {% endif %}
 
 Stumpwm contrib:

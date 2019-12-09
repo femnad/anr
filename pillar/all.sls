@@ -233,6 +233,9 @@ cargo:
   - crate: bat
   - crate: git-delta
     exec: delta
+  - crate: xidlehook
+    bins: true
+    exec: xidlehook --version
 
 github_keys: {{ salt.sdb.get('sdb://github-lookup/keys?user=' + github_user) | tojson }}
 
@@ -250,3 +253,7 @@ clone_compile:
 rpmfusion_releases:
   - free
   - nonfree
+
+xidlehook_options:
+  lithium:
+    - --not-when-fullscreen

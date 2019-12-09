@@ -1,6 +1,7 @@
 base:
   self:
     - all
+    - vim
   self-sudo:
     - compile
     - packages
