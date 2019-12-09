@@ -287,7 +287,7 @@ Lock user service:
     - context:
         service:
           description: Xidlehook daemon
-          exec: {{ home }}/.cargo/bin/xidlehook --timer 600{% if host_specific_options != None %} 'i3lock -e -c 000000' '' {{ ' '.join(host_specific_options) }}{% endif %}
+          exec: {{ home }}/.cargo/bin/xidlehook --timer 600 'i3lock -e -c 000000' ''{% if host_specific_options != None %} {{ host_specific_options }}{% endif %}
           wanted_by: default
           environment:
             - 'DISPLAY=:0'

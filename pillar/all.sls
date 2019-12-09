@@ -255,5 +255,4 @@ rpmfusion_releases:
   - nonfree
 
 xidlehook_options:
-  lithium:
-    - --not-when-fullscreen
+  lithium: --not-when-fullscreen
