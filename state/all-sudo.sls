@@ -199,6 +199,8 @@ Set default Python:
 {% endif %}
 
 Add user to wireshark group:
+  group.present:
+    - name: wireshark
   user.present:
     - name: {{ user }}
     - groups:

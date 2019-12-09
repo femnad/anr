@@ -50,14 +50,15 @@ packages:
   - rofi
   - ratpoison
   - rlwrap
+  - sbcl
   - sxiv
   - strace
-  - tig
   - thunderbird
+  - tig
   - tilix
   - tmux
-  - unzip
   - texinfo
+  - unzip
   - urlview
   - weechat
   - w3m
@@ -129,7 +130,6 @@ packages:
   - vim-enhanced
   - libX11-devel
   - libXfixes-devel
-  - sbcl
   - terminus-fonts
   - xorg-x11-apps
   - xorg-x11-utils
