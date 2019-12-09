@@ -101,7 +101,6 @@ Clipnotify installed:
     - name: /usr/local/bin/clipnotify
     - source: {{ clone_dir }}/clipnotify/clipnotify
 
-{% if is_fedora %}
 {% set quicklisp = package_dir + '/quicklisp/quicklisp.lisp' %}
 Quicklisp installed:
   file.managed:
@@ -151,7 +150,6 @@ Stumpwm installed:
     - name: /usr/share/xsessions/stumpwm.desktop
     - source: salt://xsessions/stumpwm.desktop
     - makedirs: true
-{% endif %}
 
 {% if pillar['is_ubuntu'] %}
 Install Spotify:

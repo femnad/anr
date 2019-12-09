@@ -103,7 +103,6 @@ packages:
   - libxfixes-dev
   - python3-dev
   - resolvconf
-  - stumpwm
   - vim-gtk3
   - x11proto-dev
   - x11-utils
