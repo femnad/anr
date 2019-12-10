@@ -104,6 +104,7 @@ packages:
   - libx11-dev
   - libxcb-screensaver0-dev
   - libxfixes-dev
+  - libclang-dev
   - python3-dev
   - resolvconf
   - vim-gtk3
