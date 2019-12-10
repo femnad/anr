@@ -260,3 +260,6 @@ xidlehook_options:
   lithium: --not-when-fullscreen
 
 rust_update: false
+
+skip_rpmfusion:
+  francium:
