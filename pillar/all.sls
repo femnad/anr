@@ -1,5 +1,6 @@
 home: {{ salt.sdb.get('sdb://osenv/HOME') }}
 clone_dir: {{ salt.sdb.get('sdb://osenv/HOME') + '/z/gl' }}
+self_clone_dir: {{ salt.sdb.get('sdb://osenv/HOME') + '/z/fm' }}
 package_dir: {{ salt.sdb.get('sdb://osenv/HOME') + '/z/dy' }}
 tmux: {{ salt.sdb.get('sdb://osenv/TMUX') }}
 user: {{ salt.sdb.get('sdb://osenv/USER') }}

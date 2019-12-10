@@ -1,6 +1,7 @@
 base:
   self:
     - all
+    - clone
     - vim
   self-sudo:
     - compile

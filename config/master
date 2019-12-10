@@ -22,3 +22,5 @@ github-lookup:
   keys:
     url: https://api.github.com/users/{{user}}/keys
     backend: requests
+
+gpg_keydir: /home/femnad/.gnupg

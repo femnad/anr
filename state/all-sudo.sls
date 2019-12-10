@@ -175,13 +175,13 @@ Compile WireGuard:
   git.cloned:
     - name: https://git.zx2c4.com/WireGuard
     - target: {{ wireguard }}
+    - user: {{ user }}
   cmd.run:
     - name: make
     - cwd: {{ wireguard_source }}
-    - user: {{ user }}
-    - group: {{ user }}
+    - runas: {{ user }}
     - unless:
-      - wg
+      - wg show all
 
 Install WireGuard:
   cmd.run:
@@ -190,7 +190,7 @@ Install WireGuard:
         - Compile WireGuard
     - cwd: {{ wireguard_source }}
     - unless:
-      - wg
+      - wg show all
 
 {% if pillar['is_ubuntu'] %}
 Set default Python:

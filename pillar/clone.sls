@@ -1,0 +1,2 @@
+clonees:
+  - repo: femnad/stuff
