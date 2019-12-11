@@ -206,3 +206,9 @@ Add user to wireshark group:
     - groups:
         - wireshark
     - remove_groups: False
+
+Set Inotify watch limit:
+  sysctl.present:
+    - name: fs.inotify.max_user_watches
+    - value: 524288
+    - config: /etc/sysctl.d/83-inotify-max.conf

@@ -122,6 +122,7 @@ packages:
   - gcc-c++
   - git-crypt
   - java-11-openjdk
+  - java-11-openjdk-devel
   - kernel-devel
   - kernel-headers
   - libmnl-devel
