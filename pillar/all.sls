@@ -35,6 +35,7 @@ packages:
   - emacs
   - fish
   - gcc
+  - gimp
   - git
   - git-crypt
   - highlight
@@ -203,10 +204,10 @@ archives:
     clean: true
     hash: 0804bf02020dceaa8a7d7275ee79f7a142f1996bfd0c39216ccb405f93f994c0
     name: go
-  - url: https://az764295.vo.msecnd.net/stable/f359dd69833dd8800b54d458f6d37ab7c78df520/code-stable-1574694065.tar.gz
+  - url: https://az764295.vo.msecnd.net/stable/9579eda04fdb3a9bba2750f15193e5fafe16b959/code-stable-1576089840.tar.gz
     exec: VSCode-linux-x64/code
     clean: true
-    hash: 6278e0838490aa25a6a58f667576945e6fe49491707be441e41faeeb89ef8ed4
+    hash: 74a4f977daf4315863ef01c08177dc6bc6b235e47684e3943ce1cd50d0123cfe
   # Undetermined weirdness with packaged Firefox ctrl+t behavior in Ratpoison/Stumpwm
   {% if is_fedora %}
   - url: https://download-installer.cdn.mozilla.net/pub/firefox/releases/70.0.1/linux-x86_64/en-US/firefox-70.0.1.tar.bz2
