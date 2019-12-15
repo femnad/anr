@@ -23,3 +23,11 @@ Disable ERTM for Xbox Wireless Controller:
     - name: /etc/modprobe.d/xbox_bt.conf
     - contents: options bluetooth disable_ertm=1
     - makedirs: true
+
+{% if (grains['gpus'] | selectattr('vendor', 'equalto', 'intel') | list | length) > 0 %}
+{% if pillar['is_fedora'] %}
+Install Intel VA Driver:
+  pkg.installed:
+    - name: libva-intel-driver
+{% endif %}
+{% endif %}
