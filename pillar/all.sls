@@ -221,6 +221,11 @@ archives:
   - url: https://dl.google.com/dl/cloudsdk/channels/rapid/google-cloud-sdk.tar.gz
     exec: google-cloud-sdk/bin/gcloud
     name: gcloud
+  - url: https://github.com/crystal-lang/crystal/releases/download/0.32.0/crystal-0.32.0-1-linux-x86_64.tar.gz
+    exec: crystal-0.32.0-1/bin/crystal
+    bin_links:
+      - shards
+    hash: 608db8d2a2296792022dad7a351ca96496e2565fbf16ac0172a66f6720d601eb
 
 binary_only_archives:
   - url: https://releases.hashicorp.com/terraform/0.12.16/terraform_0.12.16_linux_amd64.zip

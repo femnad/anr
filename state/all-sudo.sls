@@ -161,6 +161,10 @@ Install Spotify:
 Enable bitmap fonts:
   file.absent:
     - name: /etc/fonts/conf.d/70-no-bitmaps.conf
+
+Disable ptrace hardening:
+  file.absent:
+    - name: /etc/sysctl.d/10-ptrace.conf
 {% endif %}
 
 {% if pillar['is_arch'] %}

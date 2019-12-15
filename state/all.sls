@@ -34,6 +34,16 @@ Install {{ archive.name | default(archive.url) }}:
   file.symlink:
     - name: {{ home_bin }}/{{ basename }}
     - target: {{ package_dir }}/{{ archive.exec }}
+
+{% if archive.bin_links is defined %}
+{% for bin_link in archive.bin_links %}
+Link {{ bin_link }}:
+  file.symlink:
+    - name: {{ home_bin }}/{{ bin_link }}
+    - target: {{ package_dir }}/{{ salt['file.dirname'](archive.exec) }}/{{ bin_link }}
+{% endfor %}
+{% endif %}
+
 {% endfor %}
 
 Enable gsutil:
