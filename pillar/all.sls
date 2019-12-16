@@ -232,7 +232,9 @@ binary_only_archives:
     hash: fcc719314660adc66cbd688918d13baa1095301e2e507f9ac92c9e22acf4cc02
     name: terraform
   - url: https://releases.hashicorp.com/vault/1.3.0/vault_1.3.0_linux_amd64.zip
+    hash: d89b8a317831b06f2a32c56cb86071d058b09d9317b416bb509ce3d01e912eb3
   - url: https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v3.4.0/kustomize_v3.4.0_linux_amd64.tar.gz
+    hash: eabfa641685b1a168c021191e6029f66125be94449b60eb12843da8df3b092ba
 
 cargo:
   - crate: fd-find
