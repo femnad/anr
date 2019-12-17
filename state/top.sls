@@ -5,6 +5,7 @@ base:
     - vim
   self-sudo:
     - compile
+    - minikube
     - packages
     - python-packages
     - rust-packages
