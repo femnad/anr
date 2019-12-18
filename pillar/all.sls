@@ -253,9 +253,10 @@ cargo:
 github_keys: {{ salt.sdb.get('sdb://github-lookup/keys?user=' + github_user) | tojson }}
 
 python_pkgs:
-  - name: podman-compose
-  - name: ranger-fm
+  - name: git+https://github.com/ranger/ranger.git@1188d40862ebc629e6d29ae879b777437aed7a16
     venv: ranger
+    reqs:
+      - ueberzug
 
 clone_compile:
   - repo: https://github.com/jpmens/jo.git

@@ -9,4 +9,13 @@ Install Python package {{ package.name }}:
   pip.installed:
     - name: {{ package.name }}
     - bin_env: {{ venv }}
+
+{% if package.reqs is defined %}
+{% for req in package.reqs %}
+Install requirement {{ req }}:
+  pip.installed:
+    - name: {{ req }}
+    - bin_env: {{ venv }}
+{% endfor %}
+{% endif %}
 {% endfor %}
