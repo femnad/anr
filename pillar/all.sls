@@ -132,6 +132,7 @@ packages:
   - python3-devel
   - python3-ipython
   - python3-virtualenv
+  - openssl-devel
   - vim-X11
   - vim-enhanced
   - libX11-devel
