@@ -65,6 +65,7 @@ packages:
   - weechat
   - w3m
   - wget
+  - whois
   - wireshark
   - xdotool
   - xsel
@@ -160,7 +161,7 @@ go_install:
 go_path: {{ salt.sdb.get('sdb://osenv/HOME') + '/z/sc/go' }}
 
 go_get:
-  - pkg: github.com/femnad/stuff/...
+  - pkg: github.com/femnad/stuff/cmd/...
   - pkg: github.com/aykamko/tag/...
     unless: tag -V
   - pkg: github.com/googlecloudplatform/gcsfuse
