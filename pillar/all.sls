@@ -105,10 +105,12 @@ packages:
   - libssl-dev
   - libx11-dev
   - libxcb-screensaver0-dev
+  - libxext-dev
   - libxfixes-dev
   - libclang-dev
   - python3-dev
   - resolvconf
+  - surfraw
   - vim-gtk3
   - x11proto-dev
   - x11-utils
