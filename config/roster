@@ -17,3 +17,8 @@ shadow:
   user: femnad
   priv: agent-forwarding
   sudo: true
+steam:
+  host: localhost
+  user: femnad
+  priv: agent-forwarding
+  sudo: true

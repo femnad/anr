@@ -123,6 +123,7 @@ packages:
 
   {% if is_fedora %}
   - ffmpeg
+  - flatpak
   - gcc-c++
   - git-crypt
   - java-11-openjdk
@@ -130,6 +131,7 @@ packages:
   - kernel-devel
   - kernel-headers
   - libmnl-devel
+  - NetworkManager-tui
   - pinentry-gtk
   - podman
   - python3-devel

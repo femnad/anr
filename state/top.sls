@@ -5,6 +5,9 @@ base:
     - vim
   self-sudo:
     - compile
+    {% if pillar['is_fedora']
+    - flatpak
+    {% endif %}
     - minikube
     - packages
     - python-packages
@@ -14,3 +17,5 @@ base:
     - private
   shadow:
     - shadow
+  steam:
+    - steam

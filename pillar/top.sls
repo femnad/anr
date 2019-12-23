@@ -1,5 +1,5 @@
 base:
-  L@self,self-sudo,private,shadow:
+  L@self,self-sudo,private,shadow,steam:
     - all
     - clone
     - secret
