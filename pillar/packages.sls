@@ -132,3 +132,15 @@ packages:
   {% if not is_fedora %}
   - firefox
   {% endif %}
+
+qmk_packages:
+  {% if is_fedora %}
+  - dfu-util
+  - dfu-programmer
+  - avr-gcc
+  - avr-libc
+  - binutils-avr32-linux-gnu
+  - arm-none-eabi-gcc-cs
+  - arm-none-eabi-binutils-cs
+  - arm-none-eabi-newlib
+  {% endif %}
