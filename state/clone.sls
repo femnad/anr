@@ -4,10 +4,13 @@
 {% set site = clonee.site | default('github.com') %}
 {% set repo = 'git@' + site + ':' + clonee.repo + '.git' %}
 
-Clone {{ name }}:
-  git.cloned:
+Clone self repo {{ name }}:
+  git.latest:
     - name: {{ repo }}
     - target: {{ target }}
+    {% if clonee.submodule is defined and clonee.submodule %}
+    - submodules: true
+    {% endif %}
 
 Set username for {{ name }}:
   git.config_set:

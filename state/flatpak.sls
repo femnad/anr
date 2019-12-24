@@ -18,7 +18,7 @@ Install Spotify via Flatpak:
 Add Flatpak Spotify script:
   file.managed:
     - name: {{ home_bin }}/spotify
-    - content: |
+    - contents: |
         #!/usr/bin/env bash
         flatpak run com.spotify.Client
     - mode: 0755

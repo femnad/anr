@@ -4,6 +4,7 @@ base:
     - clone
     - vim
   self-sudo:
+    - all-sudo
     - compile
     {% if pillar['is_fedora']
     - flatpak
@@ -11,8 +12,8 @@ base:
     - minikube
     - packages
     - python-packages
+    - qmk
     - rust-packages
-    - all-sudo
   private:
     - private
   shadow:
