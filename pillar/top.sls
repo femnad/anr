@@ -6,3 +6,5 @@ base:
     - secret
   private:
     - private
+  server:
+    - server-packages

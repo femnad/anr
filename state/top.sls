@@ -16,6 +16,8 @@ base:
     - rust-packages
   private:
     - private
+  server:
+    - server-packages
   shadow:
     - shadow
   steam:
