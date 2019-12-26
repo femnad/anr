@@ -76,10 +76,10 @@ mutt_dirs:
   - gm
 
 archives:
-  - url: https://dl.google.com/go/go1.13.5.linux-amd64.tar.gz
+  - url: https://dl.google.com/go/go1.13.3.linux-amd64.tar.gz
     exec: go/bin/go
     clean: true
-    hash: 512103d7ad296467814a6e3f635631bd35574cab3369a97a323c9a585ccaa569
+    hash: 0804bf02020dceaa8a7d7275ee79f7a142f1996bfd0c39216ccb405f93f994c0
     name: go
   - url: https://az764295.vo.msecnd.net/stable/9579eda04fdb3a9bba2750f15193e5fafe16b959/code-stable-1576089840.tar.gz
     exec: VSCode-linux-x64/code

@@ -22,8 +22,3 @@ steam:
   user: femnad
   priv: agent-forwarding
   sudo: true
-server:
-  host: localhost
-  user: femnad
-  priv: agent-forwarding
-  sudo: true
