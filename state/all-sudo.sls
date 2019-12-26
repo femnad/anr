@@ -86,6 +86,12 @@ Lock on suspend:
           Environment: 'DISPLAY=:0'
   service.enabled:
     - name: suspend@{{ user }}
+
+Libinput configured:
+  file.managed:
+    - name: /etc/X11/xorg.conf.d/30-touchpad.conf
+    - source: salt://xorg/touchpad.conf
+    - makedirs: true
 {% endif %}
 
 Clipnotify installed:
