@@ -137,6 +137,7 @@ python_pkgs:
 
 clone_compile:
   - repo: https://github.com/jpmens/jo.git
+    unless: jo -v
 
 rpmfusion_releases:
   - free

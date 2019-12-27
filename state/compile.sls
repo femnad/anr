@@ -8,10 +8,14 @@
 {% set dir = clone_dir + '/' + name %}
 
 Compile {{ name }}:
-  git.cloned:
+  git.latest:
     - name: {{ cc.repo }}
     - target: {{ clone_dir }}/{{ name }}
     - user: {{ user }}
+    {% if cc.unless is defined %}
+    - unless:
+      - {{ cc.unless }}
+    {% endif %}
   cmd.run:
     - name: |
         autoreconf -i
@@ -19,10 +23,18 @@ Compile {{ name }}:
         make
     - cwd: {{ dir }}
     - runas: {{ user }}
+    {% if cc.unless is defined %}
+    - unless:
+      - {{ cc.unless }}
+    {% endif %}
 
 Install {{ name }}:
   cmd.run:
     - name: make install
     - cwd: {{ dir }}
+    {% if cc.unless is defined %}
+    - unless:
+      - {{ cc.unless }}
+    {% endif %}
 
 {% endfor %}
