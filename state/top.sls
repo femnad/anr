@@ -6,7 +6,7 @@ base:
   self-sudo:
     - all-sudo
     - compile
-    {% if pillar['is_fedora']
+    {% if pillar['is_fedora'] %}
     - flatpak
     {% endif %}
     - minikube
