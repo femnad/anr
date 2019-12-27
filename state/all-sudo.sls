@@ -182,7 +182,7 @@ Enable lxdm:
 Compile WireGuard:
 {% set wireguard = clone_dir + '/WireGuard' %}
 {% set wireguard_source = wireguard + '/src' %}
-  git.cloned:
+  git.latest:
     - name: https://git.zx2c4.com/WireGuard
     - target: {{ wireguard }}
     - user: {{ user }}

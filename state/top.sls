@@ -2,6 +2,9 @@ base:
   self:
     - all
     - clone
+    - minikube
+    - python-packages
+    - rust-packages
     - vim
   self-sudo:
     - all-sudo
@@ -9,11 +12,9 @@ base:
     {% if pillar['is_fedora'] %}
     - flatpak
     {% endif %}
-    - minikube
+    - libvirt
     - packages
-    - python-packages
     - qmk
-    - rust-packages
   private:
     - private
   shadow:
