@@ -186,12 +186,14 @@ Compile WireGuard:
     - name: https://git.zx2c4.com/WireGuard
     - target: {{ wireguard }}
     - user: {{ user }}
+    - unless:
+      - ls /usr/lib/modules/$(uname -r)/extra/wireguard.ko
   cmd.run:
     - name: make
     - cwd: {{ wireguard_source }}
     - runas: {{ user }}
     - unless:
-      - wg show all
+      - ls /usr/lib/modules/$(uname -r)/extra/wireguard.ko
 
 Install WireGuard:
   cmd.run:
@@ -200,7 +202,7 @@ Install WireGuard:
         - Compile WireGuard
     - cwd: {{ wireguard_source }}
     - unless:
-      - wg show all
+      - ls /usr/lib/modules/$(uname -r)/extra/wireguard.ko
 
 {% if pillar['is_ubuntu'] %}
 Set default Python:
