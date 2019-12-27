@@ -221,7 +221,7 @@ Start and Enable System Resolved:
     - name: systemd-resolved
     - enable: true
     - watch:
-      - file: /etc/systemd/resolved.conf.d
+      - file: /etc/systemd/resolved.conf.d/*
 
 {% if pillar['is_ubuntu'] %}
 Set default Python:
