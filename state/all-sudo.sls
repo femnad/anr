@@ -204,6 +204,25 @@ Install WireGuard:
     - unless:
       - ls /usr/lib/modules/$(uname -r)/extra/wireguard.ko
 
+Ensure resolv.conf is a symlink:
+  file.symlink:
+    - name: /etc/resolv.conf
+    - target: /run/systemd/resolve/stub-resolv.conf
+    - force: true
+
+Add DNS stub file:
+  file.managed:
+    - name: /etc/systemd/resolved.conf.d/dns-servers.conf
+    - source: salt://resolved/dns-servers.conf
+    - makedirs: true
+
+Start and Enable System Resolved:
+  service.running:
+    - name: systemd-resolved
+    - enable: true
+    - watch:
+      - file: /etc/systemd/resolved.conf.d
+
 {% if pillar['is_ubuntu'] %}
 Set default Python:
   cmd.run:
