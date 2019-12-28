@@ -1,7 +1,6 @@
 base:
   self:
     - all
-    - clone
     - minikube
     - python-packages
     - rust-packages
@@ -17,6 +16,7 @@ base:
     - qmk
   private:
     - private
+    - clone
   shadow:
     - shadow
   steam:
