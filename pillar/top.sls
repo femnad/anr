@@ -5,5 +5,3 @@ base:
   private:
     - clone
     - private
-  self:
-    - secret

@@ -1,3 +1,5 @@
+github_email: femnad@users.noreply.github.com
+
 clonees:
   - repo: fish-shell/fish-shell
   - repo: hashicorp/terraform
