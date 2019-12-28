@@ -51,7 +51,6 @@ packages:
   - wireshark
   - xdotool
   - xsel
-  - xautolock
   - zathura
   - zathura-pdf-poppler
   - zeal

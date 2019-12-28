@@ -258,13 +258,6 @@ Clipmenud user service:
         systemctl --user start clipmenud
         systemctl --user enable clipmenud
 
-{% if pillar['is_laptop'] and host not in pillar['unlocked'] %}
-Disable Xautolock:
-  cmd.run:
-    - name: |
-        systemctl --user disable xautolock
-        systemctl --user stop xautolock
-
 {% set host_specific_options = pillar['xidlehook_options'].get(host, None) %}
 Lock user service:
   file.managed:
