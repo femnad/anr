@@ -2,9 +2,7 @@
 
 Install Libvirt and qemu:
   pkg.installed:
-    - pkgs:
-      - libvirt
-      - qemu
+    - pkgs: {{ pillar['libvirt_packages'] | tojson }}
 
 Set Libvirtd socket owner:
   file.line:

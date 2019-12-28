@@ -26,7 +26,9 @@ packages:
   - most
   - mutt
   - pass
+  {% if not (is_ubuntu and grains['osmajorrelease'] < 19) %}
   - playerctl
+  {% endif %}
   - pwgen
   - qutebrowser
   - rofi
@@ -143,4 +145,10 @@ qmk_packages:
   - arm-none-eabi-gcc-cs
   - arm-none-eabi-binutils-cs
   - arm-none-eabi-newlib
+  {% endif %}
+
+libvirt_packages:
+  {% if is_fedora %}
+  - libvirt
+  - qemu
   {% endif %}
