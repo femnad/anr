@@ -109,15 +109,23 @@ Unset Gopath:
 {% set dir = repo.url.split('/')[-1].split('.')[0] %}
 {% set clone_path = pillar['clone_dir'] + '/' + dir %}
 Install Go package from {{ repo.url }}:
-  git.cloned:
+  git.latest:
     - name: {{ repo.url }}
     - target: {{ clone_path }}
+    {% if repo.unless is defined %}
+    - unless:
+        - {{ repo.unless }}
+    {% endif %}
   cmd.run:
     - name: {{ go_bin }} install
     {% if repo.path is defined %}
     - cwd: {{ clone_path }}/{{ repo.path }}
     {% else %}
     - cwd: {{ clone_path }}
+    {% endif %}
+    {% if repo.unless is defined %}
+    - unless:
+        - {{ repo.unless }}
     {% endif %}
 {% endfor %}
 
@@ -165,7 +173,7 @@ mutt init {{ prefix }} {{ cache }}:
 {% for archive in pillar['binary_only_archives'] %}
 Download binary archive {{ archive.name | default(archive.url) }}:
   archive.extracted:
-    - name: {{ home }}/bin
+    - name: {{ home_bin }}
     - source: {{ archive.url }}
     {% if archive.hash is defined %}
     - source_hash: {{ archive.hash }}
@@ -289,14 +297,22 @@ Rossa compiled:
   git.cloned:
     - name: https://github.com/femnad/rossa.git
     - target: {{ rossa_dir }}
+    - unless:
+        - rossa -v
   cmd.run:
     - name: make
     - cwd: {{ rossa_dir }}
+    - unless:
+        - rossa -v
 
 Rossa installed:
   cmd.run:
     - name: make install
     - cwd: {{ rossa_dir }}
+    - unless:
+        - rossa -v
+
+Rossa service:
   file.managed:
     - name: {{ home }}/.config/systemd/user/rossa.service
     - makedirs: True
@@ -305,13 +321,18 @@ Rossa installed:
     - context:
         service:
           description: Rossa daemon
-          exec: {{ home }}//bin/rossa
+          exec: {{ home_bin }}/rossa
           wanted_by: default
           environment:
             - 'DISPLAY=:0'
           options:
             Restart: always
             RestartSec: 5
+  cmd.run:
+    - name: |
+        systemctl --user daemon-reload
+        systemctl --user enable rossa
+        systemctl --user start rossa
 {% endif %} # is laptop
 
 Stumpwm contrib:
@@ -343,7 +364,7 @@ Clone Tmux thumbs:
     - name: {{ cargo }} build --release
     - cwd: {{ home }}/.tmux/plugins/tmux-thumbs
     - unless:
-      - {{ home }}/.tmux/plugins/tmux-thumbs/target/release/tmux-thumbs
+      - {{ home }}/.tmux/plugins/tmux-thumbs/target/release/tmux-thumbs -V
 
 Load Tilix configuration:
   cmd.run:

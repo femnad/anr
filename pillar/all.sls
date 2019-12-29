@@ -46,8 +46,10 @@ go_get:
 
 go_cloned_install:
   - url: https://github.com/mikefarah/yq.git
+    unless: yq -V
   - url: https://github.com/boz/kail.git
     path: cmd/kail
+    unless: kail version
 
 go_get_gopath:
   - pkg: github.com/junegunn/fzf
@@ -81,10 +83,10 @@ archives:
     clean: true
     hash: 0804bf02020dceaa8a7d7275ee79f7a142f1996bfd0c39216ccb405f93f994c0
     name: go
-  - url: https://az764295.vo.msecnd.net/stable/9579eda04fdb3a9bba2750f15193e5fafe16b959/code-stable-1576089840.tar.gz
+  - url: https://az764295.vo.msecnd.net/stable/26076a4de974ead31f97692a0d32f90d735645c0/code-stable-1576682093.tar.gz
     exec: VSCode-linux-x64/code
     clean: true
-    hash: 74a4f977daf4315863ef01c08177dc6bc6b235e47684e3943ce1cd50d0123cfe
+    hash: 2a2353ea85b5a3d729e0134ff36b29461bb4264b708786e2486927b7f3c06601
   # Undetermined weirdness with packaged Firefox ctrl+t behavior in Ratpoison/Stumpwm
   {% if is_fedora %}
   - url: https://download-installer.cdn.mozilla.net/pub/firefox/releases/70.0.1/linux-x86_64/en-US/firefox-70.0.1.tar.bz2

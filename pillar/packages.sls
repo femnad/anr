@@ -100,6 +100,7 @@ packages:
   {% endif %}
 
   {% if not (is_ubuntu and grains['osmajorrelease'] < 19) %}
+  - dconf-cli
   - ripgrep
   {% endif %}
 
