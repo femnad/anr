@@ -100,6 +100,7 @@ packages:
 
     {% if grains['osmajorrelease'] < 19 %}
   - dconf-cli
+    {% else %}
   - ripgrep
     {% endif %}
 
