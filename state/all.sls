@@ -258,7 +258,9 @@ Clipmenud user service:
         systemctl --user start clipmenud
         systemctl --user enable clipmenud
 
-{% set host_specific_options = pillar['xidlehook_options'].get(host, None) %}
+{% if pillar['is_laptop'] %}
+  {% if host not in pillar['unlocked'] %}
+  {% set host_specific_options = pillar['xidlehook_options'].get(host, None) %}
 Lock user service:
   file.managed:
     - name: {{ home }}/.config/systemd/user/xidlehook.service
@@ -280,7 +282,37 @@ Lock user service:
         systemctl --user daemon-reload
         systemctl --user enable xidlehook
         systemctl --user start xidlehook
-{% endif %}
+  {% endif %} # host not unlocked
+
+  {% set rossa_dir = clone_dir + '/rossa' %}
+Rossa compiled:
+  git.cloned:
+    - name: https://github.com/femnad/rossa.git
+    - target: {{ rossa_dir }}
+  cmd.run:
+    - name: make
+    - cwd: {{ rossa_dir }}
+
+Rossa installed:
+  cmd.run:
+    - name: make install
+    - cwd: {{ rossa_dir }}
+  file.managed:
+    - name: {{ home }}/.config/systemd/user/rossa.service
+    - makedirs: True
+    - source: salt://services/service.j2
+    - template: jinja
+    - context:
+        service:
+          description: Rossa daemon
+          exec: {{ home }}//bin/rossa
+          wanted_by: default
+          environment:
+            - 'DISPLAY=:0'
+          options:
+            Restart: always
+            RestartSec: 5
+{% endif %} # is laptop
 
 Stumpwm contrib:
   git.cloned:

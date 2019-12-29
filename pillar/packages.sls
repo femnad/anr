@@ -64,6 +64,7 @@ packages:
 
   {% if is_laptop %}
   - acpi
+  - libnotify-devel
   {% endif %}
 
   {% if is_arch %}
