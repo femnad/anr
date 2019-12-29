@@ -64,7 +64,6 @@ packages:
 
   {% if is_laptop %}
   - acpi
-  - libnotify-devel
   {% endif %}
 
   {% if is_arch %}
@@ -80,6 +79,11 @@ packages:
   {% endif %}
 
   {% if is_ubuntu %}
+
+    {% if is_laptop %}
+  - libnotify-dev
+    {% endif %}
+
   - ipython3
   - libmnl-dev
   - libnotify-bin
@@ -107,6 +111,11 @@ packages:
   {% endif %}
 
   {% if is_fedora %}
+
+    {% if is_laptop %}
+  - libnotify-devel
+    {% endif %}
+
   - ffmpeg
   - flatpak
   - gcc-c++
