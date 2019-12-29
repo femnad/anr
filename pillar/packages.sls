@@ -97,11 +97,12 @@ packages:
   - x11proto-dev
   - x11-utils
   - xfonts-terminus
-  {% endif %}
 
-  {% if not (is_ubuntu and grains['osmajorrelease'] < 19) %}
+    {% if grains['osmajorrelease'] < 19 %}
   - dconf-cli
   - ripgrep
+    {% endif %}
+
   {% endif %}
 
   {% if is_fedora %}

@@ -146,6 +146,7 @@ rpmfusion_releases:
   - nonfree
 
 unlocked:
+  kalium:
   rubidium:
 
 xidlehook_options:
