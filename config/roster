@@ -1,4 +1,8 @@
 # -*- mode: yaml -*-
+passfuser:
+  host: localhost
+  user: femnad
+  priv: agent-forwarding
 self:
   host: localhost
   user: femnad

@@ -1,4 +1,7 @@
 base:
+  passfuser:
+    - gcsfuse
+    - passfuse-gcp
   self:
     - all
     - minikube

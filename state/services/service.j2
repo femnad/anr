@@ -1,14 +1,16 @@
 [Unit]
 Description={{ service.description }}
-{%- if service.before is defined %}
-Before={{ service.before }}.target
+{%- if service.unit is defined %}
+  {%- for option, value in service.unit.items() %}
+{{ option }}={{ value }}
+  {%- endfor %}
 {%- endif %}
 
 [Service]
-ExecStart={{ service.exec }}
+ExecStart={{ service.executable }}
 {%- if service.environment is defined %}
-{%- for env in service.environment %}
-Environment={{ env }}
+{%- for key, value in service.environment.items() %}
+Environment={{ key }}={{ value }}
 {%- endfor %}
 {%- endif %}
 {%- if service.options is defined %}
