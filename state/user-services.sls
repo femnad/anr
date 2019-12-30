@@ -47,19 +47,12 @@ Clipmenud cache directory:
   'NoNewPrivileges': 'yes',
   'ProtectControlGroups': 'yes',
   'ProtectKernelTunables': 'yes',
-  'RestrictAddressFamilies': None,
+  'RestrictAddressFamilies': '',
   'RestrictRealtime': 'yes',
 } %}
 {% set clipmenud_exec = home_bin + '/clipmenud' %}
 
 {{ systemd_user_service('clipmenud', 'Clipmenud daemon', clipmenud_exec, environment=clipmenud_env, options=clipmenud_options) }}
-
-Start and enable clipmenud:
-  cmd.run:
-    - name: |
-        systemctl --user daemon-reload
-        systemctl --user start clipmenud
-        systemctl --user enable clipmenud
 
 {% if pillar['is_laptop'] %}
   {% if host not in pillar['unlocked'] %}
@@ -74,12 +67,6 @@ Start and enable clipmenud:
 
 {{ systemd_user_service('xidlehook', 'Xidlehook daemon', xidlehook_exec, environment=xidlehook_env, options=xidlehook_options) }}
 
-Start and enable Xidlehook:
-  cmd.run:
-    - name: |
-        systemctl --user daemon-reload
-        systemctl --user enable xidlehook
-        systemctl --user start xidlehook
   {% endif %} # host not unlocked
 
   {% set rossa_dir = clone_dir + '/rossa' %}
@@ -108,10 +95,4 @@ Rossa installed:
 
 {{ systemd_user_service('rossa', 'Rossa daemon', rossa_exec, environment=rossa_env, options=xidlehook_options) }}
 
-Rossa service enabled and running:
-  cmd.run:
-    - name: |
-        systemctl --user daemon-reload
-        systemctl --user enable rossa
-        systemctl --user start rossa
 {% endif %} # is laptop
