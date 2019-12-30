@@ -207,134 +207,6 @@ Build Ratpoison helpers:
     - onlyif:
       - ratpoison -v
 
-Clipmenu cloned:
-  git.cloned:
-    - name: https://github.com/cdown/clipmenu
-    - target: {{ clone_dir }}/clipmenu
-
-{% for bin in ['del', 'menu', 'menud'] %}
-Link Clipmenu {{ bin }}:
-  file.symlink:
-    - name: {{home_bin}}/clip{{ bin }}
-    - target: {{ clone_dir }}/clipmenu/clip{{ bin }}
-{% endfor %}
-
-{% if is_fedora %}
-# unwilligness to investigate flock issues in Fedora
-{% for bin in ['del', 'menu', 'menud'] %}
-Clipmenu {{ bin }} modified:
-  file.line:
-    - name: {{ clone_dir }}/clipmenu/clip{{ bin }}
-    - mode: insert
-    - content: CM_DIR={{ home }}/.cache/clipmenu
-    - after: '#!/usr/bin/env bash'
-{% endfor %}
-
-Clipmenud cache directory:
-  file.directory:
-    - name: {{ home }}/.cache/clipmenu
-{% endif %}
-
-Clipmenud user service:
-  file.managed:
-    - name: {{ home }}/.config/systemd/user/clipmenud.service
-    - makedirs: True
-    - source: salt://services/service.j2
-    - template: jinja
-    - context:
-      service:
-        description: Clipmenu daemon
-        exec: {{ home_bin }}/clipmenud
-        wanted_by: default
-        environment:
-          - 'DISPLAY=:0'
-          {% if is_fedora %}
-          - 'CM_DIR={{ home }}/.cache/clipmenu'
-          {% endif %}
-        options:
-          Restart: always
-          RestartSec: 500ms
-          MemoryDenyWriteExecute: yes
-          NoNewPrivileges: yes
-          ProtectControlGroups: yes
-          ProtectKernelTunables: yes
-          RestrictAddressFamilies:
-          RestrictRealtime: yes
-  cmd.run:
-    - name: |
-        systemctl --user daemon-reload
-        systemctl --user start clipmenud
-        systemctl --user enable clipmenud
-
-{% if pillar['is_laptop'] %}
-  {% if host not in pillar['unlocked'] %}
-  {% set host_specific_options = pillar['xidlehook_options'].get(host, None) %}
-Lock user service:
-  file.managed:
-    - name: {{ home }}/.config/systemd/user/xidlehook.service
-    - makedirs: True
-    - source: salt://services/service.j2
-    - template: jinja
-    - context:
-        service:
-          description: Xidlehook daemon
-          exec: {{ home }}/.cargo/bin/xidlehook --timer 600 'i3lock -e -c 000000' ''{% if host_specific_options != None %} {{ host_specific_options }}{% endif %}
-          wanted_by: default
-          environment:
-            - 'DISPLAY=:0'
-          options:
-            Restart: always
-            RestartSec: 5
-  cmd.run:
-    - name: |
-        systemctl --user daemon-reload
-        systemctl --user enable xidlehook
-        systemctl --user start xidlehook
-  {% endif %} # host not unlocked
-
-  {% set rossa_dir = clone_dir + '/rossa' %}
-Rossa compiled:
-  git.cloned:
-    - name: https://github.com/femnad/rossa.git
-    - target: {{ rossa_dir }}
-    - unless:
-        - rossa -v
-  cmd.run:
-    - name: make
-    - cwd: {{ rossa_dir }}
-    - unless:
-        - rossa -v
-
-Rossa installed:
-  cmd.run:
-    - name: make install
-    - cwd: {{ rossa_dir }}
-    - unless:
-        - rossa -v
-
-Rossa service:
-  file.managed:
-    - name: {{ home }}/.config/systemd/user/rossa.service
-    - makedirs: True
-    - source: salt://services/service.j2
-    - template: jinja
-    - context:
-        service:
-          description: Rossa daemon
-          exec: {{ home_bin }}/rossa
-          wanted_by: default
-          environment:
-            - 'DISPLAY=:0'
-          options:
-            Restart: always
-            RestartSec: 5
-  cmd.run:
-    - name: |
-        systemctl --user daemon-reload
-        systemctl --user enable rossa
-        systemctl --user start rossa
-{% endif %} # is laptop
-
 Stumpwm contrib:
   git.cloned:
     - name: https://github.com/stumpwm/stumpwm-contrib.git
@@ -395,3 +267,18 @@ Install Docker pass credential helper:
     - cwd: {{ pass_helper_path }}
     - unless:
       - {{ home_bin }}/docker-credential-pass version
+
+{% from 'macros.sls' import basename %}
+
+{% for item in pillar['clone_link'] %}
+{% set target = clone_dir + '/' + basename(item.repo) %}
+{% set link = item.link | default(basename(item.repo)) %}
+Clone and link {{ item.repo }}:
+  git.latest:
+    - name: https://{{ item.host | default('github.com') }}/{{ item.repo }}.git
+    - target: {{ target }}
+  file.symlink:
+    - name: {{ home_bin }}/{{ link }}
+    - target: {{ target }}/{{ link }}
+    - mode: 0755
+{% endfor %}

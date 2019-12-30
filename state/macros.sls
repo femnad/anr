@@ -16,3 +16,7 @@ Running service {{ name }}:
         environment: {{ environment }}
         options: {{ options }}
 {% endmacro %}
+
+{% macro basename(path) -%}
+{{ path.split('/')[-1] }}
+{%- endmacro %}

@@ -9,14 +9,14 @@ Description={{ service.description }}
 [Service]
 ExecStart={{ service.executable }}
 {%- if service.environment is defined %}
-{%- for key, value in service.environment.items() %}
+  {%- for key, value in service.environment.items() %}
 Environment={{ key }}={{ value }}
-{%- endfor %}
+  {%- endfor %}
 {%- endif %}
 {%- if service.options is defined %}
-{%- for key, value in service.options.items() %}
+  {%- for key, value in service.options.items() %}
 {{ key }}={% if value != None %}{{ value }}{% endif %}
-{%- endfor %}
+  {%- endfor %}
 {%- endif %}
 
 [Install]

@@ -83,7 +83,7 @@ archives:
     clean: true
     hash: 0804bf02020dceaa8a7d7275ee79f7a142f1996bfd0c39216ccb405f93f994c0
     name: go
-  - url: https://az764295.vo.msecnd.net/stable/26076a4de974ead31f97692a0d32f90d735645c0/code-stable-1576682093.tar.gz
+  - url: https://vscode-update.azurewebsites.net/1.41.1/linux-x64/stable
     exec: VSCode-linux-x64/code
     clean: true
     hash: 2a2353ea85b5a3d729e0134ff36b29461bb4264b708786e2486927b7f3c06601
@@ -156,3 +156,6 @@ rust_update: false
 
 skip_rpmfusion:
   francium:
+
+clone_link:
+  - repo: thameera/vimv

@@ -7,6 +7,7 @@ base:
     - minikube
     - python-packages
     - rust-packages
+    - user-services
     - vim
   self-sudo:
     - all-sudo
