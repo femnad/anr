@@ -96,3 +96,5 @@ Rossa installed:
 {{ systemd_user_service('rossa', 'Rossa daemon', rossa_exec, environment=rossa_env, options=xidlehook_options) }}
 
 {% endif %} # is laptop
+
+{{ systemd_user_service('dsnt', 'dsnt daemon', 'ssh -N dsnt', environment={'SSH_AUTH_SOCK': pillar['ssh_auth_sock']}, started=False, enabled=False) }}

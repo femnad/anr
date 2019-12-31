@@ -159,3 +159,5 @@ skip_rpmfusion:
 
 clone_link:
   - repo: thameera/vimv
+
+ssh_auth_sock: {{ salt.sdb.get('sdb://osenv/SSH_AUTH_SOCK') }}
