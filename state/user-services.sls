@@ -97,4 +97,4 @@ Rossa installed:
 
 {% endif %} # is laptop
 
-{{ systemd_user_service('dsnt', 'dsnt daemon', 'ssh -N dsnt', environment={'SSH_AUTH_SOCK': pillar['ssh_auth_sock']}, started=False, enabled=False) }}
+{{ systemd_user_service('dsnt', 'dsnt daemon', 'ssh -N dsnt', started=False, enabled=False) }}

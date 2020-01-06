@@ -13,3 +13,4 @@ self_clonees:
   - repo: femnad/stuff
   - repo: femnad/qmk_firmware
     submodule: true
+  - repo: femnad/meh

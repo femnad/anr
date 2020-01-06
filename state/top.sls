@@ -12,6 +12,7 @@ base:
   self-sudo:
     - all-sudo
     - compile
+    - docker
     {% if pillar['is_fedora'] %}
     - flatpak
     {% endif %}
