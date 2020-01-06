@@ -60,8 +60,8 @@ home_bins:
     hash: cee33e7caad5634afe6520de60d4a3680f5fafbe92ad3723dc8e01451e0d2dba
   - url: https://github.com/femnad/loco/releases/download/0.3.4/tosm
     hash: b954689a141ede5526de49d3200f36f0323b73922d9f745d3fe0e8b80c0901c0
-  - url: https://github.com/femnad/loco/releases/download/0.3.4/ysnp
-    hash: d5c90190b23980827fdc4a640eb4d4f7c52e85ff849426a403e9d6d44e2e6369
+  - url: https://github.com/femnad/loco/releases/download/0.4.0/ysnp
+    hash: 4316aab0e137b980d96d86a643c5be5eef6f79fa7c0dbc7ea2cc0865c28b4e1d
   - url: https://github.com/femnad/loco/releases/download/0.3.4/zenv
     hash: 07640220819f7e16ad4438dd1e2b2b7cfa978333e2d5e21df98a7ee169fcd7b9
   - url: https://storage.googleapis.com/kubernetes-release/release/v1.16.0/bin/linux/amd64/kubectl
@@ -87,6 +87,7 @@ archives:
     exec: VSCode-linux-x64/code
     clean: true
     hash: 2a2353ea85b5a3d729e0134ff36b29461bb4264b708786e2486927b7f3c06601
+    format: tar
   # Undetermined weirdness with packaged Firefox ctrl+t behavior in Ratpoison/Stumpwm
   {% if is_fedora %}
   - url: https://download-installer.cdn.mozilla.net/pub/firefox/releases/70.0.1/linux-x86_64/en-US/firefox-70.0.1.tar.bz2

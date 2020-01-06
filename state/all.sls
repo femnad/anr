@@ -29,6 +29,9 @@ Install {{ archive.name | default(archive.url) }}:
 {% if archive.clean is defined %}
     - clean: {{ archive.clean }}
 {% endif %}
+{% if archive.format is defined %}
+    - archive_format: {{ archive.format }}
+{% endif %}
     - trim_output: true
 {% set basename = archive.exec.split('/')[-1] %}
   file.symlink:
