@@ -37,6 +37,7 @@ packages:
   - sbcl
   - sxiv
   - strace
+  - surfraw
   - thunderbird
   - tig
   - tilix
@@ -96,7 +97,6 @@ packages:
   - libclang-dev
   - python3-dev
   - resolvconf
-  - surfraw
   - vim-gtk3
   - x11proto-dev
   - x11-utils

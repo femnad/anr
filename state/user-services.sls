@@ -34,10 +34,12 @@ Clipmenud cache directory:
     - name: {{ home }}/.cache/clipmenu
 {% endif %}
 
+{% set default_display_env = {'DISPLAY': ':0'} %}
+
 {% if is_fedora %}
   {% set clipmenud_env = {'DISPLAY': ':0', 'CM_DIR': home + '/.cache/clipmenu'} %}
 {% else %}
-  {% set clipmenud_env = {'DISPLAY': ':0'} %}
+  {% set clipmenud_env = default_display_env %}
 {% endif %}
 
 {% set clipmenud_options = {
@@ -62,7 +64,7 @@ Clipmenud cache directory:
     {% else %}
       {% set xidlehook_exec = home + "/.cargo/bin/xidlehook --timer 600 'i3lock -e -c 000000' '' " + host_specific_options %}
     {% endif %}
-    {% set xidlehook_env = {'DISPLAY': ':0'} %}
+    {% set xidlehook_env = default_display_env %}
     {% set xidlehook_options = {'Restart': 'always', 'RestartSec': 5} %}
 
 {{ systemd_user_service('xidlehook', 'Xidlehook daemon', xidlehook_exec, environment=xidlehook_env, options=xidlehook_options) }}
@@ -89,12 +91,14 @@ Rossa installed:
     - unless:
         - rossa -v
 
-  {% set rossa_env = {'DISPLAY': ':0'} %}
+  {% set rossa_env = default_display_env %}
   {% set rossa_options = {'Restart': 'always', 'RestartSec': 5} %}
   {% set rossa_exec = home_bin + '/rossa' %}
 
-{{ systemd_user_service('rossa', 'Rossa daemon', rossa_exec, environment=rossa_env, options=xidlehook_options) }}
+{{ systemd_user_service('rossa', 'Rossa daemon', rossa_exec, environment=rossa_env, options=rossa_options) }}
 
 {% endif %} # is laptop
 
 {{ systemd_user_service('dsnt', 'dsnt daemon', 'ssh -N dsnt', started=False, enabled=False) }}
+
+{{ systemd_user_service('clom', 'clom service', home_bin + '/clom clone_loop', environment=default_display_env) }}
