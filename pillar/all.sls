@@ -43,6 +43,7 @@ go_get:
     unless: gcsfuse -v
   - pkg: github.com/rclone/rclone
     unless: rclone version
+  - pkg: github.com/femnad/passfuse
 
 go_cloned_install:
   - url: https://github.com/mikefarah/yq.git
