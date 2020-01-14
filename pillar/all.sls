@@ -110,8 +110,8 @@ archives:
     hash: 608db8d2a2296792022dad7a351ca96496e2565fbf16ac0172a66f6720d601eb
 
 binary_only_archives:
-  - url: https://releases.hashicorp.com/terraform/0.12.16/terraform_0.12.16_linux_amd64.zip
-    hash: fcc719314660adc66cbd688918d13baa1095301e2e507f9ac92c9e22acf4cc02
+  - url: https://releases.hashicorp.com/terraform/0.12.19/terraform_0.12.19_linux_amd64.zip
+    hash: a549486112f5350075fb540cfd873deb970a9baf8a028a86ee7b4472fc91e167
     name: terraform
   - url: https://releases.hashicorp.com/vault/1.3.0/vault_1.3.0_linux_amd64.zip
     hash: d89b8a317831b06f2a32c56cb86071d058b09d9317b416bb509ce3d01e912eb3
