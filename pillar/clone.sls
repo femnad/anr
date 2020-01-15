@@ -14,3 +14,4 @@ self_clonees:
   - repo: femnad/qmk_firmware
     submodule: true
   - repo: femnad/meh
+  - repo: femnad/passfuse
