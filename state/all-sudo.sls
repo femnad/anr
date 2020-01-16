@@ -75,15 +75,17 @@ Lock on suspend:
     - source: salt://services/service.j2
     - template: jinja
     - context:
-      service:
-        description: Lock on suspend
-        before: sleep
-        exec: /usr/bin/i3lock -e -c 000000
-        wanted_by: sleep
-        options:
-          User: '%I'
-          Type: forking
-          Environment: 'DISPLAY=:0'
+        service:
+          unit:
+            Before: sleep
+          description: Lock on suspend
+          executable: /usr/bin/i3lock -e -c 000000
+          wanted_by: sleep
+          options:
+            User: '%I'
+            Type: forking
+          environment:
+            DISPLAY: {{ pillar['display'] }}
   service.enabled:
     - name: suspend@{{ user }}
 

@@ -5,6 +5,7 @@ package_dir: {{ salt.sdb.get('sdb://osenv/HOME') + '/z/dy' }}
 tmux: {{ salt.sdb.get('sdb://osenv/TMUX') }}
 user: {{ salt.sdb.get('sdb://osenv/USER') }}
 virtualenv_dir: {{ '.venv' }}
+display: {{ salt.sdb.get('sdb://osenv/DISPLAY') }}
 
 home_dirs:
   - bin
