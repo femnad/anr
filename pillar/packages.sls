@@ -1,4 +1,5 @@
 {% set is_arch = grains['os'] == 'Arch' %}
+{% set is_debian = grains['os'] == 'Debian' %}
 {% set is_fedora = grains['os'] == 'Fedora' %}
 {% set is_laptop = grains['manufacturer'] in ['LENOVO', 'Dell Inc.'] %}
 {% set is_ubuntu = grains['os'] == 'Ubuntu' %}
@@ -79,7 +80,7 @@ packages:
   - vim
   {% endif %}
 
-  {% if is_ubuntu %}
+  {% if is_debian or is_ubuntu %}
 
     {% if is_laptop %}
   - libnotify-dev
@@ -102,7 +103,7 @@ packages:
   - x11-utils
   - xfonts-terminus
 
-    {% if grains['osmajorrelease'] < 19 %}
+    {% if is_ubuntu and grains['osmajorrelease'] < 19 %}
   - dconf-cli
     {% else %}
   - ripgrep
@@ -143,7 +144,7 @@ packages:
   - xorg-x11-proto-devel
   {% endif %}
 
-  {% if not is_fedora %}
+  {% if not (is_fedora or is_debian)  %}
   - firefox
   {% endif %}
 
