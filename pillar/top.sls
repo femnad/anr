@@ -1,5 +1,5 @@
 base:
-  L@self,self-sudo,private,shadow,steam,passfuser:
+  L@self,sudo,private,shadow,steam,passfuser,self-dev,sudo-dev:
     - all
     - packages
   passfuser:
