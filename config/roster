@@ -7,7 +7,7 @@ self:
   host: localhost
   user: femnad
   priv: agent-forwarding
-self-sudo:
+sudo:
   host: localhost
   user: femnad
   priv: agent-forwarding
@@ -22,6 +22,15 @@ shadow:
   priv: agent-forwarding
   sudo: true
 steam:
+  host: localhost
+  user: femnad
+  priv: agent-forwarding
+  sudo: true
+self-dev:
+  host: localhost
+  user: femnad
+  priv: agent-forwarding
+sudo-dev:
   host: localhost
   user: femnad
   priv: agent-forwarding

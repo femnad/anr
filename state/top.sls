@@ -4,20 +4,22 @@ base:
     - passfuse-gcp
   self:
     - all
-    - minikube
     - python-packages
     - rust-packages
     - user-services
     - vim
-  self-sudo:
+  self-dev:
+    - minikube
+  sudo:
     - all-sudo
     - compile
-    - docker
     {% if pillar['is_fedora'] %}
     - flatpak
     {% endif %}
-    - libvirt
     - packages
+  sudo-dev:
+    - docker
+    - libvirt
     - qmk
   private:
     - private
