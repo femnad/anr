@@ -21,6 +21,10 @@ Up-to-date packages:
   pkg.uptodate:
     - refresh: true
 
+Remove unwanted packages:
+  pkg.removed:
+    - pkgs: {{ pillar['packages_to_remove'] | default([]) | tojson }}
+
 Packages:
   pkg.installed:
     - pkgs: {{ pillar['packages'] | tojson }}

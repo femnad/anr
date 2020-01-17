@@ -80,6 +80,10 @@ packages:
   - vim
   {% endif %}
 
+  {% if is_debian %}
+  - lxdm
+  {% endif %}
+
   {% if is_debian or is_ubuntu %}
 
     {% if is_laptop %}
@@ -164,4 +168,9 @@ libvirt_packages:
   {% if is_fedora %}
   - libvirt
   - qemu
+  {% endif %}
+
+packages_to_remove:
+  {% if is_debian %}
+  - lightdm
   {% endif %}
