@@ -100,6 +100,7 @@ packages:
   - libxext-dev
   - libxfixes-dev
   - libclang-dev
+  - network-manager
   - python3-dev
   - resolvconf
   - vim-gtk3
@@ -173,4 +174,5 @@ libvirt_packages:
 packages_to_remove:
   {% if is_debian %}
   - lightdm
+  - wicd
   {% endif %}
