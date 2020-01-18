@@ -38,6 +38,8 @@ go_path: {{ salt.sdb.get('sdb://osenv/HOME') + '/z/sc/go' }}
 
 go_get:
   - pkg: github.com/femnad/stuff/cmd/...
+  - pkg: github.com/femnad/rabn/cmd/rabn
+    unless: rabn --version
   - pkg: github.com/aykamko/tag/...
     unless: tag -V
   - pkg: github.com/googlecloudplatform/gcsfuse
