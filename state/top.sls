@@ -12,6 +12,7 @@ base:
     - minikube
   sudo:
     - all-sudo
+    - cleanup
     - compile
     {% if pillar['is_fedora'] %}
     - flatpak
