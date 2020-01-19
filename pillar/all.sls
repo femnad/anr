@@ -96,8 +96,10 @@ archives:
     format: tar
   # Undetermined weirdness with packaged Firefox ctrl+t behavior in Ratpoison/Stumpwm
   {% if is_fedora %}
-  - url: https://download-installer.cdn.mozilla.net/pub/firefox/releases/70.0.1/linux-x86_64/en-US/firefox-70.0.1.tar.bz2
+  - url: https://download-installer.cdn.mozilla.net/pub/firefox/releases/72.0.1/linux-x86_64/en-US/firefox-72.0.1.tar.bz2
     exec: firefox/firefox
+    hash: 6f81b12986d9b4b45d64b8921009addfae36f49b41b6ba2637402239e71733d6
+    clean: true
   {% endif %}
   # 2019.1.4? don't ask
   - url: https://download.jetbrains.com/idea/ideaIC-2019.1.4.tar.gz
