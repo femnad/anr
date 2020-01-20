@@ -42,6 +42,9 @@ go_get:
   - pkg: github.com/femnad/stuff/cmd/...
   - pkg: github.com/femnad/rabn/cmd/rabn
     unless: rabn --version
+  - pkg: github.com/femnad/moih
+    unless: moih --version
+    version: 0.1.1
   - pkg: github.com/aykamko/tag/...
     unless: tag -V
   - pkg: github.com/googlecloudplatform/gcsfuse

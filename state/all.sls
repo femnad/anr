@@ -81,7 +81,11 @@ Go get {{ pkg.pkg }}:
       - Install go
     {% if pkg.unless is defined %}
     - unless:
+      {% if pkg.version is defined %}
+      - test {{ pkg.unless }} = {{ pkg.version }}
+      {% else %}
       - {{ pkg.unless }}
+      {% endif %}
     {% endif %}
 {% endfor %}
 
