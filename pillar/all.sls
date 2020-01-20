@@ -14,12 +14,14 @@ home_dirs:
   - z
 
 {% set is_arch = grains['os'] == 'Arch' %}
+{% set is_debian = grains['os'] == 'Debian' %}
 {% set is_fedora = grains['os'] == 'Fedora' %}
 {% set is_laptop = grains['manufacturer'] in ['LENOVO', 'Dell Inc.'] %}
 {% set is_ubuntu = grains['os'] == 'Ubuntu' %}
 {% set github_user = 'femnad' %}
 
 is_arch: {{ is_arch }}
+is_debian: {{ is_debian }}
 is_fedora: {{ is_fedora }}
 is_laptop: {{ is_laptop }}
 is_ubuntu: {{ is_ubuntu }}
@@ -95,7 +97,7 @@ archives:
     hash: 2a2353ea85b5a3d729e0134ff36b29461bb4264b708786e2486927b7f3c06601
     format: tar
   # Undetermined weirdness with packaged Firefox ctrl+t behavior in Ratpoison/Stumpwm
-  {% if is_fedora %}
+  {% if is_fedora or is_debian %}
   - url: https://download-installer.cdn.mozilla.net/pub/firefox/releases/72.0.1/linux-x86_64/en-US/firefox-72.0.1.tar.bz2
     exec: firefox/firefox
     hash: 6f81b12986d9b4b45d64b8921009addfae36f49b41b6ba2637402239e71733d6
@@ -168,3 +170,9 @@ skip_rpmfusion:
 
 clone_link:
   - repo: thameera/vimv
+
+services_to_disable:
+  {% if is_debian %}
+  - wicd
+  - wpa_supplicant
+  {% endif %}

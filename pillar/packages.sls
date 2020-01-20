@@ -173,6 +173,7 @@ libvirt_packages:
 
 packages_to_remove:
   {% if is_debian %}
+  - firefox-esr
   - lightdm
   - wicd
   {% endif %}
