@@ -25,6 +25,7 @@ is_debian: {{ is_debian }}
 is_fedora: {{ is_fedora }}
 is_laptop: {{ is_laptop }}
 is_ubuntu: {{ is_ubuntu }}
+is_debian_or_ubuntu: {{ is_debian or is_ubuntu }}
 
 castles:
   - https://gitlab.com/femnad/base.git

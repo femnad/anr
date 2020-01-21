@@ -225,10 +225,12 @@ Start and Enable System Resolved:
     - watch:
       - file: /etc/systemd/resolved.conf.d/*
 
-{% if pillar['is_ubuntu'] %}
+{% if pillar['is_debian_or_ubuntu'] %}
 Set default Python:
   cmd.run:
     - name: update-alternatives --install /usr/bin/python python $(which python3) 1
+    - unless:
+      - test $(update-alternatives --display python | tail -n 1 | awk '{print $1}') = $(which python3)
 {% endif %}
 
 Add user to wireshark group:
@@ -239,6 +241,15 @@ Add user to wireshark group:
     - groups:
         - wireshark
     - remove_groups: False
+  {% if pillar['is_debian_or_ubuntu'] %}
+  file.managed:
+    - name: /usr/bin/dumpcap
+    - group: wireshark
+  cmd.run:
+    - name: /usr/sbin/setcap cap_net_raw,cap_net_admin+eip /usr/bin/dumpcap
+    - unless:
+      - /usr/sbin/setcap -v cap_net_raw,cap_net_admin+eip /usr/bin/dumpcap
+  {% endif %}
 
 Set Inotify watch limit:
   sysctl.present:
