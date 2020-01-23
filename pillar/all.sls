@@ -13,6 +13,15 @@ home_dirs:
   - y
   - z
 
+unwanted_dirs:
+  - Documents
+  - Downloads
+  - Music
+  - Pictures
+  - Public
+  - Templates
+  - Videos
+
 {% set is_arch = grains['os'] == 'Arch' %}
 {% set is_debian = grains['os'] == 'Debian' %}
 {% set is_fedora = grains['os'] == 'Fedora' %}
@@ -178,5 +187,4 @@ clone_link:
 services_to_disable:
   {% if is_debian %}
   - wicd
-  - wpa_supplicant
   {% endif %}

@@ -82,6 +82,10 @@ packages:
 
   {% if is_debian %}
   - lxdm
+  - xorg
+  - x11-apps
+  - x11-session-utils
+  - xinit
   {% endif %}
 
   {% if is_debian or is_ubuntu %}

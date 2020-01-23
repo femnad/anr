@@ -15,6 +15,12 @@ Home Dir {{ dir }}:
     - makedirs: true
 {% endfor %}
 
+{% for dir in pillar['unwanted_dirs'] %}
+Remove {{ dir }}:
+  file.absent:
+    - name: {{ home }}/{{ dir }}
+{% endfor %}
+
 {% for archive in pillar['archives'] %}
 Install {{ archive.name | default(archive.url) }}:
   archive.extracted:
