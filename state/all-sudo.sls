@@ -185,7 +185,7 @@ Compile WireGuard:
 {% set wireguard = clone_dir + '/WireGuard' %}
 {% set wireguard_source = wireguard + '/src' %}
   git.latest:
-    - name: https://git.zx2c4.com/WireGuard
+    - name: git://git.zx2c4.com/wireguard-linux-compat
     - target: {{ wireguard }}
     - user: {{ user }}
     - unless:
