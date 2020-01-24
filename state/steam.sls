@@ -2,7 +2,16 @@
 Install Steam:
   pkg.installed:
     - name: steam
-{% elif pillar['is_ubuntu'] %}
+{% elif pillar['is_debian_or_ubuntu'] %}
+
+  {% if pillar['is_debian'] %}
+Enable i386 architecture:
+  cmd.run:
+    - name: dpkg --add-architecture i386
+    - unless:
+      - dpkg --print-architecture | grep i386
+  {% endif %}
+
 Install Steam:
   pkg.installed:
     - sources:
