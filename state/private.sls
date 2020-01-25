@@ -17,6 +17,8 @@ Add castle {{ castle }}:
   {% set repo = pillar['chezmoi_alliance'] %}
   {% set path = home + '/' + pillar['chezmoi_alliance_path'] %}
 {% endif %}
+{% set common_repo = pillar['chezmoi_common'] %}
+{% set common_path = home + '/' + pillar['chezmoi_common_path'] %}
 
 Initialize chezmoi override:
   cmd.run:
