@@ -41,3 +41,36 @@ Service {{ name }} started:
 {% macro basename(path) -%}
 {{ path.split('/')[-1] }}
 {%- endmacro %}
+
+{% macro install_from_archive(archive) %}
+Install {{ archive.name | default(archive.url) }}:
+  archive.extracted:
+    - name: {{ package_dir }}
+    - source: {{ archive.url }}
+  {% if archive.hash is defined %}
+      - source_hash: {{ archive.hash }}
+      - source_hash_update: true
+  {% else %}
+    - skip_verify: true
+  {% endif %}
+  {% if archive.clean is defined %}
+    - clean: {{ archive.clean }}
+  {% endif %}
+  {% if archive.format is defined %}
+      - archive_format: {{ archive.format }}
+  {% endif %}
+      - trim_output: true
+  {% set basename = archive.exec.split('/')[-1] %}
+  file.symlink:
+    - name: {{ home_bin }}/{{ basename }}
+    - target: {{ package_dir }}/{{ archive.exec }}
+
+{% if archive.bin_links is defined %}
+  {% for bin_link in archive.bin_links %}
+Link {{ bin_link }}:
+  file.symlink:
+    - name: {{ home_bin }}/{{ bin_link }}
+    - target: {{ package_dir }}/{{ salt['file.dirname'](archive.exec) }}/{{ bin_link }}
+  {% endfor %}
+{% endif %}
+{% endmacro %}

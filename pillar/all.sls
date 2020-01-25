@@ -64,11 +64,13 @@ go_get:
   - pkg: github.com/femnad/passfuse
 
 go_cloned_install:
-  - url: https://github.com/mikefarah/yq.git
+  - name: mikefarah/yq
     unless: yq -V
-  - url: https://github.com/boz/kail.git
+  - name: boz/kail
     path: cmd/kail
     unless: kail version
+  - name: twpayne/chezmoi
+    unless: chezmoi --version
 
 go_get_gopath:
   - pkg: github.com/junegunn/fzf
@@ -188,3 +190,6 @@ services_to_disable:
   {% if is_debian %}
   - wicd
   {% endif %}
+
+chezmoi_base_repo: https://github.com/femnad/chezmoi-base.git
+chezmoi_base_path: .local/share/chezmoi

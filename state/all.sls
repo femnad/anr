@@ -119,11 +119,13 @@ Unset Gopath:
     - false_unsets: true
 
 {% for repo in pillar['go_cloned_install'] %}
-{% set dir = repo.url.split('/')[-1].split('.')[0] %}
-{% set clone_path = pillar['clone_dir'] + '/' + dir %}
-Install Go package from {{ repo.url }}:
+  {% set host = repo.host | default('github.com') %}
+  {% set url = 'https://' + host + '/' + repo.name + '.git' %}
+  {% set dir = url.split('/')[-1].split('.')[0] %}
+  {% set clone_path = pillar['clone_dir'] + '/' + dir %}
+Go clone install {{ repo.name}}:
   git.latest:
-    - name: {{ repo.url }}
+    - name: {{ url }}
     - target: {{ clone_path }}
     {% if repo.unless is defined %}
     - unless:
@@ -138,7 +140,7 @@ Install Go package from {{ repo.url }}:
     {% endif %}
     {% if repo.unless is defined %}
     - unless:
-        - {{ repo.unless }}
+      - {{ repo.unless }}
     {% endif %}
 {% endfor %}
 
@@ -157,11 +159,19 @@ Add castle {{ castle }}:
   git.cloned:
     - name: {{ castle }}
     - target: {{ homeshick_repos + '/' + castle_name }}
-  cmd.run:
-    - name: {{ homeshick_bin }} link {{ castle_name }}
-    - require:
-        - homeshick
 {% endfor %}
+
+Initialize chezmoi base:
+  cmd.run:
+    - name: chezmoi init {{ pillar['chezmoi_base_repo'] }}
+    - unless:
+      - ls {{ home + '/' + pillar['chezmoi_base_path'] }}
+    - require:
+      - Go clone install twpayne/chezmoi
+
+Apply chezmoi base:
+  cmd.run:
+    - name: chezmoi apply
 
 Tilix schemes:
 {% set target = pillar['clone_dir'] + '/Tilix-Themes' %}
