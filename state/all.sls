@@ -171,7 +171,7 @@ Initialize chezmoi base:
 
 Apply chezmoi base:
   cmd.run:
-    - name: chezmoi apply
+    - name: {{ home }}/go/bin/chezmoi apply
 
 Tilix schemes:
 {% set target = pillar['clone_dir'] + '/Tilix-Themes' %}
