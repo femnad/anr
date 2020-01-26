@@ -175,6 +175,17 @@ Disable ptrace hardening:
     - name: /etc/sysctl.d/10-ptrace.conf
 {% endif %}
 
+{% if pillar['is_debian'] %}
+Install Spotify:
+  pkgrepo.managed:
+    - humanname: spotify
+    - name: deb http://repository.spotify.com stable non-free
+    - files: /etc/apt/sources.list.d/spotify.list
+    - key_url: https://download.spotify.com/debian/pubkey.gpg
+  pkg.installed:
+    - name: spotify-client
+{% endif %}
+
 {% if pillar['is_arch'] %}
 Enable lxdm:
   service.enabled:
