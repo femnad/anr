@@ -2,14 +2,6 @@
 {% set homeshick_repos = home + '/.homesick/repos/' %}
 {% set homeshick_bin = homeshick_repos + 'homeshick/bin/homeshick' %}
 
-{% for castle in pillar['private_castles'] %}
-{% set castle_name = castle.split('/')[-1].split('.')[0] %}
-Add castle {{ castle }}:
-  git.cloned:
-    - name: {{ castle }}
-    - target: {{ homeshick_repos + castle_name }}
-{% endfor %}
-
 {% if grains['host'] == pillar['horde_host'] %}
   {% set repo = pillar['chezmoi_horde'] %}
   {% set path = home + '/' + pillar['chezmoi_horde_path'] %}
@@ -20,9 +12,15 @@ Add castle {{ castle }}:
 {% set common_repo = pillar['chezmoi_common'] %}
 {% set common_path = home + '/' + pillar['chezmoi_common_path'] %}
 
+Accept key:
+  ssh_known_hosts.present:
+    - name: gitlab.com
+    - fingerprint: HbW3g8zUjNSksFbqTiUWPWg2Bq1x8xdGUrliXFzSnUw
+    - fingerprint_hash_type: sha256
+
 Initialize chezmoi override:
   cmd.run:
-    - name: {{ home }}/go/bin/chezmoi init {{ repo }}
+    - name: {{ home }}/go/bin/chezmoi init -S {{ path }} {{ repo }}
     - unless:
       - ls {{ path }}
 

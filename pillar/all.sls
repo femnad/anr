@@ -62,6 +62,8 @@ go_get:
   - pkg: github.com/rclone/rclone
     unless: rclone version
   - pkg: github.com/femnad/passfuse
+  - pkg: github.com/github/hub
+    unless: hub --version
 
 go_cloned_install:
   - name: mikefarah/yq
