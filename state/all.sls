@@ -163,7 +163,7 @@ Add castle {{ castle }}:
 
 Initialize chezmoi base:
   cmd.run:
-    - name: chezmoi init {{ pillar['chezmoi_base_repo'] }}
+    - name: {{ home }}/go/bin/chezmoi init {{ pillar['chezmoi_base_repo'] }}
     - unless:
       - ls {{ home + '/' + pillar['chezmoi_base_path'] }}
     - require:
