@@ -13,10 +13,11 @@
 {% set common_path = home + '/' + pillar['chezmoi_common_path'] %}
 
 Set git origin for base:
-  module.run:
-    - name: git.remote_set
+  cmd.script:
+    - source: salt://scripts/https-to-git.sh
     - cwd: {{ home }}/{{ pillar['chezmoi_base_path'] }}
-    - url: {{ pillar['chezmoi_base_repo'].replace('https://gitlab.com/', 'git@gitlab.com:') }}
+    - unless:
+      - git remote get-url origin | grep git@
 
 {% for overlay_repo, overlay_path in [(repo, path), (common_repo, common_path)] %}
 Initialize chezmoi overlay {{ overlay_repo }}:
