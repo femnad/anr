@@ -193,5 +193,5 @@ services_to_disable:
   - wicd
   {% endif %}
 
-chezmoi_base_repo: https://github.com/femnad/chezmoi-base.git
+chezmoi_base_repo: https://gitlab.com/femnad/chezmoi.git
 chezmoi_base_path: .local/share/chezmoi
