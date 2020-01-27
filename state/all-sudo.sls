@@ -15,7 +15,7 @@ Pamixer compiled:
         - boost
         - boost-libs
         - libpulse
-    {% elif pillar['is_fedora'] %}
+    {% elif is_fedora %}
         - boost-devel
         - boost-program-options
         - pulseaudio-libs-devel
@@ -267,3 +267,12 @@ Set Inotify watch limit:
     - name: fs.inotify.max_user_watches
     - value: 524288
     - config: /etc/sysctl.d/83-inotify-max.conf
+
+{% if is_fedora %}
+Vimx as the vim provider:
+  pkg.removed:
+    - name: vim-enhanced
+  file.symlink:
+    - name: /usr/bin/vim
+    - target: /usr/bin/vimx
+{% endif %}
