@@ -1,5 +1,0 @@
-salt-ssh:
-  config_dir: config
-  ssh_log_file: logs/ssh.log
-  state_output: changes
-  ssh_wipe: True

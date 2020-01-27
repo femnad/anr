@@ -18,7 +18,7 @@ Set git origin for base:
     - cwd: {{ home }}/{{ pillar['chezmoi_base_path'] }}
     - url: {{ pillar['chezmoi_base_repo'].replace('https://gitlab.com/', 'git@gitlab.com:') }}
 
-{% for overlay_repo, overlay_path in [(repo, path), (common_path, common_repo)] %}
+{% for overlay_repo, overlay_path in [(repo, path), (common_repo, common_path)] %}
 Initialize chezmoi overlay {{ overlay_repo }}:
   cmd.run:
     - name: {{ home }}/go/bin/chezmoi init -S {{ overlay_path }} {{ overlay_repo }}

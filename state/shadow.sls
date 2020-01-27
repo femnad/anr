@@ -17,6 +17,12 @@ Download Shadow:
     - makedirs: true
     - user: {{ user }}
     - group: {{ user }}
+{% if pillar['is_debian'] %}
+  sysctl.present:
+    - name: kernel.unprivileged_userns_clone
+    - value: 1
+    - config: /etc/sysctl.d/84-userns-clone.conf
+{% endif %}
 
 Disable ERTM for Xbox Wireless Controller:
   file.managed:
