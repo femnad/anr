@@ -15,3 +15,4 @@ self_clonees:
     submodule: true
   - repo: femnad/meh
   - repo: femnad/passfuse
+  - repo: femnad/bors
