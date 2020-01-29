@@ -51,7 +51,6 @@ packages:
   - wget
   - whois
   - wireshark
-  - wmname
   - xdotool
   - xsel
   - zathura
@@ -108,6 +107,7 @@ packages:
   - network-manager
   - python3-dev
   - resolvconf
+  - suckless-tools
   - vim-gtk3
   - x11proto-dev
   - x11-utils
@@ -148,6 +148,7 @@ packages:
   - libX11-devel
   - libXfixes-devel
   - terminus-fonts
+  - wmname
   - xorg-x11-apps
   - xorg-x11-utils
   - xorg-x11-proto-devel
