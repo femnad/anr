@@ -51,6 +51,7 @@ packages:
   - wget
   - whois
   - wireshark
+  - wmname
   - xdotool
   - xsel
   - zathura

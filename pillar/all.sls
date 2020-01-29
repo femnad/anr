@@ -187,6 +187,7 @@ skip_rpmfusion:
 
 clone_link:
   - repo: thameera/vimv
+  - repo: johanhaleby/kubetail
 
 services_to_disable:
   {% if is_debian %}
