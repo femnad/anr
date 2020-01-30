@@ -96,6 +96,7 @@ packages:
 
   - ipython3
   - libmnl-dev
+  - libevent-dev
   - libnotify-bin
   - libpython3-dev
   - libssl-dev
