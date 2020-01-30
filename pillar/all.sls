@@ -87,8 +87,8 @@ home_bins:
     hash: 4316aab0e137b980d96d86a643c5be5eef6f79fa7c0dbc7ea2cc0865c28b4e1d
   - url: https://github.com/femnad/loco/releases/download/0.3.4/zenv
     hash: 07640220819f7e16ad4438dd1e2b2b7cfa978333e2d5e21df98a7ee169fcd7b9
-  - url: https://github.com/femnad/loco/releases/download/0.5.2/clom
-    hash: 50c84ff06dd72488e18c4e2210064f4be97b38d49fc1b68f7d9be5550aa7f1d1
+  - url: https://github.com/femnad/loco/releases/download/0.5.4/clom
+    hash: a26ba7ad0fbd0dc62e8781a42405b18ee2b99f897c003e404285709032a3f2ba
   - url: https://storage.googleapis.com/kubernetes-release/release/v1.16.0/bin/linux/amd64/kubectl
     hash: 4fc8a7024ef17b907820890f11ba7e59a6a578fa91ea593ce8e58b3260f7fb88
 
