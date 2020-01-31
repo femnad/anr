@@ -101,4 +101,9 @@ Rossa installed:
 
 {{ systemd_user_service('dsnt', 'dsnt daemon', 'ssh -N dsnt', started=False, enabled=False) }}
 
-{{ systemd_user_service('clom', 'clom service', home_bin + '/clom clone_loop', environment=default_display_env) }}
+{% set clom_options = {
+  'Restart': 'always',
+  'RestartSec': '5s',
+  } %}
+
+{{ systemd_user_service('clom', 'clom service', home_bin + '/clom clone_loop', environment=default_display_env, options=clom_options) }}
