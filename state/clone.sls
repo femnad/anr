@@ -1,28 +1,22 @@
 {% for clonee in pillar['self_clonees'] %}
-{% set name = clonee.repo.split('/')[-1].split('.')[0] %}
-{% set target = pillar['self_clone_dir'] + '/' + name %}
-{% set site = clonee.site | default('github.com') %}
-{% set repo = 'git@' + site + ':' + clonee.repo + '.git' %}
+  {% set name = clonee.repo.split('/')[-1].split('.')[0] %}
+  {% set target = pillar['self_clone_dir'] + '/' + name %}
+  {% set site = clonee.site | default('github.com') %}
+  {% set user = clonee.user | default(pillar['github_user']) %}
+  {% set url = 'git@{}:{}/{}.git'.format(site, user, clonee.repo) %}
 
 Clone self repo {{ name }}:
   git.latest:
-    - name: {{ repo }}
+    - name: {{ url }}
     - target: {{ target }}
     {% if clonee.submodule is defined and clonee.submodule %}
     - submodules: true
     {% endif %}
-
-Set username for {{ name }}:
-  git.config_set:
-    - name: user.name
-    - repo: {{ target }}
-    - value: fcd
-
-Set email for {{ name }}:
-  git.config_set:
-    - name: user.email
-    - repo: {{ target }}
-    - value: {{ pillar['github_email'] }}
+  {% if clonee.git_crypt is defined and clonee.git_crypt %}
+  cmd.run:
+    - name: git crypt unlock
+    - cwd: {{ target }}
+  {% endif %}
 
 {% endfor %}
 

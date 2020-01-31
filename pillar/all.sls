@@ -157,6 +157,7 @@ cargo:
     bins: true
   {% endif %}
 
+github_user: {{ github_user }}
 github_keys: {{ salt.sdb.get('sdb://github-lookup/keys?user=' + github_user) | tojson }}
 
 python_pkgs:
