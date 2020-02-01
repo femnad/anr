@@ -14,6 +14,9 @@ self_clonees:
     git_crypt: true
   - repo: qmk_firmware
     submodule: true
+    remotes:
+      - url: git@github.com:qmk/qmk_firmware.git
+        name: upstream
   - repo: meh
   - repo: passfuse
   - repo: bors

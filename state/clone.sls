@@ -18,6 +18,22 @@ Clone self repo {{ name }}:
     - cwd: {{ target }}
   {% endif %}
 
+  {% if clonee.remotes is defined %}
+    {% for remote in clonee.remotes %}
+Add remote {{ remote.name }}:
+  cmd.run:
+    - name: git remote add {{ remote.name }} {{ remote.url }}
+    - cwd: {{ target }}
+    - unless:
+      - git remote | grep {{ remote.name }}
+  git.latest:
+    - name: {{ remote.url }}
+    - update_head: false
+    - remote: {{ remote.name }}
+    - target: {{ target }}
+    {% endfor %}
+  {% endif %}
+
 {% endfor %}
 
 {% for clonee in pillar['clonees'] %}

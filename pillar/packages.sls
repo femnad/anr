@@ -21,6 +21,7 @@ packages:
   - git-crypt
   - highlight
   - htop
+  - i3lock
   - jq
   - maim
   - make
