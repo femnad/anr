@@ -95,6 +95,7 @@ packages:
   - libnotify-dev
     {% endif %}
 
+  - chromium
   - ipython3
   - libmnl-dev
   - libevent-dev

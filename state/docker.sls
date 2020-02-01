@@ -22,4 +22,13 @@ Install Docker CE:
     - groups:
         - docker
     - remove_groups: False
+{% elif pillar['is_debian'] %}
+Install Docker CE:
+  pkgrepo.managed:
+    - humanname: docker
+    - name: deb [arch=amd64] https://download.docker.com/linux/debian {{ grains['oscodename'] }} stable
+    - files: /etc/apt/sources.list.d/docker.list
+    - key_url: https://download.docker.com/linux/debian/gpg
+  pkg.installed:
+    - name: docker-ce
 {% endif %}

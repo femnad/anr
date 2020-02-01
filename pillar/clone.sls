@@ -20,3 +20,5 @@ self_clonees:
   - repo: meh
   - repo: passfuse
   - repo: bors
+  - repo: sqrt26.com
+    submodule: true
