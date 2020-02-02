@@ -13,7 +13,8 @@ home_dirs:
   - y
   - z
 
-unwanted_dirs:
+unwanted_files:
+  - .bash_profile
   - Documents
   - Downloads
   - Music

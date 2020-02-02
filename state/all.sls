@@ -15,10 +15,10 @@ Home Dir {{ dir }}:
     - makedirs: true
 {% endfor %}
 
-{% for dir in pillar['unwanted_dirs'] %}
-Remove {{ dir }}:
+{% for file in pillar['unwanted_files'] %}
+Remove {{ file }}:
   file.absent:
-    - name: {{ home }}/{{ dir }}
+    - name: {{ home }}/{{ file }}
 {% endfor %}
 
 {% for archive in pillar['archives'] %}
