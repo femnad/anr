@@ -261,10 +261,6 @@ Clone Tmux thumbs:
     - unless:
       - {{ home }}/.tmux/plugins/tmux-thumbs/target/release/tmux-thumbs -V
 
-Load Tilix configuration:
-  cmd.run:
-    - name: dconf load /com/gexperts/Tilix/ < {{ homeshick_repos }}/homeless/tilix/tilix.dump
-
 {% for key in pillar['github_keys'] %}
 Add GitHub key {{ key.id }} as authorized:
   file.append:

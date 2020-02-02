@@ -276,3 +276,10 @@ Vimx as the vim provider:
     - name: /usr/bin/vim
     - target: /usr/bin/vimx
 {% endif %}
+
+Persistent Systemd storage enabled for user services:
+  file.line:
+    - name: /etc/systemd/journald.conf
+    - match: '#Storage=(auto|volatile)'
+    - mode: replace
+    - content: Storage=persistent
