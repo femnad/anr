@@ -121,9 +121,8 @@ archives:
     hash: 6f81b12986d9b4b45d64b8921009addfae36f49b41b6ba2637402239e71733d6
     clean: true
   {% endif %}
-  # 2019.1.4? don't ask
-  - url: https://download.jetbrains.com/idea/ideaIC-2019.1.4.tar.gz
-    exec: idea-IC-191.8026.42/bin/idea.sh
+  - url: https://download.jetbrains.com/idea/ideaIC-2019.3.2.tar.gz
+    exec: idea-IC-193.6015.39/bin/idea.sh
   - url: https://download.jetbrains.com/go/goland-2019.3.tar.gz
     exec: GoLand-2019.3/bin/goland.sh
   - url: https://dl.google.com/dl/cloudsdk/channels/rapid/google-cloud-sdk.tar.gz
