@@ -12,6 +12,10 @@ Clone self repo {{ name }}:
     {% if clonee.submodule is defined and clonee.submodule %}
     - submodules: true
     {% endif %}
+    {% if clonee.force | default(false) %}
+    - force_fetch: true
+    - force_reset: true
+    {% endif %}
   {% if clonee.git_crypt is defined and clonee.git_crypt %}
   cmd.run:
     - name: git crypt unlock
@@ -31,6 +35,10 @@ Add remote {{ remote.name }}:
     - update_head: false
     - remote: {{ remote.name }}
     - target: {{ target }}
+    {% if clonee.force | default(false) %}
+    - force_fetch: true
+    - force_reset: true
+    {% endif %}
     {% endfor %}
   {% endif %}
 

@@ -17,6 +17,7 @@ self_clonees:
     remotes:
       - url: git@github.com:qmk/qmk_firmware.git
         name: upstream
+    force: true
   - repo: meh
   - repo: passfuse
   - repo: bors
