@@ -2,9 +2,9 @@ Remove unwanted packages:
   pkg.removed:
     - pkgs: {{ pillar['packages_to_remove'] | default([]) | tojson }}
 
-Stop and disable unwanted services:
-  {% for service in pillar['service_to_disable'] %}
+{% for service in pillar.get('service_to_disable', []) %}
+Stop and disable unwanted service {{ service }}:
   - service.dead:
     - name: {{ service }}
     - enabled: false
-  {% endfor %}
+{% endfor %}

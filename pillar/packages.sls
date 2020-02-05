@@ -83,6 +83,7 @@ packages:
   {% endif %}
 
   {% if is_debian %}
+  - chromium
   - lxdm
   - xorg
   - x11-apps
@@ -96,7 +97,8 @@ packages:
   - libnotify-dev
     {% endif %}
 
-  - chromium
+  - apt-listchanges
+  - chromium-browser
   - ipython3
   - libmnl-dev
   - libevent-dev
@@ -112,6 +114,7 @@ packages:
   - python3-dev
   - resolvconf
   - suckless-tools
+  - unattended-upgrades
   - vim-gtk3
   - x11proto-dev
   - x11-utils

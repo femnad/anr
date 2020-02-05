@@ -242,6 +242,11 @@ Set default Python:
     - name: update-alternatives --install /usr/bin/python python $(which python3) 1
     - unless:
       - test $(update-alternatives --display python | tail -n 1 | awk '{print $1}') = $(which python3)
+
+Configure auto upgrades:
+  file.managed:
+    - name: /etc/apt/apt.conf.d/20auto-upgrades
+    - source: salt://config/auto-upgrades
 {% endif %}
 
 Add user to wireshark group:
