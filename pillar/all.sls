@@ -14,7 +14,6 @@ home_dirs:
   - z
 
 unwanted_files:
-  - .bash_profile
   - Documents
   - Downloads
   - Music

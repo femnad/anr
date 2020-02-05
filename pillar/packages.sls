@@ -37,6 +37,7 @@ packages:
   - ratpoison
   - rlwrap
   - sbcl
+  - sqlite3
   - sxiv
   - strace
   - surfraw
