@@ -90,6 +90,10 @@ packages:
   - xinit
   {% endif %}
 
+  {% if is_ubuntu %}
+  - chromium-browser
+  {% endif %}
+
   {% if is_debian or is_ubuntu %}
 
     {% if is_laptop %}
@@ -97,7 +101,6 @@ packages:
     {% endif %}
 
   - apt-listchanges
-  - chromium-browser
   - ipython3
   - libmnl-dev
   - libevent-dev
