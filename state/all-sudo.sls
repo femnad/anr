@@ -280,6 +280,11 @@ Vimx as the vim provider:
   file.symlink:
     - name: /usr/bin/vim
     - target: /usr/bin/vimx
+
+Enable dnf automatic:
+  service.running:
+    - name: dnf-automatic.timer
+    - enable: true
 {% endif %}
 
 Persistent Systemd storage enabled for user services:

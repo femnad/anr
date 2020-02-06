@@ -37,7 +37,6 @@ packages:
   - ratpoison
   - rlwrap
   - sbcl
-  - sqlite3
   - sxiv
   - strace
   - surfraw
@@ -113,6 +112,7 @@ packages:
   - network-manager
   - python3-dev
   - resolvconf
+  - sqlite3
   - suckless-tools
   - unattended-upgrades
   - vim-gtk3
@@ -134,6 +134,7 @@ packages:
   - libnotify-devel
     {% endif %}
 
+  - dnf-automatic
   - ffmpeg
   - flatpak
   - gcc-c++
@@ -151,6 +152,7 @@ packages:
   - python3-ipython
   - python3-virtualenv
   - openssl-devel
+  - sqlite
   - vim-X11
   - libX11-devel
   - libXfixes-devel
