@@ -24,7 +24,7 @@ Clone self repo {{ name }}:
 
   {% if clonee.remotes is defined %}
     {% for remote in clonee.remotes %}
-Add remote {{ remote.name }}:
+Add remote {{ remote.name }} for {{ name }}:
   cmd.run:
     - name: git remote add {{ remote.name }} {{ remote.url }}
     - cwd: {{ target }}

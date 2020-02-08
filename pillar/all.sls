@@ -196,3 +196,9 @@ services_to_disable:
 
 chezmoi_base_repo: https://gitlab.com/femnad/chezmoi.git
 chezmoi_base_path: .local/share/chezmoi
+
+{% set arduino_version = '1.8.11' %}
+
+arduino:
+  version: {{ arduino_version }}
+  url: https://downloads.arduino.cc/arduino-{{ arduino_version }}-linux64.tar.xz

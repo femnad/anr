@@ -20,6 +20,7 @@ base:
     - packages
   sudo-dev:
     - docker
+    - keyboardio
     - libvirt
     - qmk
   private:
