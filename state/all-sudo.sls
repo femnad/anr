@@ -220,7 +220,7 @@ Install WireGuard:
 Ensure resolv.conf is a symlink:
   file.symlink:
     - name: /etc/resolv.conf
-    - target: /run/systemd/resolve/stub-resolv.conf
+    - target: /run/resolvconf/resolv.conf
     - force: true
 
 Add DNS stub file:

@@ -4,6 +4,8 @@
 {% set is_laptop = grains['manufacturer'] in ['LENOVO', 'Dell Inc.'] %}
 {% set is_ubuntu = grains['os'] == 'Ubuntu' %}
 
+{% set is_debian_or_ubuntu = is_debian or is_ubuntu %}
+
 packages:
   - alsa-utils
   - autoconf
@@ -180,12 +182,25 @@ qmk_packages:
   - arm-none-eabi-gcc-cs
   - arm-none-eabi-binutils-cs
   - arm-none-eabi-newlib
+  {% elif is_debian_or_ubuntu %}
+  - gcc-avr
+  - binutils-avr
+  - avr-libc
+  - dfu-programmer
+  - dfu-util
+  - gcc-arm-none-eabi
+  - binutils-arm-none-eabi
+  - libnewlib-arm-none-eabi
   {% endif %}
 
 libvirt_packages:
   {% if is_fedora %}
   - libvirt
   - qemu
+  {% elif is_debian_or_ubuntu %}
+  - libvirt-clients
+  - libvirt-daemon-system
+  - qemu-kvm
   {% endif %}
 
 packages_to_remove:

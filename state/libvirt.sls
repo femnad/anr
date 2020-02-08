@@ -9,7 +9,7 @@ Set Libvirtd socket owner:
     - name: /etc/libvirt/libvirtd.conf
     - content: unix_sock_group = "libvirt"
     - after: '#unix_sock_group = "libvirt"'
-    - mode: insert
+    - mode: replace
 
 Add user to libvirt group:
   user.present:
