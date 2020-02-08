@@ -9,6 +9,7 @@ base:
     - user-services
     - vim
   self-dev:
+    - keyboardio
     - minikube
   sudo:
     - all-sudo
@@ -20,7 +21,7 @@ base:
     - packages
   sudo-dev:
     - docker
-    - keyboardio
+    - keyboardio-sudo
     - libvirt
     - qmk
   private:

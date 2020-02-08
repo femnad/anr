@@ -18,7 +18,7 @@ Clone Keyboardio hardware bundle:
     - name: https://github.com/keyboardio/Kaleidoscope-Bundle-Keyboardio.git
     - target: {{ package_dir }}/arduino-{{ pillar['arduino'].version }}/hardware/keyboardio
     - submodules: true
-    - user: pillar['user']
+    - user: {{ user }}
 
 {% set repo = {
   'repo': 'Model01-Firmware',
@@ -33,25 +33,3 @@ Clone Keyboardio hardware bundle:
 {% from 'macros.sls' import clone_self_repo with context %}
 
 {{ clone_self_repo(repo, user) }}
-
-Add user to dialout/uucp group:
-  user.present:
-    - name: {{ pillar['user'] }}
-    - groups:
-        {% if pillar['is_arch'] %}
-        - uucp
-        {% else %}
-        - dialout
-        {% endif %}
-    - remove_groups: False
-
-Add udev rule:
-  file.managed:
-    - name: /etc/udev/rules.d/99-kaleidoscope.rules
-    - source: salt://udev/kaleidoscope.rules
-
-Reload udevadm rules:
-  cmd.run:
-    - name: udevadm control -R
-    - onsuccess:
-        - Add udev rule
