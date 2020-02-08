@@ -191,6 +191,7 @@ qmk_packages:
   - gcc-arm-none-eabi
   - binutils-arm-none-eabi
   - libnewlib-arm-none-eabi
+  - teensy-loader-cli
   {% endif %}
 
 libvirt_packages:
