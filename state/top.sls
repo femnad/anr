@@ -4,6 +4,8 @@ base:
     - passfuse-gcp
   self:
     - all
+    - archive-install
+    - go-packages
     - python-packages
     - rust-packages
     - user-services

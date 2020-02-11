@@ -21,40 +21,6 @@ Remove {{ file }}:
     - name: {{ home }}/{{ file }}
 {% endfor %}
 
-{% for archive in pillar['archives'] %}
-Install {{ archive.name | default(archive.url) }}:
-  archive.extracted:
-    - name: {{ package_dir }}
-    - source: {{ archive.url }}
-{% if archive.hash is defined %}
-    - source_hash: {{ archive.hash }}
-    - source_hash_update: true
-{% else %}
-    - skip_verify: true
-{% endif %}
-{% if archive.clean is defined %}
-    - clean: {{ archive.clean }}
-{% endif %}
-{% if archive.format is defined %}
-    - archive_format: {{ archive.format }}
-{% endif %}
-    - trim_output: true
-{% set basename = archive.exec.split('/')[-1] %}
-  file.symlink:
-    - name: {{ home_bin }}/{{ basename }}
-    - target: {{ package_dir }}/{{ archive.exec }}
-
-{% if archive.bin_links is defined %}
-{% for bin_link in archive.bin_links %}
-Link {{ bin_link }}:
-  file.symlink:
-    - name: {{ home_bin }}/{{ bin_link }}
-    - target: {{ package_dir }}/{{ salt['file.dirname'](archive.exec) }}/{{ bin_link }}
-{% endfor %}
-{% endif %}
-
-{% endfor %}
-
 Enable gsutil:
   {% set gcloud_bin = (pillar['archives'] | selectattr('name', 'defined') | selectattr('name', 'equalto', 'gcloud') | list)[0].exec.split('/')[:-1] | join('/') %}
   cmd.run:
@@ -142,23 +108,6 @@ Go clone install {{ repo.name}}:
     - unless:
       - {{ repo.unless }}
     {% endif %}
-{% endfor %}
-
-{% set homeshick_repos = home + '/.homesick/repos' %}
-{% set homeshick = homeshick_repos + '/homeshick' %}
-{% set homeshick_bin = homeshick + '/bin/homeshick' %}
-
-homeshick:
-  git.cloned:
-    - name: https://github.com/andsens/homeshick.git
-    - target: {{ homeshick }}
-
-{% for castle in pillar['castles'] %}
-{% set castle_name = castle.split('/')[-1].split('.')[0] %}
-Add castle {{ castle }}:
-  git.cloned:
-    - name: {{ castle }}
-    - target: {{ homeshick_repos + '/' + castle_name }}
 {% endfor %}
 
 Initialize chezmoi base:

@@ -103,15 +103,10 @@ mutt_dirs:
   - gm
 
 archives:
-  - url: https://dl.google.com/go/go1.13.3.linux-amd64.tar.gz
-    exec: go/bin/go
-    clean: true
-    hash: 0804bf02020dceaa8a7d7275ee79f7a142f1996bfd0c39216ccb405f93f994c0
-    name: go
-  - url: https://vscode-update.azurewebsites.net/1.41.1/linux-x64/stable
+  - url: https://vscode-update.azurewebsites.net/1.42.0/linux-x64/stable
     exec: VSCode-linux-x64/code
     clean: true
-    hash: 2a2353ea85b5a3d729e0134ff36b29461bb4264b708786e2486927b7f3c06601
+    hash: d6c5459cf71f8eb5b75a43e7a1972e0e8f1b2a3a048b4e69d739df2f1b8b67ad
     format: tar
   # Undetermined weirdness with packaged Firefox ctrl+t behavior in Ratpoison/Stumpwm
   {% if is_fedora or is_debian %}
@@ -141,6 +136,19 @@ binary_only_archives:
     hash: d89b8a317831b06f2a32c56cb86071d058b09d9317b416bb509ce3d01e912eb3
   - url: https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v3.4.0/kustomize_v3.4.0_linux_amd64.tar.gz
     hash: eabfa641685b1a168c021191e6029f66125be94449b60eb12843da8df3b092ba
+
+{% set go = {
+  'version': '1.13.7',
+  'checksum': 'b3dd4bd781a0271b33168e627f7f43886b4c5d1c794a4015abf34e99c6526ca3',
+  }
+%}
+
+go_release:
+  url: https://dl.google.com/go/go{{ go.version }}.linux-amd64.tar.gz
+  exec: go/bin/go
+  clean: true
+  hash: {{ go.checksum }}
+  name: go
 
 cargo:
   - crate: fd-find
