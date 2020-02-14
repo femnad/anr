@@ -38,6 +38,7 @@ packages:
   - rofi
   - ratpoison
   - rlwrap
+  - ruby
   - sbcl
   - sxiv
   - strace

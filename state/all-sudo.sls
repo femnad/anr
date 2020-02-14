@@ -281,6 +281,13 @@ Vimx as the vim provider:
     - name: /usr/bin/vim
     - target: /usr/bin/vimx
 
+Enable automated installing of updates:
+  file.line:
+    - name: /etc/dnf/automatic.conf
+    - match: apply_updates = no
+    - mode: replace
+    - content: apply_updates = yes
+
 Enable dnf automatic:
   service.running:
     - name: dnf-automatic.timer
