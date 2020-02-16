@@ -12,7 +12,7 @@ Install Rust:
     - unless:
         - {{ cargo }}
   cmd.run:
-    {% if not pillar['rust_update'] %}
+    {% if not pillar.get('rust_update', False) %}
     - name: "echo 1 | {{ pillar['package_dir'] }}/rustup/rustup-init --no-modify-path"
     - unless:
         - {{ cargo }}
