@@ -247,6 +247,12 @@ Configure auto upgrades:
   file.managed:
     - name: /etc/apt/apt.conf.d/20auto-upgrades
     - source: salt://config/auto-upgrades
+
+Ensure unattended upgrades configuration:
+  file.managed:
+    - name: /etc/apt/apt.conf.d/50unattended-upgrades
+    - source: salt://config/{{ grains['osfullname'].lower() }}-unattended-upgrades.conf
+
 {% endif %}
 
 Add user to wireshark group:
