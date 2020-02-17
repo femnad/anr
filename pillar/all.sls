@@ -213,3 +213,6 @@ chezmoi_base_path: .local/share/chezmoi
 arduino:
   version: {{ arduino_version }}
   url: https://downloads.arduino.cc/arduino-{{ arduino_version }}-linux64.tar.xz
+
+xorg_conf:
+  francium: 10-monitor.conf

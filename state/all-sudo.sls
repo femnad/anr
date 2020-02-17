@@ -227,7 +227,8 @@ Ensure resolv.conf is a symlink:
     {% endif %}
     - force: true
 
-{% set additional_dns_servers = grains['host'] in pillar.get('add_dns_server', []) %}
+{% set hostname = grains['host'] %}
+{% set additional_dns_servers = hostname in pillar.get('add_dns_server', []) %}
 
 {% if additional_dns_servers %}
 Add DNS stub file:
@@ -316,3 +317,13 @@ Persistent Systemd storage enabled for user services:
     - match: '#Storage=(auto|volatile)'
     - mode: replace
     - content: Storage=persistent
+
+{% set host_specific_xorg_conf = pillar.get('xorg_conf', {}) %}
+{% if hostname in host_specific_xorg_conf %}
+  {% set config_file = host_specific_xorg_conf[hostname] %}
+Add host specific Xorg conf:
+  file.managed:
+    - name: /etc/X11/xorg.conf.d/{{ config_file }}
+    - source: salt://config/{{ config_file }}
+    - makedirs: true
+{% endif %}
