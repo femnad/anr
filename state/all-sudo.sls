@@ -227,7 +227,9 @@ Ensure resolv.conf is a symlink:
     {% endif %}
     - force: true
 
-{% if grains['host'] in pillar.get('add_dns_server', []) %}
+{% set additional_dns_servers = grains['host'] in pillar.get('add_dns_server', []) %}
+
+{% if additional_dns_servers %}
 Add DNS stub file:
   file.managed:
     - name: /etc/systemd/resolved.conf.d/dns-servers.conf
@@ -239,8 +241,10 @@ Start and Enable System Resolved:
   service.running:
     - name: systemd-resolved
     - enable: true
+    {% if additional_dns_servers %}
     - watch:
       - file: /etc/systemd/resolved.conf.d/*
+    {% endif %}
 
 {% if pillar['is_debian_or_ubuntu'] %}
 Set default Python:
