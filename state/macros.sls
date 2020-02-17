@@ -42,6 +42,10 @@ Service {{ name }} started:
 {{ path.split('/')[-1] }}
 {%- endmacro %}
 
+{% macro dirname(path) -%}
+{{ '/'.join(path.split('/')[:-1]) }}
+{%- endmacro %}
+
 {% macro install_from_archive(archive, user=None) %}
 Install {{ archive.name | default(archive.url) }}:
   archive.extracted:

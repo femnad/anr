@@ -5,6 +5,7 @@
 {% set host = grains['host'] %}
 
 {% from 'macros.sls' import systemd_user_service with context %}
+{% from 'macros.sls' import dirname %}
 
 Clipmenu cloned:
   git.cloned:
@@ -57,15 +58,22 @@ Clipmenud cache directory:
 {{ systemd_user_service('clipmenud', 'Clipmenud daemon', clipmenud_exec, environment=clipmenud_env, options=clipmenud_options) }}
 
 {% if pillar['is_laptop'] %}
+
+  {% set xidlehook_socket = pillar['xidlehook_socket'] %}
+
   {% if host not in pillar['unlocked'] %}
+    {% set xidlehook_exec = home + "/.cargo/bin/xidlehook --timer 600 'i3lock -e -c 000000' 'center-click.sh' --socket " + xidlehook_socket %}
     {% set host_specific_options = pillar['xidlehook_options'].get(host, None) %}
-    {% if host_specific_options == None %}
-      {% set xidlehook_exec = home + "/.cargo/bin/xidlehook --timer 600 'i3lock -e -c 000000' ''" %}
-    {% else %}
-      {% set xidlehook_exec = home + "/.cargo/bin/xidlehook --timer 600 'i3lock -e -c 000000' '' " + host_specific_options %}
+    {% if host_specific_options is not none %}
+      {% set xidlehook_exec = xidlehook_exec + ' ' + host_specific_options %}
     {% endif %}
     {% set xidlehook_env = default_display_env %}
     {% set xidlehook_options = {'Restart': 'always', 'RestartSec': 5} %}
+
+Ensure xidlehook socket dir:
+  file.directory:
+    - name: {{ dirname(xidlehook_socket) }}
+    - makedirs: true
 
 {{ systemd_user_service('xidlehook', 'Xidlehook daemon', xidlehook_exec, environment=xidlehook_env, options=xidlehook_options) }}
 
