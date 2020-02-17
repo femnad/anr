@@ -121,9 +121,6 @@ archives:
     exec: idea-IC-193.6015.39/bin/idea.sh
   - url: https://download.jetbrains.com/go/goland-2019.3.tar.gz
     exec: GoLand-2019.3/bin/goland.sh
-  - url: https://dl.google.com/dl/cloudsdk/channels/rapid/google-cloud-sdk.tar.gz
-    exec: google-cloud-sdk/bin/gcloud
-    name: gcloud
   - url: https://github.com/crystal-lang/crystal/releases/download/0.32.0/crystal-0.32.0-1-linux-x86_64.tar.gz
     exec: crystal-0.32.0-1/bin/crystal
     bin_links:
@@ -138,6 +135,11 @@ binary_only_archives:
     hash: d89b8a317831b06f2a32c56cb86071d058b09d9317b416bb509ce3d01e912eb3
   - url: https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v3.4.0/kustomize_v3.4.0_linux_amd64.tar.gz
     hash: eabfa641685b1a168c021191e6029f66125be94449b60eb12843da8df3b092ba
+
+gcloud_package:
+  url: https://dl.google.com/dl/cloudsdk/channels/rapid/google-cloud-sdk.tar.gz
+  exec: google-cloud-sdk/bin/gcloud
+  name: gcloud
 
 {% set go = {
   'version': '1.13.7',

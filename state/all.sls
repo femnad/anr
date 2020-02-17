@@ -21,6 +21,10 @@ Remove {{ file }}:
     - name: {{ home }}/{{ file }}
 {% endfor %}
 
+{% from 'macros.sls' import install_from_archive with context %}
+
+{{ install_from_archive(pillar['gcloud_package']) }}
+
 Enable gsutil:
   {% set gcloud_bin = (pillar['archives'] | selectattr('name', 'defined') | selectattr('name', 'equalto', 'gcloud') | list)[0].exec.split('/')[:-1] | join('/') %}
   cmd.run:
@@ -31,92 +35,11 @@ Enable gsutil:
     - name: {{ home_bin }}/gsutil
       target: {{ package_dir }}/{{ gcloud_bin }}/gsutil
 
-{% for pkg in pillar['go_install'] %}
-{% set name = pkg.split('/')[-1].split('.')[0] %}
-{% set target = pillar['clone_dir'] + '/' + name %}
-Install Go Package {{ name }}:
-  git.cloned:
-    - name: {{ pkg }}
-    - target: {{ target }}
-  cmd.run:
-    - name: {{ go_bin}} install
-    - cwd: {{ target }}
-    - require:
-        - Install go
-{% endfor %}
-
-{% for pkg in pillar['go_get'] %}
-Go get {{ pkg.pkg }}:
-  cmd.run:
-    - name: {{ go_bin }} get -u {{ pkg.pkg }}
-    - require:
-      - Install go
-    {% if pkg.unless is defined %}
-    - unless:
-      {% if pkg.version is defined %}
-      - test {{ pkg.unless }} = {{ pkg.version }}
-      {% else %}
-      - {{ pkg.unless }}
-      {% endif %}
-    {% endif %}
-{% endfor %}
-
-{% for pkg in pillar['go_get_gopath'] %}
-{% set name = pkg.pkg.split('/')[-1] %}
-{% set gopath = pillar['go_path'] %}
-Go get {{ pkg.pkg }}:
-  environ.setenv:
-    - name: GOPATH
-    - value: {{ gopath }}
-  cmd.run:
-    - name: {{ go_bin }} get -u {{ pkg.pkg }}
-    - require:
-      - Install go
-    {% if pkg.unless is defined %}
-    - unless:
-      - {{ pkg.unless }}
-    {% endif %}
-{% endfor %}
-
-Unset Gopath:
-  environ.setenv:
-    - name: GOPATH
-    - value: false
-    - false_unsets: true
-
-{% for repo in pillar['go_cloned_install'] %}
-  {% set host = repo.host | default('github.com') %}
-  {% set url = 'https://' + host + '/' + repo.name + '.git' %}
-  {% set dir = url.split('/')[-1].split('.')[0] %}
-  {% set clone_path = pillar['clone_dir'] + '/' + dir %}
-Go clone install {{ repo.name}}:
-  git.latest:
-    - name: {{ url }}
-    - target: {{ clone_path }}
-    {% if repo.unless is defined %}
-    - unless:
-        - {{ repo.unless }}
-    {% endif %}
-  cmd.run:
-    - name: {{ go_bin }} install
-    {% if repo.path is defined %}
-    - cwd: {{ clone_path }}/{{ repo.path }}
-    {% else %}
-    - cwd: {{ clone_path }}
-    {% endif %}
-    {% if repo.unless is defined %}
-    - unless:
-      - {{ repo.unless }}
-    {% endif %}
-{% endfor %}
-
 Initialize chezmoi base:
   cmd.run:
     - name: {{ home }}/go/bin/chezmoi init {{ pillar['chezmoi_base_repo'] }}
     - unless:
       - ls {{ home + '/' + pillar['chezmoi_base_path'] }}
-    - require:
-      - Go clone install twpayne/chezmoi
 
 Apply chezmoi base:
   cmd.run:
