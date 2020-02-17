@@ -220,14 +220,20 @@ Install WireGuard:
 Ensure resolv.conf is a symlink:
   file.symlink:
     - name: /etc/resolv.conf
+    {% if is_fedora %}
+    - target: /run/systemd/resolve/resolv.conf
+    {% else %}
     - target: /run/resolvconf/resolv.conf
+    {% endif %}
     - force: true
 
+{% if grains['host'] in pillar.get('add_dns_server', []) %}
 Add DNS stub file:
   file.managed:
     - name: /etc/systemd/resolved.conf.d/dns-servers.conf
     - source: salt://resolved/dns-servers.conf
     - makedirs: true
+{% endif %}
 
 Start and Enable System Resolved:
   service.running:
