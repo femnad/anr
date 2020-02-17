@@ -22,11 +22,12 @@ Remove {{ file }}:
 {% endfor %}
 
 {% from 'macros.sls' import install_from_archive with context %}
+{% from 'macros.sls' import dirname %}
 
 {{ install_from_archive(pillar['gcloud_package']) }}
 
 Enable gsutil:
-  {% set gcloud_bin = (pillar['archives'] | selectattr('name', 'defined') | selectattr('name', 'equalto', 'gcloud') | list)[0].exec.split('/')[:-1] | join('/') %}
+  {% set gcloud_bin = dirname(pillar['gcloud_package'].exec) %}
   cmd.run:
     - name: {{ home_bin }}/gcloud components install gsutil
     - require:
