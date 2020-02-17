@@ -105,16 +105,15 @@ mutt_dirs:
   - gm
 
 archives:
-  - url: https://vscode-update.azurewebsites.net/1.42.0/linux-x64/stable
+  - url: https://vscode-update.azurewebsites.net/1.42.1/linux-x64/stable
     exec: VSCode-linux-x64/code
     clean: true
-    hash: d6c5459cf71f8eb5b75a43e7a1972e0e8f1b2a3a048b4e69d739df2f1b8b67ad
     format: tar
   # Undetermined weirdness with packaged Firefox ctrl+t behavior in Ratpoison/Stumpwm
   {% if is_fedora or is_debian %}
-  - url: https://download-installer.cdn.mozilla.net/pub/firefox/releases/72.0.1/linux-x86_64/en-US/firefox-72.0.1.tar.bz2
+  - url: https://download-installer.cdn.mozilla.net/pub/firefox/releases/73.0/linux-x86_64/en-GB/firefox-73.0.tar.bz2
     exec: firefox/firefox
-    hash: 6f81b12986d9b4b45d64b8921009addfae36f49b41b6ba2637402239e71733d6
+    hash: f7beb35c4fdb6d0855eb4c932484c9e70b77af971661d7f822b8c5698178ff6b
     clean: true
   {% endif %}
   - url: https://download.jetbrains.com/idea/ideaIC-2019.3.2.tar.gz
