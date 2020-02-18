@@ -145,15 +145,19 @@ Stumpwm compiled:
         make
     - cwd: {{ clone_dir }}/stumpwm
     - runas: {{ user }}
+    {% if not pillar.get('stumpwm_update', False) %}
     - unless:
       - stumpwm --version
+    {% endif %}
 
 Stumpwm installed:
   cmd.run:
     - name: make install
     - cwd: {{ clone_dir }}/stumpwm
+    {% if not pillar.get('stumpwm_update', False) %}
     - unless:
       - stumpwm --version
+    {% endif %}
   file.managed:
     - name: /usr/share/xsessions/stumpwm.desktop
     - source: salt://xsessions/stumpwm.desktop
