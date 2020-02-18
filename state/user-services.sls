@@ -62,7 +62,7 @@ Clipmenud cache directory:
   {% set xidlehook_socket = pillar['xidlehook_socket'] %}
 
   {% if host not in pillar['unlocked'] %}
-    {% set xidlehook_exec = home + "/.cargo/bin/xidlehook --timer 600 'i3lock -e -c 000000' 'center-click.sh' --socket " + xidlehook_socket %}
+    {% set xidlehook_exec = home + "/.cargo/bin/xidlehook --timer 600 '" + home_bin + "/lock-me-maybe' ''" %}
     {% set host_specific_options = pillar['xidlehook_options'].get(host, None) %}
     {% if host_specific_options is not none %}
       {% set xidlehook_exec = xidlehook_exec + ' ' + host_specific_options %}
