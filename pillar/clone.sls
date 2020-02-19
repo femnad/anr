@@ -23,3 +23,4 @@ self_clonees:
   - repo: bors
   - repo: sqrt26.com
     submodule: true
+  - repo: gcloud-fish-completions
