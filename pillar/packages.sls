@@ -207,6 +207,7 @@ libvirt_packages:
 
 packages_to_remove:
   {% if is_debian %}
+  - exim4-daemon-light
   - firefox-esr
   - lightdm
   - wicd
