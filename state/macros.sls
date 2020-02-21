@@ -68,6 +68,10 @@ Install {{ archive.name | default(archive.url) }}:
     - user: {{ user }}
     - group: {{ user }}
   {% endif %}
+  {% if archive.unless is defined %}
+    - unless:
+      - {{ archive.unless }}
+  {% endif %}
   {% if archive.exec is defined %}
   {% set basename = archive.exec.split('/')[-1] %}
   file.symlink:
