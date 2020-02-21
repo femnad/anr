@@ -69,8 +69,7 @@ Install {{ archive.name | default(archive.url) }}:
     - group: {{ user }}
   {% endif %}
   {% if archive.unless is defined %}
-    - unless:
-      - {{ archive.unless }}
+    - unless: {{ archive.unless }}
   {% endif %}
   {% if archive.exec is defined %}
   {% set basename = archive.exec.split('/')[-1] %}

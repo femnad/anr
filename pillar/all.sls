@@ -111,9 +111,9 @@ archives:
     format: tar
   # Undetermined weirdness with packaged Firefox ctrl+t behavior in Ratpoison/Stumpwm
   {% if is_fedora or is_debian %}
-  - url: https://download-installer.cdn.mozilla.net/pub/firefox/releases/73.0.1/linux-x86_64/en-GB/firefox-73.0.1.tar.bz2
+  - url: https://download-installer.cdn.mozilla.net/pub/firefox/releases/73.0.1/linux-x86_64/en-US/firefox-73.0.1.tar.bz2
     exec: firefox/firefox
-    hash: 42cc9bffdcbe04fa70927b9ee1e7beb2ff487a5ab0f9185d77491872f89ceff8
+    hash: d5a2c93844763b2e7f7f555eab239b71442cd87205c40a8ad287c38208a2a513
     clean: true
     unless: firefox
   {% endif %}
