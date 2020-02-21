@@ -115,7 +115,7 @@ archives:
     exec: firefox/firefox
     hash: d5a2c93844763b2e7f7f555eab239b71442cd87205c40a8ad287c38208a2a513
     clean: true
-    unless: firefox
+    unless: firefox -v
   {% endif %}
   - url: https://download.jetbrains.com/idea/ideaIC-2019.3.2.tar.gz
     exec: idea-IC-193.6015.39/bin/idea.sh

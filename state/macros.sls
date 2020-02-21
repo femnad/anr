@@ -70,7 +70,7 @@ Install {{ archive.name | default(archive.url) }}:
   {% endif %}
   {% if archive.unless is defined %}
     - unless:
-      - ls {{ archive.unless }}
+      - {{ archive.unless }}
   {% endif %}
   {% if archive.exec is defined %}
   {% set basename = archive.exec.split('/')[-1] %}
