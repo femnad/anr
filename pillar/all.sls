@@ -144,8 +144,8 @@ gcloud_package:
   name: gcloud
 
 {% set go = {
-  'version': '1.13.7',
-  'checksum': 'b3dd4bd781a0271b33168e627f7f43886b4c5d1c794a4015abf34e99c6526ca3',
+  'version': '1.14',
+  'checksum': '08df79b46b0adf498ea9f320a0f23d6ec59e9003660b4c9c1ce8e5e2c6f823ca',
   }
 %}
 
