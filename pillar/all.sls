@@ -106,7 +106,7 @@ mutt_dirs:
 
 archives:
   - url: https://vscode-update.azurewebsites.net/1.43.0/linux-x64/stable
-    exec: VSCode-linux-x64/code
+    exec: VSCode-linux-x64/bin/code
     clean: true
     format: tar
   # Undetermined weirdness with packaged Firefox ctrl+t behavior in Ratpoison/Stumpwm
