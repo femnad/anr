@@ -34,6 +34,8 @@ Disable ERTM for Xbox Wireless Controller:
 {% if pillar['is_fedora'] %}
 Install Intel VA Driver:
   pkg.installed:
-    - name: libva-intel-driver
+    - pkgs:
+      - libva-intel-driver
+      - librtmp
 {% endif %}
 {% endif %}
