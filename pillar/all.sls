@@ -100,7 +100,6 @@ vim_dirs:
   - swap
 
 mutt_dirs:
-  - eb
   - fm
   - gm
 
