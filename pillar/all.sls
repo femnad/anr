@@ -174,7 +174,7 @@ github_user: {{ github_user }}
 github_keys: {{ salt.sdb.get('sdb://github-lookup/keys?user=' + github_user) | tojson }}
 
 python_pkgs:
-  - name: git+https://github.com/ranger/ranger.git@1188d40862ebc629e6d29ae879b777437aed7a16
+  - name: git+https://github.com/ranger/ranger.git@081e73152a9391211770fab56676d7d974413ae6
     venv: ranger
     reqs:
       - ueberzug
