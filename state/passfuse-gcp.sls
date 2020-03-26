@@ -1,4 +1,4 @@
-{% from 'macros.sls' import systemd_user_service with context %}
+{% from 'systemd-macros.sls' import systemd_user_service with context %}
 
 {% set home = pillar['home'] %}
 {% set go_bin = home + '/go/bin' %}

@@ -1,0 +1,15 @@
+[Unit]
+Description={{ timer.description }}
+
+[Timer]
+{%- if timer.realtime %}
+OnCalendar={{ timer.period }}
+Persistent=true
+{%- else %}
+  {%- for k, v in timer.directives %}
+{{ k }}={{ v }}
+  {%- endfor %}
+{%- endif %}
+
+[Install]
+WantedBy=timers.target
