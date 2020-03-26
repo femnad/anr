@@ -52,27 +52,24 @@ Ensure definition for timer {{ name }}:
           period: {{ period }}
           directives: {{ directives }}
 
-{% if enabled or started %}
-Daemon reload for {{ name }}:
-  cmd.run:
-    - name: systemctl --user daemon-reload
-
-  {% if enabled %}
+{% if enabled %}
 Timer {{ name }} enabled:
   cmd.run:
-    - name: systemctl --user enable {{ name }}.timer
+    - name: |
+        systemctl --user daemon-reload
+        systemctl --user enable {{ name }}.timer
     - unless:
         - test $(systemctl --user is-enabled {{ name }}.timer) = enabled
 {% endif %}
 
-  {% if started %}
+{% if started %}
 Timer {{ name }} started:
   cmd.run:
-    - name: systemctl --user start {{ name }}.timer
+    - name: |
+        systemctl --user daemon-reload
+        systemctl --user start {{ name }}.timer
     - unless:
-        - test $(systemctl --user is-active {{ name }}.timer) = enabled
-  {% endif %}
-
+        - test $(systemctl --user is-active {{ name }}.timer) = active
 {% endif %}
 
 {% endmacro %}
