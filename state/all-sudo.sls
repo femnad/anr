@@ -224,12 +224,7 @@ Install WireGuard:
 Ensure resolv.conf is a symlink:
   file.symlink:
     - name: /etc/resolv.conf
-    {% if is_fedora %}
     - target: /run/systemd/resolve/resolv.conf
-    {% else %}
-    - target: /run/resolvconf/resolv.conf
-    {% endif %}
-    - force: true
 
 {% set hostname = grains['host'] %}
 {% set additional_dns_servers = hostname in pillar.get('add_dns_server', []) %}

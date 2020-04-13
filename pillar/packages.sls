@@ -104,6 +104,7 @@ packages:
     {% endif %}
 
   - apt-listchanges
+  - dnsutils
   - ipython3
   - libmnl-dev
   - libevent-dev
