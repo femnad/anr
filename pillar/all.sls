@@ -104,7 +104,7 @@ mutt_dirs:
   - gm
 
 archives:
-  - url: https://vscode-update.azurewebsites.net/1.43.0/linux-x64/stable
+  - url: https://vscode-update.azurewebsites.net/1.44.2/linux-x64/stable
     exec: VSCode-linux-x64/bin/code
     clean: true
     format: tar
@@ -190,6 +190,7 @@ rpmfusion_releases:
 unlocked:
   kalium:
   rubidium:
+  lithium:
 
 xidlehook_options:
   lithium: --not-when-fullscreen
