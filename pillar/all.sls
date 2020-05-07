@@ -103,12 +103,14 @@ mutt_dirs:
   - fm
   - gm
 
+{% set crystal_version = '0.34.0' %}
 archives:
-  - url: https://vscode-update.azurewebsites.net/1.44.2/linux-x64/stable
+  - url: https://vscode-update.azurewebsites.net/1.45.0/linux-x64/stable
     exec: VSCode-linux-x64/bin/code
     clean: true
     format: tar
-  # Undetermined weirdness with packaged Firefox ctrl+t behavior in Ratpoison/Stumpwm
+  # fedora: Undetermined weirdness with packaged Firefox ctrl+t behavior in Ratpoison/Stumpwm
+  # debian: only firefox esr
   {% if is_fedora or is_debian %}
   - url: https://download-installer.cdn.mozilla.net/pub/firefox/releases/75.0/linux-x86_64/en-US/firefox-75.0.tar.bz2
     exec: firefox/firefox
@@ -122,11 +124,10 @@ archives:
     exec: GoLand-2019.3/bin/goland.sh
   - url: https://download-cf.jetbrains.com/python/pycharm-community-2019.3.3.tar.gz
     exec: pycharm-community-2019.3.3/bin/pycharm.sh
-  - url: https://github.com/crystal-lang/crystal/releases/download/0.32.0/crystal-0.32.0-1-linux-x86_64.tar.gz
-    exec: crystal-0.32.0-1/bin/crystal
+  - url: https://github.com/crystal-lang/crystal/releases/download/{{ crystal_version }}/crystal-{{ crystal_version }}-1-linux-x86_64.tar.gz
+    exec: crystal-{{ crystal_version }}-1/bin/crystal
     bin_links:
       - shards
-    hash: 608db8d2a2296792022dad7a351ca96496e2565fbf16ac0172a66f6720d601eb
 
 {% set terraform_version = '0.12.24' %}
 binary_only_archives:
