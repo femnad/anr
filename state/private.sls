@@ -5,6 +5,8 @@
 {% set common_repo = pillar['chezmoi_common'] %}
 {% set common_path = home + '/' + pillar['chezmoi_common_path'] %}
 
+{% set user = pillar['user'] %}
+
 Set git origin for base:
   cmd.script:
     - source: salt://scripts/https-to-git.sh

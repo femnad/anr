@@ -14,7 +14,6 @@ packages:
   - colordiff
   - curl
   - dunst
-  - dzen2
   - emacs
   - fish
   - gcc
@@ -35,6 +34,7 @@ packages:
   {% endif %}
   - pwgen
   - qutebrowser
+  - ripgrep
   - rofi
   - ratpoison
   - rlwrap
@@ -85,16 +85,11 @@ packages:
   {% endif %}
 
   {% if is_debian %}
-  - chromium
   - lxdm
   - xorg
   - x11-apps
   - x11-session-utils
   - xinit
-  {% endif %}
-
-  {% if is_ubuntu %}
-  - chromium-browser
   {% endif %}
 
   {% if is_debian or is_ubuntu %}
@@ -127,12 +122,6 @@ packages:
   - x11-utils
   - xfonts-terminus
 
-    {% if is_ubuntu and grains['osmajorrelease'] < 19 %}
-  - dconf-cli
-    {% else %}
-  - ripgrep
-    {% endif %}
-
   {% endif %}
 
   {% if is_fedora %}
@@ -164,6 +153,7 @@ packages:
   - libX11-devel
   - libXfixes-devel
   - terminus-fonts
+  - wireguard-tools
   - wmname
   - xorg-x11-apps
   - xorg-x11-utils

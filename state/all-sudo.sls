@@ -196,31 +196,6 @@ Enable lxdm:
     - name: lxdm
 {% endif %}
 
-Compile WireGuard:
-{% set wireguard = clone_dir + '/WireGuard' %}
-{% set wireguard_source = wireguard + '/src' %}
-  git.latest:
-    - name: git://git.zx2c4.com/wireguard-linux-compat
-    - target: {{ wireguard }}
-    - user: {{ user }}
-    - unless:
-      - ls /usr/lib/modules/$(uname -r)/extra/wireguard.ko
-  cmd.run:
-    - name: make
-    - cwd: {{ wireguard_source }}
-    - runas: {{ user }}
-    - unless:
-      - ls /usr/lib/modules/$(uname -r)/extra/wireguard.ko
-
-Install WireGuard:
-  cmd.run:
-    - name: make install
-    - require:
-        - Compile WireGuard
-    - cwd: {{ wireguard_source }}
-    - unless:
-      - ls /usr/lib/modules/$(uname -r)/extra/wireguard.ko
-
 Ensure resolv.conf is a symlink:
   file.symlink:
     - name: /etc/resolv.conf

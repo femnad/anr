@@ -23,3 +23,9 @@ Install Steam dependencies:
       - libgl1-mesa-glx:i386
       - libc6:i386
 {% endif %}
+
+Disable ERTM for Xbox Wireless Controller:
+  file.managed:
+    - name: /etc/modprobe.d/xbox_bt.conf
+    - contents: options bluetooth disable_ertm=1
+    - makedirs: true

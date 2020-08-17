@@ -11,7 +11,7 @@ Break dependency cycles:
 {% for release in pillar['rpmfusion_releases'] %}
 Add Rpmfusion release {{ release }}:
   cmd.run:
-    - name: dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-{{ release }}-release-{{ grains['osrelease'] }}.noarch.rpm
+    - name: dnf install -y https://download1.rpmfusion.org/{{ release }}/fedora/rpmfusion-{{ release }}-release-{{ grains['osrelease'] }}.noarch.rpm
     - unless:
         - dnf list installed | grep rpmfusion-{{ release }}-release
 {% endfor %}
