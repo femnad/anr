@@ -60,9 +60,8 @@ go_get:
     unless: tag -V
   - pkg: github.com/googlecloudplatform/gcsfuse
     unless: gcsfuse -v
-  - pkg: github.com/rclone/rclone
-    unless: rclone version
   - pkg: github.com/femnad/passfuse
+    unless: passfuse --version
   - pkg: github.com/github/hub
     unless: hub --version
 
@@ -120,8 +119,8 @@ archives:
   {% endif %}
   - url: https://download.jetbrains.com/idea/ideaIC-2019.3.2.tar.gz
     exec: idea-IC-193.6015.39/bin/idea.sh
-  - url: https://download.jetbrains.com/go/goland-2019.3.tar.gz
-    exec: GoLand-2019.3/bin/goland.sh
+  - url: https://download.jetbrains.com/go/goland-2020.2.2.tar.gz
+    exec: GoLand-2020.2.2/bin/goland.sh
   - url: https://download-cf.jetbrains.com/python/pycharm-community-2019.3.3.tar.gz
     exec: pycharm-community-2019.3.3/bin/pycharm.sh
   - url: https://github.com/crystal-lang/crystal/releases/download/{{ crystal_version }}/crystal-{{ crystal_version }}-1-linux-x86_64.tar.gz
@@ -145,8 +144,8 @@ gcloud_package:
   name: gcloud
 
 {% set go = {
-  'version': '1.14',
-  'checksum': '08df79b46b0adf498ea9f320a0f23d6ec59e9003660b4c9c1ce8e5e2c6f823ca',
+  'version': '1.15',
+  'checksum': '2d75848ac606061efe52a8068d0e647b35ce487a15bb52272c427df485193602',
   }
 %}
 
