@@ -1,3 +1,6 @@
+{% set home = pillar['home'] %}
+{% set home_bin = home + '/bin' %}
+{% set clone_dir = pillar['clone_dir'] %}
 {% set user = pillar['user'] %}
 
 Install qmk packages:
@@ -24,9 +27,24 @@ Uninstall modem manager:
     - name: modemmanager
 {% endif %}
 
+{% if pillar['is_fedora'] %}
+Compile teensy_cli:
+  git.latest:
+    - name: https://github.com/PaulStoffregen/teensy_loader_cli.git
+    - target: {{ clone_dir }}/teensy_loader_cli
+    - user: {{ user }}
+  cmd.run:
+    - name: make
+    - cwd: {{ clone_dir }}/teensy_loader_cli
+    - runas: {{ user }}
+  file.copy:
+    - name: {{ home_bin }}/teensy_loader_cli
+    - source: {{ clone_dir }}/teensy_loader_cli/teensy_loader_cli
+{% endif %}
+
 {% set repo = {
   'repo': 'qmk_firmware',
-  'submodule': true
+  'submodule': true,
   'remotes': [
     {
       'url': 'git@github.com:qmk/qmk_firmware.git',

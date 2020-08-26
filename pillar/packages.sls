@@ -166,14 +166,21 @@ packages:
 
 qmk_packages:
   {% if is_fedora %}
-  - dfu-util
-  - dfu-programmer
+  - arm-none-eabi-binutils-cs
+  - arm-none-eabi-gcc-cs
+  - arm-none-eabi-newlib
+  - avr-binutils
   - avr-gcc
   - avr-libc
+  - avrdude
   - binutils-avr32-linux-gnu
-  - arm-none-eabi-gcc-cs
-  - arm-none-eabi-binutils-cs
-  - arm-none-eabi-newlib
+  - clang
+  - dfu-util
+  - dfu-programmer
+  - glibc-headers
+  - kernel-devel
+  - kernel-headers
+  - libusb-devel
   {% elif is_debian_or_ubuntu %}
   - gcc-avr
   - binutils-avr

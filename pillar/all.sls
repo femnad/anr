@@ -104,7 +104,7 @@ mutt_dirs:
 
 {% set crystal_version = '0.34.0' %}
 archives:
-  - url: https://vscode-update.azurewebsites.net/1.45.0/linux-x64/stable
+  - url: https://vscode-update.azurewebsites.net/1.48.1/linux-x64/stable
     exec: VSCode-linux-x64/bin/code
     clean: true
     format: tar

@@ -4,7 +4,7 @@ Revert to Cgroups v1:
     - name: grubby
   cmd.run:
     - name: grubby --update-kernel=ALL --args=systemd.unified_cgroup_hierarchy=0
-
+  {% if grains['osrelease'] == '31' %}
 Install Docker CE:
   cmd.run:
     - name: dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
@@ -22,6 +22,27 @@ Install Docker CE:
     - groups:
         - docker
     - remove_groups: False
+  {% elif grains['osrelease'] == '32' %}
+Firewall Trusted Zone for Docker:
+  cmd.run:
+    - name: firewall-cmd --permanent --zone=trusted --add-interface=docker0
+
+Local connections for Docker:
+  cmd.run:
+    - name: firewall-cmd --permanent --zone=FedoraWorkstation --add-masquerade
+
+Install Moby et al:
+  pkg.installed:
+    - pkgs:
+      - moby-engine
+      - docker-compose
+  user.present:
+    - name: {{ pillar['user'] }}
+    - groups:
+        - docker
+    - remove_groups: False
+  {% endif %}
+
 {% elif pillar['is_debian'] %}
 Install Docker CE:
   pkgrepo.managed:
