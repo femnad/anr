@@ -102,7 +102,10 @@ mutt_dirs:
   - fm
   - gm
 
+{% set firefox_version = '80.0' %}
 {% set crystal_version = '0.34.0' %}
+{% set goland_version = '2020.2.2' %}
+{% set pycharm_version = '2020.2.1' %}
 archives:
   - url: https://vscode-update.azurewebsites.net/1.48.1/linux-x64/stable
     exec: VSCode-linux-x64/bin/code
@@ -111,18 +114,17 @@ archives:
   # fedora: Undetermined weirdness with packaged Firefox ctrl+t behavior in Ratpoison/Stumpwm
   # debian: only firefox esr
   {% if is_fedora or is_debian %}
-  - url: https://download-installer.cdn.mozilla.net/pub/firefox/releases/75.0/linux-x86_64/en-US/firefox-75.0.tar.bz2
+  - url: https://download-installer.cdn.mozilla.net/pub/firefox/releases/{{ firefox_version }}/linux-x86_64/en-US/firefox-{{ firefox_version }}.tar.bz2
     exec: firefox/firefox
-    hash: c5d9700381c4ad1bde4282735593d5726d9869e3db69ac2e0c24e40597ca4aa6
     clean: true
     unless: which firefox
   {% endif %}
-  - url: https://download.jetbrains.com/idea/ideaIC-2019.3.2.tar.gz
-    exec: idea-IC-193.6015.39/bin/idea.sh
-  - url: https://download.jetbrains.com/go/goland-2020.2.2.tar.gz
-    exec: GoLand-2020.2.2/bin/goland.sh
-  - url: https://download-cf.jetbrains.com/python/pycharm-community-2019.3.3.tar.gz
-    exec: pycharm-community-2019.3.3/bin/pycharm.sh
+  - url: https://download.jetbrains.com/idea/ideaIC-2020.2.1.tar.gz
+    exec: idea-IC-202.6948.69/bin/idea.sh
+  - url: https://download.jetbrains.com/go/goland-{{ goland_version }}.tar.gz
+    exec: GoLand-{{ goland_version }}/bin/goland.sh
+  - url: https://download-cf.jetbrains.com/python/pycharm-community-{{ pycharm_version }}.tar.gz
+    exec: pycharm-community-{{ pycharm_version }}/bin/pycharm.sh
   - url: https://github.com/crystal-lang/crystal/releases/download/{{ crystal_version }}/crystal-{{ crystal_version }}-1-linux-x86_64.tar.gz
     exec: crystal-{{ crystal_version }}-1/bin/crystal
     bin_links:
