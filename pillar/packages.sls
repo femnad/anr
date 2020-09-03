@@ -144,6 +144,7 @@ packages:
   - NetworkManager-tui
   - pinentry-gtk
   - podman
+  - pulseaudio-module-bluetooth
   - python3-devel
   - python3-ipython
   - python3-virtualenv

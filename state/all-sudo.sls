@@ -283,6 +283,15 @@ Enable dnf automatic:
   service.running:
     - name: dnf-automatic.timer
     - enable: true
+
+{% for module in ['policy', 'discover'] %}
+Bluetooth policies for pulseaudio:
+  file.line:
+    - name: /etc/pulse/system.pa
+    - content: load-module module-bluetooth-{{ module }}
+    - mode: ensure
+{% endfor %}
+
 {% endif %}
 
 Persistent Systemd storage enabled for user services:
