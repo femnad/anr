@@ -23,3 +23,13 @@ Start libvirtd service:
     - name: libvirtd
     - watch:
       - file: /etc/libvirt/libvirtd.conf
+
+{% if pillar['is_fedora'] and grains['osrelease'] == '32' %}
+Firewall Trusted Zone for Libvirt:
+  cmd.run:
+    - name: firewall-cmd --permanent --zone=trusted --add-interface=virbr0
+
+Masquerade firewalld connections from FedoraWorkstation zone:
+  cmd.run:
+    - name: firewall-cmd --permanent --zone=FedoraWorkstation --add-masquerade
+{% endif %}

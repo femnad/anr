@@ -9,10 +9,11 @@ Download latest minikube:
     - skip_verify: true
     - mode: 755
 
+{% set minikube_driver = 'kvm2' %}
 Set default driver:
   cmd.run:
-    - name: {{ minikube }} config set driver docker
+    - name: {{ minikube }} config set driver {{ minikube_driver }}
     - unless:
-      - {{ minikube }} config get driver && [ $({{ minikube }} config get driver) == docker ]
+      - {{ minikube }} config get driver && [ $({{ minikube }} config get driver) == {{ minikube_driver }} ]
     - require:
       - Download latest minikube
