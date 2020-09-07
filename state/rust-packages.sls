@@ -27,3 +27,14 @@ Cargo install {{ crate.crate }}:
     - unless:
         - {{ cargo_bin}}/{{ crate.unless | default(crate.crate + ' -V') }}
 {% endfor %}
+
+{% for repo in pillar['cargo_clone'] %}
+{% set name = repo.split('/')[-1].split('.')[0] %}
+{% set target = pillar['clone_dir'] + '/' + name %}
+Cargo install cloned {{ repo }}:
+  git.cloned:
+    - name: {{ repo }}
+    - target: {{ target }}
+  cmd.run:
+    - name: {{ cargo }} install --path {{ target }} -f
+{% endfor %}
