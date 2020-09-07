@@ -5,14 +5,14 @@
 Download latest minikube:
   file.managed:
     - name: {{ home_bin }}/minikube
-    - source: https://github.com/kubernetes/minikube/releases/download/v1.7.2/minikube-linux-amd64
-    - source_hash: 9f543f464b4d93a259f7d5a7578edff1316370d45b5a0679b86ed7a61b01634d
+    - source: https://github.com/kubernetes/minikube/releases/download/v1.13.0/minikube-linux-amd64
+    - skip_verify: true
     - mode: 755
 
 Set default driver:
   cmd.run:
-    - name: {{ minikube }} config set vm-driver kvm2
+    - name: {{ minikube }} config set driver docker
     - unless:
-      - {{ minikube }} config get vm-driver && [ $({{ minikube }} config get vm-driver) == kvm2 ]
+      - {{ minikube }} config get driver && [ $({{ minikube }} config get driver) == docker ]
     - require:
       - Download latest minikube

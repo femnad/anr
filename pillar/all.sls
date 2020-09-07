@@ -89,8 +89,7 @@ home_bins:
     hash: 07640220819f7e16ad4438dd1e2b2b7cfa978333e2d5e21df98a7ee169fcd7b9
   - url: https://github.com/femnad/loco/releases/download/0.5.7/clom
     hash: 902155f482150bf65f4a6fc674fda37f22462f25e6c2af0b04b19b20d8c2b36f
-  - url: https://storage.googleapis.com/kubernetes-release/release/v1.16.0/bin/linux/amd64/kubectl
-    hash: 4fc8a7024ef17b907820890f11ba7e59a6a578fa91ea593ce8e58b3260f7fb88
+  - url: https://storage.googleapis.com/kubernetes-release/release/v1.19.0/bin/linux/amd64/kubectl
   - url: https://github.com/femnad/leth/releases/download/v0.1.0/leth
 
 vim_dirs:
