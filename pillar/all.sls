@@ -106,7 +106,7 @@ mutt_dirs:
 {% set goland_version = '2020.2.2' %}
 {% set pycharm_version = '2020.2.1' %}
 archives:
-  - url: https://vscode-update.azurewebsites.net/1.48.2/linux-x64/stable
+  - url: https://vscode-update.azurewebsites.net/1.49.0/linux-x64/stable
     exec: VSCode-linux-x64/bin/code
     clean: true
     format: tar

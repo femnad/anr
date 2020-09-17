@@ -35,7 +35,6 @@ Install Moby et al:
   pkg.installed:
     - pkgs:
       - moby-engine
-      - docker-compose
   user.present:
     - name: {{ pillar['user'] }}
     - groups:
