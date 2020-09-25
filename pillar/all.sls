@@ -106,7 +106,7 @@ mutt_dirs:
 {% set goland_version = '2020.2.2' %}
 {% set pycharm_version = '2020.2.1' %}
 archives:
-  - url: https://vscode-update.azurewebsites.net/1.49.0/linux-x64/stable
+  - url: https://vscode-update.azurewebsites.net/1.49.2/linux-x64/stable
     exec: VSCode-linux-x64/bin/code
     clean: true
     format: tar
@@ -128,8 +128,10 @@ archives:
     exec: crystal-{{ crystal_version }}-1/bin/crystal
     bin_links:
       - shards
+  - url: https://github.com/cli/cli/releases/download/v1.0.0/gh_1.0.0_linux_arm64.tar.gz
+    exec: bin/gh
 
-{% set terraform_version = '0.12.24' %}
+{% set terraform_version = '0.13.3' %}
 binary_only_archives:
   - url: https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip
     hash: 602d2529aafdaa0f605c06adb7c72cfb585d8aa19b3f4d8d189b42589e27bf11
