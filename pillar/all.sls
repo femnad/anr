@@ -128,8 +128,8 @@ archives:
     exec: crystal-{{ crystal_version }}-1/bin/crystal
     bin_links:
       - shards
-  - url: https://github.com/cli/cli/releases/download/v1.0.0/gh_1.0.0_linux_arm64.tar.gz
-    exec: bin/gh
+  - url: https://github.com/cli/cli/releases/download/v1.0.0/gh_1.0.0_linux_amd64.tar.gz
+    exec: gh_1.0.0_linux_amd64/bin/gh
 
 {% set terraform_version = '0.13.3' %}
 binary_only_archives:
