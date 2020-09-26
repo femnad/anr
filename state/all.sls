@@ -79,6 +79,9 @@ Download binary archive {{ archive.name | default(archive.url) }}:
     {% endif %}
     - enforce_toplevel: false
     - overwrite: true
+    {% if archive.unless is defined %}
+    - unless: {{ archive.unless }}
+    {% endif %}
 {% endfor %}
 
 {% for bin in pillar['home_bins'] %}

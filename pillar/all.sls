@@ -2,7 +2,6 @@
 home: {{ home }}
 clone_dir: {{ salt.sdb.get('sdb://osenv/HOME') + '/z/gl' }}
 self_clone_dir: {{ salt.sdb.get('sdb://osenv/HOME') + '/z/fm' }}
-package_dir: {{ salt.sdb.get('sdb://osenv/HOME') + '/z/dy' }}
 tmux: {{ salt.sdb.get('sdb://osenv/TMUX') }}
 user: {{ salt.sdb.get('sdb://osenv/USER') }}
 virtualenv_dir: {{ '.venv' }}
@@ -100,64 +99,6 @@ vim_dirs:
 mutt_dirs:
   - fm
   - gm
-
-{% set firefox_version = '80.0' %}
-{% set crystal_version = '0.34.0' %}
-{% set goland_version = '2020.2.2' %}
-{% set pycharm_version = '2020.2.1' %}
-archives:
-  - url: https://vscode-update.azurewebsites.net/1.49.2/linux-x64/stable
-    exec: VSCode-linux-x64/bin/code
-    clean: true
-    format: tar
-  # fedora: Undetermined weirdness with packaged Firefox ctrl+t behavior in Ratpoison/Stumpwm
-  # debian: only firefox esr
-  {% if is_fedora or is_debian %}
-  - url: https://download-installer.cdn.mozilla.net/pub/firefox/releases/{{ firefox_version }}/linux-x86_64/en-US/firefox-{{ firefox_version }}.tar.bz2
-    exec: firefox/firefox
-    clean: true
-    unless: which firefox
-  {% endif %}
-  - url: https://download.jetbrains.com/idea/ideaIC-2020.2.1.tar.gz
-    exec: idea-IC-202.6948.69/bin/idea.sh
-  - url: https://download.jetbrains.com/go/goland-{{ goland_version }}.tar.gz
-    exec: GoLand-{{ goland_version }}/bin/goland.sh
-  - url: https://download-cf.jetbrains.com/python/pycharm-community-{{ pycharm_version }}.tar.gz
-    exec: pycharm-community-{{ pycharm_version }}/bin/pycharm.sh
-  - url: https://github.com/crystal-lang/crystal/releases/download/{{ crystal_version }}/crystal-{{ crystal_version }}-1-linux-x86_64.tar.gz
-    exec: crystal-{{ crystal_version }}-1/bin/crystal
-    bin_links:
-      - shards
-  - url: https://github.com/cli/cli/releases/download/v1.0.0/gh_1.0.0_linux_amd64.tar.gz
-    exec: gh_1.0.0_linux_amd64/bin/gh
-
-{% set terraform_version = '0.13.3' %}
-binary_only_archives:
-  - url: https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip
-    hash: 602d2529aafdaa0f605c06adb7c72cfb585d8aa19b3f4d8d189b42589e27bf11
-    name: terraform
-  - url: https://releases.hashicorp.com/vault/1.3.0/vault_1.3.0_linux_amd64.zip
-    hash: d89b8a317831b06f2a32c56cb86071d058b09d9317b416bb509ce3d01e912eb3
-  - url: https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v3.4.0/kustomize_v3.4.0_linux_amd64.tar.gz
-    hash: eabfa641685b1a168c021191e6029f66125be94449b60eb12843da8df3b092ba
-
-gcloud_package:
-  url: https://dl.google.com/dl/cloudsdk/channels/rapid/google-cloud-sdk.tar.gz
-  exec: google-cloud-sdk/bin/gcloud
-  name: gcloud
-
-{% set go = {
-  'version': '1.15',
-  'checksum': '2d75848ac606061efe52a8068d0e647b35ce487a15bb52272c427df485193602',
-  }
-%}
-
-go_release:
-  url: https://dl.google.com/go/go{{ go.version }}.linux-amd64.tar.gz
-  exec: go/bin/go
-  clean: true
-  hash: {{ go.checksum }}
-  name: go
 
 cargo:
   - crate: fd-find
