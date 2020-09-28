@@ -124,6 +124,11 @@ Quicklisp installed:
     - unless:
       - ls {{ home }}/quicklisp
 
+Hide Quicklisp package dir:
+  file.rename:
+    - name: '{{ home }}/.quicklisp'
+    - source: '{{ home }}/quicklisp'
+
 {% for pkg in ['alexandria', 'clx', 'cl-ppcre'] %}
 Install Quicklisp package {{ pkg }}:
   cmd.run:
