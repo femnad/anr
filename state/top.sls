@@ -1,4 +1,6 @@
 base:
+  latex:
+    - latex
   passfuser:
     - gcsfuse
     - passfuse-gcp

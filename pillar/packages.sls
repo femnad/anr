@@ -211,3 +211,12 @@ packages_to_remove:
   - lightdm
   - wicd
   {% endif %}
+
+latex_packages:
+  {% if is_fedora %}
+  - texlive-latex
+  - texlive-metafont
+  - texlive-mfware
+  - texlive-parskip
+  - texlive-updmap-map
+  {% endif %}
