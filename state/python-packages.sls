@@ -1,7 +1,7 @@
 {% set home = pillar['home'] %}
 {% set virtualenv_base = home + '/' + pillar['virtualenv_dir'] %}
 
-{% for package in pillar['python_pkgs'] %}
+{% for package in pillar.get('python_pkgs', []) %}
 {% set venv = virtualenv_base + '/' + (package.venv | default(package.name)) %}
 Install Python package {{ package.name }}:
   virtualenv.managed:

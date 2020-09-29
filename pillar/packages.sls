@@ -36,6 +36,7 @@ packages:
   - qutebrowser
   - ripgrep
   - rofi
+  - ranger
   - ratpoison
   - rlwrap
   - ruby

@@ -120,12 +120,6 @@ cargo_clone:
 github_user: {{ github_user }}
 github_keys: {{ salt.sdb.get('sdb://github-lookup/keys?user=' + github_user) | tojson }}
 
-python_pkgs:
-  - name: git+https://github.com/ranger/ranger.git@081e73152a9391211770fab56676d7d974413ae6
-    venv: ranger
-    reqs:
-      - ueberzug
-
 clone_compile:
   - repo: https://github.com/jpmens/jo.git
     unless: jo -v
