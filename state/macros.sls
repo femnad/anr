@@ -11,7 +11,7 @@
 {% macro install_from_archive(archive, user=None) %}
 Install {{ archive.name | default(archive.url) }}:
   archive.extracted:
-    - name: {{ package_dir }}
+    - name: {{ pillar['package_dir'] }}
     - source: {{ archive.url }}
   {% if archive.hash is defined %}
     - source_hash: {{ archive.hash }}

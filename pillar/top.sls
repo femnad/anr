@@ -1,6 +1,7 @@
 base:
   L@self,sudo,private,shadow,steam,passfuser,self-dev,sudo-dev,latex:
     - all
+    - archives
     - packages
   passfuser:
     - passfuse-secrets

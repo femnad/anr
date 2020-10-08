@@ -1,10 +1,18 @@
 {% set firefox_version = '80.0' %}
 {% set crystal_version = '0.34.0' %}
+{% set gh_version = '1.1.0' %}
 {% set goland_version = '2020.2.2' %}
 {% set pycharm_version = '2020.2.1' %}
-{% set vscode_version = '1.49.2' %}
+{% set vscode_version = '1.50.0' %}
 
-package_dir: {{ salt.sdb.get('sdb://osenv/HOME') + '/z/dy' }}
+{% set is_debian = grains['os'] == 'Debian' %}
+{% set is_fedora = grains['os'] == 'Fedora' %}
+
+{# why no work? #}
+{#{% set package_dir = salt.sdb.get('sdb://osenv/home') %}#}
+
+{% set package_dir = '/home/femnad/z/dy' %}
+package_dir: {{ package_dir }}
 
 archives:
   - url: https://vscode-update.azurewebsites.net/{{ vscode_version }}/linux-x64/stable
@@ -22,16 +30,21 @@ archives:
   {% endif %}
   - url: https://download.jetbrains.com/idea/ideaIC-2020.2.1.tar.gz
     exec: idea-IC-202.6948.69/bin/idea.sh
+    unless: stat {{ package_dir }}/idea-IC-202.6948.69/bin/idea.sh
   - url: https://download.jetbrains.com/go/goland-{{ goland_version }}.tar.gz
     exec: GoLand-{{ goland_version }}/bin/goland.sh
+    unless: stat {{ package_dir }}/GoLand-{{ goland_version }}/bin/goland.sh
   - url: https://download-cf.jetbrains.com/python/pycharm-community-{{ pycharm_version }}.tar.gz
     exec: pycharm-community-{{ pycharm_version }}/bin/pycharm.sh
+    unless: stat {{ package_dir }}/pycharm-community-{{ pycharm_version }}/bin/pycharm.sh
   - url: https://github.com/crystal-lang/crystal/releases/download/{{ crystal_version }}/crystal-{{ crystal_version }}-1-linux-x86_64.tar.gz
     exec: crystal-{{ crystal_version }}-1/bin/crystal
     bin_links:
       - shards
-  - url: https://github.com/cli/cli/releases/download/v1.0.0/gh_1.0.0_linux_amd64.tar.gz
-    exec: gh_1.0.0_linux_amd64/bin/gh
+    unless: test $(crystal version | grep -E '^Crystal' | awk '{print $2}') == {{ crystal_version }}
+  - url: https://github.com/cli/cli/releases/download/v{{ gh_version }}/gh_{{ gh_version }}_linux_amd64.tar.gz
+    exec: gh_{{ gh_version }}_linux_amd64/bin/gh
+    unless: test $(gh --version 2>/dev/null | grep 'gh version' | awk '{print $3}') = {{ gh_version }}
 
 {% set terraform_version = '0.13.3' %}
 {% set vault_version = '1.3.0' %}

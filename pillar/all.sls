@@ -36,13 +36,6 @@ is_laptop: {{ is_laptop }}
 is_ubuntu: {{ is_ubuntu }}
 is_debian_or_ubuntu: {{ is_debian or is_ubuntu }}
 
-castles:
-  - https://gitlab.com/femnad/base.git
-  - https://gitlab.com/femnad/basic.git
-  - https://gitlab.com/femnad/disposable.git
-  - https://github.com/femnad/homebin.git
-  - https://gitlab.com/femnad/homeless.git
-
 go_install:
   - https://github.com/zaquestion/lab
 
