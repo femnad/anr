@@ -56,6 +56,8 @@ go_get:
     unless: passfuse --version
   - pkg: github.com/github/hub
     unless: hub --version
+  - pkg: github.com/dustinkirkland/golang-petname/cmd/petname
+    unless: petname
 
 go_cloned_install:
   - name: mikefarah/yq
@@ -82,7 +84,7 @@ home_bins:
   - url: https://github.com/femnad/loco/releases/download/0.5.7/clom
     hash: 902155f482150bf65f4a6fc674fda37f22462f25e6c2af0b04b19b20d8c2b36f
   - url: https://storage.googleapis.com/kubernetes-release/release/v1.19.0/bin/linux/amd64/kubectl
-  - url: https://github.com/femnad/leth/releases/download/v0.1.0/leth
+  - url: https://github.com/femnad/leth/releases/download/v0.2.0/leth
 
 vim_dirs:
   - autoload

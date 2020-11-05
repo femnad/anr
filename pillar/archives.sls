@@ -1,9 +1,9 @@
 {% set firefox_version = '80.0' %}
 {% set crystal_version = '0.34.0' %}
-{% set gh_version = '1.1.0' %}
+{% set gh_version = '1.2.0' %}
 {% set goland_version = '2020.2.2' %}
 {% set pycharm_version = '2020.2.1' %}
-{% set vscode_version = '1.50.0' %}
+{% set vscode_version = '1.50.1' %}
 
 {% set is_debian = grains['os'] == 'Debian' %}
 {% set is_fedora = grains['os'] == 'Fedora' %}
@@ -19,7 +19,7 @@ archives:
     exec: VSCode-linux-x64/bin/code
     clean: true
     format: tar
-    unless: test $(code --version) = {{ vscode_version }}
+    unless: test $(code --version | head -n 1) = {{ vscode_version }}
   # fedora: Undetermined weirdness with packaged Firefox ctrl+t behavior in Ratpoison/Stumpwm
   # debian: Only firefox-esr
   {% if is_fedora or is_debian %}
