@@ -67,6 +67,8 @@ go_cloned_install:
     unless: kail version
   - name: twpayne/chezmoi
     unless: chezmoi --version
+  - name: charmbracelet/glow
+    unless: glow -v
 
 go_get_gopath:
   - pkg: github.com/junegunn/fzf

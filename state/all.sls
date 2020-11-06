@@ -32,6 +32,7 @@ Enable gsutil:
     - name: {{ home_bin }}/gcloud components install gsutil
     - require:
       - Install gcloud
+    - unless: gcloud components list | grep -E 'Installed.*gsutil'
   file.symlink:
     - name: {{ home_bin }}/gsutil
       target: {{ package_dir }}/{{ gcloud_bin }}/gsutil
@@ -177,3 +178,8 @@ Clone and link {{ item.repo }}:
     - target: {{ target }}/{{ link }}
     - mode: 0755
 {% endfor %}
+
+Copy Firefox desktop file:
+  file.managed:
+    - name: {{ home }}/.local/share/applications/firefox.desktop
+    - source: salt://desktop/firefox.desktop

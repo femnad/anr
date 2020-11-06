@@ -34,6 +34,9 @@ Install {{ archive.name | default(archive.url) }}:
     - unless:
       - {{ archive.unless }}
   {% endif %}
+  {% if archive.overwrite is defined %}
+    - overwrite: {{ archive.overwrite }}
+  {% endif %}
   {% if archive.exec is defined %}
   {% set basename = archive.exec.split('/')[-1] %}
   file.symlink:

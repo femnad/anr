@@ -17,7 +17,7 @@ package_dir: {{ package_dir }}
 archives:
   - url: https://vscode-update.azurewebsites.net/{{ vscode_version }}/linux-x64/stable
     exec: VSCode-linux-x64/bin/code
-    clean: true
+    overwrite: true
     format: tar
     unless: test $(code --version | head -n 1) = {{ vscode_version }}
   # fedora: Undetermined weirdness with packaged Firefox ctrl+t behavior in Ratpoison/Stumpwm
@@ -51,7 +51,6 @@ archives:
 
 binary_only_archives:
   - url: https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip
-    hash: 602d2529aafdaa0f605c06adb7c72cfb585d8aa19b3f4d8d189b42589e27bf11
     name: terraform
     unless: test $(terraform version) == 'Terraform v{{ terraform_version }}'
 
