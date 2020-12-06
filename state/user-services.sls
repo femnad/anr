@@ -5,8 +5,9 @@
 {% set is_fedora = pillar['is_fedora'] %}
 {% set host = grains['host'] %}
 
-{% from 'systemd-macros.sls' import systemd_user_service with context %}
 {% from 'macros.sls' import dirname %}
+{% from 'systemd-macros.sls' import systemd_user_service with context %}
+{% from 'systemd-macros.sls' import systemd_user_timer with context %}
 
 Clipmenu cloned:
   git.cloned:
@@ -108,14 +109,4 @@ Rossa installed:
 
 {% endif %} # is laptop
 
-{% set clom_options = {
-  'Restart': 'always',
-  'RestartSec': '5s',
-  } %}
 
-{{ systemd_user_service('clom', 'clom service', home_bin + '/clom clone_loop', environment=default_display_env, options=clom_options) }}
-
-{{ systemd_user_service('update-gcloud-fish-completions', 'Update gcloud fish completions', '{}/gcloud-fish-completions/update-completions.sh'.format(self_clone_dir), started=False, enabled=False) }}
-
-{% from 'systemd-macros.sls' import systemd_user_timer with context %}
-{{ systemd_user_timer('update-gcloud-fish-completions', 'Update gcloud fish completions', period='daily') }}
