@@ -9,9 +9,20 @@
 {%- endmacro %}
 
 {% macro install_from_archive(archive, user=None) %}
-Install {{ archive.name | default(archive.url) }}:
+{% set package_dir = pillar['package_dir'] %}
+{% set archive_name = archive.name | default(archive.url) %}
+
+{% if archive.preclean is defined and archive.unless is defined %}
+Preclean {{ archive_name }}:
+  file.absent:
+    - name: {{ package_dir }}/{{ archive.preclean }}
+    - unless:
+      - {{ archive.unless }}
+{% endif %}
+
+Install {{ archive_name }}:
   archive.extracted:
-    - name: {{ pillar['package_dir'] }}
+    - name: {{ package_dir }}
     - source: {{ archive.url }}
   {% if archive.hash is defined %}
     - source_hash: {{ archive.hash }}

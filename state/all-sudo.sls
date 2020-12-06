@@ -315,3 +315,11 @@ Add host specific Xorg conf:
     - source: salt://config/{{ config_file }}
     - makedirs: true
 {% endif %}
+
+{% if is_fedora %}
+Blacklist pcspeaker:
+  file.line:
+    - name: /etc/modprobe.d/pcspkr-blacklist.conf
+    - content: blacklist pcspkr
+    - mode: ensure
+{% endif %}
