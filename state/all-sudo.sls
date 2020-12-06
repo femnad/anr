@@ -290,11 +290,10 @@ Enable dnf automatic:
     - enable: true
 
 {% for module in ['policy', 'discover'] %}
-Bluetooth policies for pulseaudio:
-  file.line:
+Bluetooth {{ module }} policies for pulseaudio:
+  file.managed:
     - name: /etc/pulse/system.pa
     - content: load-module module-bluetooth-{{ module }}
-    - mode: ensure
 {% endfor %}
 
 {% endif %}
@@ -318,8 +317,7 @@ Add host specific Xorg conf:
 
 {% if is_fedora %}
 Blacklist pcspeaker:
-  file.line:
+  file.managed:
     - name: /etc/modprobe.d/pcspkr-blacklist.conf
     - content: blacklist pcspkr
-    - mode: ensure
 {% endif %}
