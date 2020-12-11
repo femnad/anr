@@ -124,20 +124,6 @@ Clone Tmux plugin manager:
     - name: tmux run-shell {{ home }}/.tmux/plugins/tpm/bin/install_plugins
   {% endif %}
 
-Clone Tmux thumbs:
-  git.cloned:
-    {% if is_fedora %}
-    - name: https://github.com/femnad/tmux-thumbs
-    {% else %}
-    - name: https://github.com/fcsonline/tmux-thumbs
-    {% endif %}
-    - target: {{ home }}/.tmux/plugins/tmux-thumbs
-  cmd.run:
-    - name: {{ cargo }} build --release
-    - cwd: {{ home }}/.tmux/plugins/tmux-thumbs
-    - unless:
-      - {{ home }}/.tmux/plugins/tmux-thumbs/target/release/tmux-thumbs -V
-
 {% for key in pillar['github_keys'] %}
 Add GitHub key {{ key.id }} as authorized:
   file.append:
