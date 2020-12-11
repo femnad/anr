@@ -207,24 +207,11 @@ Ensure resolv.conf is a symlink:
     - target: /run/systemd/resolve/resolv.conf
 
 {% set hostname = grains['host'] %}
-{% set additional_dns_servers = hostname in pillar.get('add_dns_server', []) %}
-
-{% if additional_dns_servers %}
-Add DNS stub file:
-  file.managed:
-    - name: /etc/systemd/resolved.conf.d/dns-servers.conf
-    - source: salt://resolved/dns-servers.conf
-    - makedirs: true
-{% endif %}
 
 Start and Enable System Resolved:
   service.running:
     - name: systemd-resolved
     - enable: true
-    {% if additional_dns_servers %}
-    - watch:
-      - file: /etc/systemd/resolved.conf.d/*
-    {% endif %}
 
 {% if pillar['is_debian_or_ubuntu'] %}
 Set default Python:
@@ -291,9 +278,9 @@ Enable dnf automatic:
 
 {% for module in ['policy', 'discover'] %}
 Bluetooth {{ module }} policies for pulseaudio:
-  file.managed:
+  file.append:
     - name: /etc/pulse/system.pa
-    - content: load-module module-bluetooth-{{ module }}
+    - text: load-module module-bluetooth-{{ module }}
 {% endfor %}
 
 {% endif %}
@@ -319,5 +306,5 @@ Add host specific Xorg conf:
 Blacklist pcspeaker:
   file.managed:
     - name: /etc/modprobe.d/pcspkr-blacklist.conf
-    - content: blacklist pcspkr
+    - contents: blacklist pcspkr
 {% endif %}
