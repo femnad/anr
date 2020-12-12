@@ -102,6 +102,7 @@ packages:
   - ipython3
   - libmnl-dev
   - libevent-dev
+  - libfontconfig1-dev
   - libnotify-bin
   - libpython3-dev
   - libssl-dev
