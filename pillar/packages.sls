@@ -107,7 +107,10 @@ packages:
   - libpython3-dev
   - libssl-dev
   - libx11-dev
+  - libxcb-render0-dev
   - libxcb-screensaver0-dev
+  - libxcb-shape0-dev
+  - libxcb-xfixes0-dev
   - libxext-dev
   - libxfixes-dev
   - libclang-dev
