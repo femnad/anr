@@ -3,10 +3,12 @@
 {% set home = pillar['home'] %}
 {% set home_bin = home + '/bin' %}
 {% set clone_dir = pillar['clone_dir'] %}
-{% set is_fedora = pillar['is_fedora'] %}
 {% set cargo = home + '/.cargo/bin/cargo' %}
 {% set package_dir = pillar['package_dir'] %}
 {% set host = grains['host'] %}
+
+{% set is_debian = grains['os'] == 'Debian' %}
+{% set is_fedora = pillar['is_fedora'] %}
 
 {% for dir in pillar['home_dirs'] %}
 Home Dir {{ dir }}:
@@ -165,7 +167,12 @@ Clone and link {{ item.repo }}:
     - mode: 0755
 {% endfor %}
 
+# fedora: Undetermined weirdness with packaged Firefox ctrl+t behavior in Ratpoison/Stumpwm
+# debian: Only firefox-esr
+{% if is_fedora or is_debian %}
 Copy Firefox desktop file:
   file.managed:
     - name: {{ home }}/.local/share/applications/firefox.desktop
     - source: salt://desktop/firefox.desktop
+    - makedirs: true
+{% endif %}
