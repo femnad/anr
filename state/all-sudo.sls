@@ -1,8 +1,10 @@
 {% set user = pillar['user'] %}
 {% set home = pillar['home'] %}
 {% set clone_dir = pillar['clone_dir'] %}
-{% set is_fedora = pillar['is_fedora'] %}
 {% set package_dir = pillar['package_dir'] %}
+
+{% set is_fedora = pillar['is_fedora'] %}
+{% set is_ubuntu = pillar['is_ubuntu'] %}
 
 Pamixer compiled:
   git.cloned:
@@ -307,4 +309,11 @@ Blacklist pcspeaker:
   file.managed:
     - name: /etc/modprobe.d/pcspkr-blacklist.conf
     - contents: blacklist pcspkr
+{% endif %}
+
+{% if is_ubuntu %}
+# Probably installed Xubuntu
+No Dbus service for xfce4 notifyd:
+  file.absent:
+    - name: /usr/share/dbus-1/services/org.xfce.xfce4-notifyd.Notifications.service
 {% endif %}
