@@ -29,9 +29,7 @@ packages:
   - most
   - mutt
   - pass
-  {% if not (is_ubuntu and grains['osmajorrelease'] < 19) %}
   - playerctl
-  {% endif %}
   - pwgen
   - qutebrowser
   - ripgrep

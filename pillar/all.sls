@@ -93,14 +93,10 @@ vim_dirs:
 
 mutt_dirs:
   - fm
-  - gm
 
 cargo:
   - crate: fd-find
     unless: fd -V
-  {% if (is_ubuntu and grains['osmajorrelease'] < 19) %}
-  - crate: ripgrep
-  {% endif %}
   - crate: bat
   - crate: git-delta
     unless: delta -V
@@ -108,6 +104,8 @@ cargo:
   - crate: xidlehook
     bins: true
   {% endif %}
+  - crate: alacritty
+    unless: alacritty -V
 
 cargo_clone:
   - https://github.com/annacrombie/xdg-open.git
