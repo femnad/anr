@@ -98,6 +98,7 @@ packages:
     {% endif %}
 
   - apt-listchanges
+  - dconf-cli
   - dnsutils
   - ipython3
   - libmnl-dev
