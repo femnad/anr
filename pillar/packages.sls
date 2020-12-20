@@ -84,7 +84,6 @@ packages:
   {% endif %}
 
   {% if is_debian %}
-  - lxdm
   - xorg
   - x11-apps
   - x11-session-utils
@@ -212,8 +211,6 @@ packages_to_remove:
   {% if is_debian %}
   - exim4-daemon-light
   - firefox-esr
-  - lightdm
-  - wicd
   {% endif %}
 
 latex_packages:

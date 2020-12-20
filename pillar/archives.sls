@@ -3,7 +3,7 @@
 {% set gh_version = '1.3.1' %}
 {% set goland_version = '2020.2.2' %}
 {% set pycharm_version = '2020.2.1' %}
-{% set vscode_version = '1.51.1' %}
+{% set vscode_version = '1.52.0' %}
 
 {% set is_debian = grains['os'] == 'Debian' %}
 {% set is_fedora = grains['os'] == 'Fedora' %}
