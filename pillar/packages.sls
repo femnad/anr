@@ -141,6 +141,8 @@ packages:
   - libevent-devel
   - libmnl-devel
   - libnotify-devel
+  - libX11-devel
+  - libXfixes-devel
   - NetworkManager-tui
   - pinentry-gtk
   - podman
@@ -151,9 +153,8 @@ packages:
   - openssl-devel
   - sqlite
   - vim-X11
-  - libX11-devel
-  - libXfixes-devel
   - terminus-fonts
+  - terminus-fonts-legacy-x11
   - wireguard-tools
   - wmname
   - xorg-x11-apps
