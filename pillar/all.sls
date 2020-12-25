@@ -45,9 +45,6 @@ go_get:
   - pkg: github.com/femnad/stuff/cmd/...
   - pkg: github.com/femnad/rabn/cmd/rabn
     unless: rabn --version
-  - pkg: github.com/femnad/moih
-    unless: moih --version
-    version: 0.1.1
   - pkg: github.com/aykamko/tag/...
     unless: tag -V
   - pkg: github.com/googlecloudplatform/gcsfuse
@@ -85,6 +82,7 @@ home_bins:
     hash: 07640220819f7e16ad4438dd1e2b2b7cfa978333e2d5e21df98a7ee169fcd7b9
   - url: https://storage.googleapis.com/kubernetes-release/release/v1.19.0/bin/linux/amd64/kubectl
   - url: https://github.com/femnad/leth/releases/download/v0.2.0/leth
+  - url: https://github.com/femnad/moih/releases/download/v0.2.0/moih
 
 vim_dirs:
   - autoload
