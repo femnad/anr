@@ -128,14 +128,10 @@ packages:
   {% endif %}
 
   {% if is_fedora %}
-
-    {% if is_laptop %}
-  - libnotify-devel
-    {% endif %}
-
   - dnf-automatic
   - ffmpeg
   - flatpak
+  - fontconfig-devel
   - gcc-c++
   - git-crypt
   - java-11-openjdk
@@ -144,6 +140,7 @@ packages:
   - kernel-headers
   - libevent-devel
   - libmnl-devel
+  - libnotify-devel
   - NetworkManager-tui
   - pinentry-gtk
   - podman

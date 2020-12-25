@@ -1,7 +1,7 @@
 {% set firefox_version = '80.0' %}
 {% set crystal_version = '0.34.0' %}
-{% set gh_version = '1.3.1' %}
-{% set goland_version = '2020.2.2' %}
+{% set gh_version = '1.4.0' %}
+{% set goland_version = '2020.3' %}
 {% set pycharm_version = '2020.2.1' %}
 {% set vscode_version = '1.52.0' %}
 
