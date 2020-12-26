@@ -128,6 +128,7 @@ packages:
   {% endif %}
 
   {% if is_fedora %}
+  - automake
   - dnf-automatic
   - ffmpeg
   - flatpak
