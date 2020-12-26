@@ -154,7 +154,9 @@ packages:
   - sqlite
   - vim-X11
   - terminus-fonts
+  {% if grains['osmajorrelease'] > 32 %}
   - terminus-fonts-legacy-x11
+  {% endif %}
   - wireguard-tools
   - wmname
   - xorg-x11-apps

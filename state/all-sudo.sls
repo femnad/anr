@@ -124,12 +124,14 @@ Quicklisp installed:
     - name: "sbcl --load '{{ quicklisp }}' --eval '(quicklisp-quickstart:install)' --non-interactive"
     - runas: {{ user }}
     - unless:
-      - ls {{ home }}/quicklisp
+      - ls {{ home }}/.quicklisp
 
 Hide Quicklisp package dir:
   file.rename:
     - name: '{{ home }}/.quicklisp'
     - source: '{{ home }}/quicklisp'
+    - unless:
+      - ls {{ home }}/.quicklisp
 
 {% for pkg in ['alexandria', 'clx', 'cl-ppcre'] %}
 Install Quicklisp package {{ pkg }}:
