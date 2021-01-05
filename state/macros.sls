@@ -76,8 +76,9 @@ Clone repo {{ name }}:
   git.latest:
     - name: {{ url }}
     - target: {{ target }}
-    {% if clonee.rev is defined %}
-    - rev: {{ clonee.rev }}
+    {% if clonee.branch is defined %}
+    - branch: {{ clonee.branch }}
+    - rev: {{ clonee.branch }}
     {% endif %}
     {% if clonee.submodule is defined and clonee.submodule %}
     - submodules: true

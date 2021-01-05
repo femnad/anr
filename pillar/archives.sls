@@ -3,6 +3,7 @@
 {% set gh_version = '1.4.0' %}
 {% set goland_version = '2020.3' %}
 {% set pycharm_version = '2020.2.1' %}
+{% set tectonic_version = '0.4.1' %}
 {% set vscode_version = '1.52.0' %}
 
 {% set is_debian = grains['os'] == 'Debian' %}
@@ -53,6 +54,8 @@ binary_only_archives:
   - url: https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip
     name: terraform
     unless: test $(terraform version) == 'Terraform v{{ terraform_version }}'
+  - url: https://github.com/tectonic-typesetting/tectonic/releases/download/tectonic%400.4.1/tectonic-0.4.1-x86_64-unknown-linux-gnu.tar.gz
+    unless: test $(tectonic --version | awk '{print $2}') = {{ tectonic_version }}
 
 gcloud_package:
   url: https://dl.google.com/dl/cloudsdk/channels/rapid/google-cloud-sdk.tar.gz

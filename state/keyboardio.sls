@@ -13,17 +13,18 @@
 
 {{ install_from_archive(pillar['arduino'], user) }}
 
-Clone Keyboardio hardware bundle:
+Clone and initialise Keyboardio hardware bundle:
   git.latest:
-    - name: https://github.com/keyboardio/Kaleidoscope-Bundle-Keyboardio.git
-    - target: {{ package_dir }}/arduino-{{ pillar['arduino'].version }}/hardware/keyboardio
-    - submodules: true
-    - user: {{ user }}
+    - name: https://github.com/keyboardio/Kaleidoscope.git
+    - target: {{ clone_dir }}/Kaleidoscope
+  cmd.run:
+    - name: make setup
+    - cwd: {{ clone_dir }}/Kaleidoscope
 
 {% set repo = {
   'repo': 'Model01-Firmware',
   'submodule': true,
-  'rev': 'mevorak',
+  'branch': 'mevorak',
   'remotes': [
     {'url': 'https://github.com/keyboardio/Model01-Firmware',
      'name': 'upstream',}
