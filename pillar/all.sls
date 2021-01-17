@@ -105,8 +105,7 @@ cargo:
   - crate: alacritty
     unless: alacritty -V
 
-cargo_clone:
-  - https://github.com/annacrombie/xdg-open.git
+cargo_clone: []
 
 github_user: {{ github_user }}
 github_keys: {{ salt.sdb.get('sdb://github-lookup/keys?user=' + github_user) | tojson }}

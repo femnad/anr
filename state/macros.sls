@@ -9,6 +9,7 @@
 {%- endmacro %}
 
 {% macro install_from_archive(archive, user=None) %}
+
 {% set package_dir = pillar['package_dir'] %}
 {% set archive_name = archive.name | default(archive.url) %}
 
@@ -53,6 +54,10 @@ Install {{ archive_name }}:
   file.symlink:
     - name: {{ home_bin }}/{{ basename }}
     - target: {{ package_dir }}/{{ archive.exec }}
+    {% if user is not none %}
+    - user: {{ user }}
+    - group: {{ user }}
+    {% endif %}
   {% endif %}
 
 {% if archive.bin_links is defined and archive.exec is defined %}
@@ -63,6 +68,7 @@ Link {{ bin_link }}:
     - target: {{ package_dir }}/{{ salt['file.dirname'](archive.exec) }}/{{ bin_link }}
   {% endfor %}
 {% endif %}
+
 {% endmacro %}
 
 {% macro clone_self_repo(clonee, user=None) %}

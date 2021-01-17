@@ -6,6 +6,7 @@
 {% set cargo = home + '/.cargo/bin/cargo' %}
 {% set package_dir = pillar['package_dir'] %}
 {% set host = grains['host'] %}
+{% set user = pillar['user'] %}
 
 {% set is_debian = grains['os'] == 'Debian' %}
 {% set is_fedora = pillar['is_fedora'] %}
@@ -15,6 +16,8 @@ Home Dir {{ dir }}:
   file.directory:
     - name: {{ home }}/{{ dir }}
     - makedirs: true
+    - user: {{ user }}
+    - group: {{ user }}
 {% endfor %}
 
 {% for file in pillar['unwanted_files'] %}
@@ -26,7 +29,7 @@ Remove {{ file }}:
 {% from 'macros.sls' import install_from_archive with context %}
 {% from 'macros.sls' import dirname %}
 
-{{ install_from_archive(pillar['gcloud_package']) }}
+{{ install_from_archive(pillar['gcloud_package'], user=user) }}
 
 Enable gsutil:
   {% set gcloud_bin = dirname(pillar['gcloud_package'].exec) %}
@@ -44,21 +47,27 @@ Initialize chezmoi base:
     - name: {{ home }}/go/bin/chezmoi init {{ pillar['chezmoi_base_repo'] }}
     - unless:
       - ls {{ home + '/' + pillar['chezmoi_base_path'] }}
+    - runas: {{ user }}
 
 Apply chezmoi base:
   cmd.run:
     - name: {{ home }}/go/bin/chezmoi apply
+    - runas: {{ user }}
 
 Tilix schemes:
 {% set target = pillar['clone_dir'] + '/Tilix-Themes' %}
   git.cloned:
     - name: https://github.com/storm119/Tilix-Themes.git
     - target: {{ target }}
+    - user: {{ user }}
   file.directory:
     - name: {{ home }}/.config/tilix/schemes
     - makedirs: true
+    - user: {{ user }}
+    - group: {{ user }}
   cmd.run:
     - name: find {{ target }} -name '*.json' -exec cp '{}' {{ home }}/.config/tilix/schemes \;
+    - runas: {{ user }}
 
 {% for prefix in pillar['mutt_dirs'] %}
   {% for cache in ['header', 'message'] %}
@@ -66,6 +75,8 @@ mutt init {{ prefix }} {{ cache }}:
   file.directory:
     - name: {{ home }}/.mutt/{{ prefix }}{{ cache }}
     - makedirs: true
+    - user: {{ user }}
+    - group: {{ user }}
   {% endfor %}
 {% endfor %}
 
@@ -85,6 +96,8 @@ Download binary archive {{ archive.name | default(archive.url) }}:
     {% if archive.unless is defined %}
     - unless: {{ archive.unless }}
     {% endif %}
+    - user: {{ user }}
+    - group: {{ user }}
 {% endfor %}
 
 {% for bin in pillar['home_bins'] %}
@@ -100,6 +113,8 @@ Download {{ exec_name }}:
     {% endif %}
     - makedirs: true
     - mode: 0755
+    - user: {{ user }}
+    - group: {{ user }}
 
 {% endfor %}
 
@@ -108,22 +123,28 @@ Build Ratpoison helpers:
     - name: {{ go_bin }} get github.com/femnad/ratilf/cmd/...
     - onlyif:
       - ratpoison -v
+    - runas: {{ user }}
 
 Stumpwm contrib:
   git.cloned:
     - name: https://github.com/stumpwm/stumpwm-contrib.git
     - target: {{ clone_dir }}/stumpwm-contrib
+    - user: {{ user }}
   file.symlink:
     - name: {{ home_bin }}/stumpish
     - target: {{ clone_dir }}/stumpwm-contrib/util/stumpish/stumpish
+    - user: {{ user }}
+    - group: {{ user }}
 
 Clone Tmux plugin manager:
   git.cloned:
     - name: https://github.com/tmux-plugins/tpm
     - target: {{ home }}/.tmux/plugins/tpm
+    - user: {{ user }}
   {% if pillar['tmux'].startswith('/tmp/tmux-') %}
   cmd.run:
     - name: tmux run-shell {{ home }}/.tmux/plugins/tpm/bin/install_plugins
+    - runas: {{ user }}
   {% endif %}
 
 {% for key in pillar['github_keys'] %}
@@ -138,6 +159,7 @@ Initialize Jedi for Emacs:
     - name: emacs -nw --load ~/.emacs --batch --eval '(jedi:install-server)'
     - unless:
       - ls ~/.emacs.d/elpa/jedi-core* -d
+    - runas: {{ user }}
 
 {% set pass_helper_path = home + '/go/src/github.com/docker/docker-credential-helpers' %}
 Install Docker pass credential helper:
@@ -146,11 +168,13 @@ Install Docker pass credential helper:
     - target: {{ pass_helper_path }}
     - unless:
       - {{ home_bin }}/docker-credential-pass version
+    - user: {{ user }}
   cmd.run:
     - name: {{ go_bin }} build -o {{ home_bin }}/docker-credential-pass pass/cmd/main_linux.go
     - cwd: {{ pass_helper_path }}
     - unless:
       - {{ home_bin }}/docker-credential-pass version
+    - runas: {{ user }}
 
 {% from 'macros.sls' import basename %}
 
@@ -161,10 +185,13 @@ Clone and link {{ item.repo }}:
   git.latest:
     - name: https://{{ item.host | default('github.com') }}/{{ item.repo }}.git
     - target: {{ target }}
+    - user: {{ user }}
   file.symlink:
     - name: {{ home_bin }}/{{ link }}
     - target: {{ target }}/{{ link }}
     - mode: 0755
+    - user: {{ user }}
+    - group: {{ user }}
 {% endfor %}
 
 # fedora: Undetermined weirdness with packaged Firefox ctrl+t behavior in Ratpoison/Stumpwm
@@ -175,4 +202,6 @@ Copy Firefox desktop file:
     - name: {{ home }}/.local/share/applications/firefox.desktop
     - source: salt://desktop/firefox.desktop
     - makedirs: true
+    - user: {{ user }}
+    - group: {{ user }}
 {% endif %}

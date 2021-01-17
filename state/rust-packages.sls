@@ -1,4 +1,5 @@
 {% set home = pillar['home'] %}
+{% set user = pillar['user'] %}
 {% set cargo = home + '/.cargo/bin/cargo' %}
 {% set cargo_bin = home + '/.cargo/bin' %}
 
@@ -11,6 +12,8 @@ Install Rust:
     - skip_verify: true
     - unless:
         - {{ cargo }}
+    - user: {{ user }}
+    - group: {{ user }}
   cmd.run:
     {% if not pillar.get('rust_update', False) %}
     - name: "echo 1 | {{ pillar['package_dir'] }}/rustup/rustup-init --no-modify-path"
@@ -19,6 +22,7 @@ Install Rust:
     {% else %}
     - name: {{ cargo_bin }}/rustup update
     {% endif %}
+    - runas: {{ user }}
 
 {% for crate in pillar['cargo'] %}
 Cargo install {{ crate.crate }}:
@@ -26,6 +30,7 @@ Cargo install {{ crate.crate }}:
     - name: {{ cargo }} install {{ crate.crate }}{% if crate.bins is defined and crate.bins %} --bins{% endif %}
     - unless:
         - {{ cargo_bin}}/{{ crate.unless | default(crate.crate + ' -V') }}
+    - runas: {{ user }}
 {% endfor %}
 
 {% for repo in pillar['cargo_clone'] %}
@@ -35,6 +40,8 @@ Cargo install cloned {{ repo }}:
   git.cloned:
     - name: {{ repo }}
     - target: {{ target }}
+    - user: {{ user }}
   cmd.run:
     - name: {{ cargo }} install --path {{ target }} -f
+    - runas: {{ user }}
 {% endfor %}

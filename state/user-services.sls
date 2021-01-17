@@ -7,18 +7,20 @@
 
 {% from 'macros.sls' import dirname %}
 {% from 'systemd-macros.sls' import systemd_user_service with context %}
-{% from 'systemd-macros.sls' import systemd_user_timer with context %}
 
 Clipmenu cloned:
   git.cloned:
     - name: https://github.com/cdown/clipmenu
     - target: {{ clone_dir }}/clipmenu
+    - user: {{ user }}
 
 {% for bin in ['del', 'menu', 'menud'] %}
 Link Clipmenu {{ bin }}:
   file.symlink:
     - name: {{home_bin}}/clip{{ bin }}
     - target: {{ clone_dir }}/clipmenu/clip{{ bin }}
+    - user: {{ user }}
+    - group: {{ user }}
 {% endfor %}
 
 {% if is_fedora %}
@@ -30,6 +32,8 @@ Clipmenu {{ bin }} modified:
     - mode: insert
     - content: CM_DIR={{ home }}/.cache/clipmenu
     - after: '#!/usr/bin/env bash'
+    - user: {{ user }}
+    - group: {{ user }}
   {% endfor %}
 
 Clipmenud cache directory:
@@ -88,11 +92,13 @@ Rossa compiled:
     - target: {{ rossa_dir }}
     - unless:
         - rossa -v
+    - user: {{ user }}
   cmd.run:
     - name: make
     - cwd: {{ rossa_dir }}
     - unless:
         - rossa -v
+    - runas: {{ user }}
 
 Rossa installed:
   cmd.run:
@@ -100,6 +106,7 @@ Rossa installed:
     - cwd: {{ rossa_dir }}
     - unless:
         - rossa -v
+    - runas: {{ user }}
 
   {% set rossa_env = default_display_env %}
   {% set rossa_options = {'Restart': 'always', 'RestartSec': 5} %}

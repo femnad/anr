@@ -1,6 +1,7 @@
 {% set home = pillar['home'] %}
 {% set home_bin = home + '/bin' %}
 {% set package_dir = pillar['package_dir'] %}
+{% set user = pillar['user'] %}
 {% set go_base = pillar['package_dir'] + '/go' %}
 {% set go_bin = go_base + '/bin/go' %}
 
@@ -16,11 +17,13 @@ Install Go Package {{ name }}:
     - name: {{ pkg }}
     - target: {{ target }}
     - force_reset: true
+    - user: {{ user }}
   cmd.run:
     - name: {{ go_bin}} install
     - cwd: {{ target }}
     - require:
         - Install go
+    - runas: {{ user }}
 {% endfor %}
 
 {% for pkg in pillar['go_get'] %}
@@ -37,6 +40,7 @@ Go get {{ pkg.pkg }}:
       - {{ pkg.unless }}
       {% endif %}
     {% endif %}
+    - runas: {{ user }}
 {% endfor %}
 
 {% for pkg in pillar['go_get_gopath'] %}
@@ -54,6 +58,7 @@ Go get {{ pkg.pkg }}:
     - unless:
       - {{ pkg.unless }}
     {% endif %}
+    - runas: {{ user }}
 {% endfor %}
 
 Unset Gopath:
@@ -76,6 +81,7 @@ Go clone install {{ repo.name}}:
     - unless:
         - {{ repo.unless }}
     {% endif %}
+    - user: {{ user }}
   cmd.run:
     - name: {{ go_bin }} install
     {% if repo.path is defined %}
@@ -87,4 +93,5 @@ Go clone install {{ repo.name}}:
     - unless:
       - {{ repo.unless }}
     {% endif %}
+    - runas: {{ user }}
 {% endfor %}

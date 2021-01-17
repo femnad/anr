@@ -1,4 +1,4 @@
-{% set firefox_version = '80.0' %}
+{% set firefox_version = '84.0.2' %}
 {% set crystal_version = '0.34.0' %}
 {% set gh_version = '1.4.0' %}
 {% set goland_version = '2020.3' %}
@@ -38,11 +38,6 @@ archives:
   - url: https://download-cf.jetbrains.com/python/pycharm-community-{{ pycharm_version }}.tar.gz
     exec: pycharm-community-{{ pycharm_version }}/bin/pycharm.sh
     unless: stat {{ package_dir }}/pycharm-community-{{ pycharm_version }}/bin/pycharm.sh
-  - url: https://github.com/crystal-lang/crystal/releases/download/{{ crystal_version }}/crystal-{{ crystal_version }}-1-linux-x86_64.tar.gz
-    exec: crystal-{{ crystal_version }}-1/bin/crystal
-    bin_links:
-      - shards
-    unless: test $(crystal version | grep -E '^Crystal' | awk '{print $2}') == {{ crystal_version }}
   - url: https://github.com/cli/cli/releases/download/v{{ gh_version }}/gh_{{ gh_version }}_linux_amd64.tar.gz
     exec: gh_{{ gh_version }}_linux_amd64/bin/gh
     unless: test $(gh --version 2>/dev/null | grep 'gh version' | awk '{print $3}') = {{ gh_version }}

@@ -1,4 +1,5 @@
 {% set home = pillar['home'] %}
+{% set user = pillar['user'] %}
 
 {% for dir in pillar['vim_dirs'] %}
 Initialize directory {{ dir }}:
@@ -13,10 +14,13 @@ VimPlug:
     - source: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     - skip_verify: true
     - makedirs: true
+    - user: {{ user }}
+    - group: {{ user }}
   cmd.run:
     - name: vim -c ":PlugInstall" -c ":quitall"
     - unless:
       - ls {{ home }}/.vim/plugged/YouCompleteMe/third_party/ycmd
+    - runas: {{ user }}
 
 Module:
   cmd.run:
@@ -26,6 +30,7 @@ Module:
       - VimPlug
     - unless:
       - ls {{ home }}/.vim/plugged/YouCompleteMe/third_party/ycmd
+    - runas: {{ user }}
 
 YouCompleteMe:
   cmd.run:
@@ -35,3 +40,4 @@ YouCompleteMe:
       - Module
     - unless:
       - ls {{ home }}/.vim/plugged/YouCompleteMe/python/ycm/__pycache__/__init__.cpython-37.pyc
+    - runas: {{ user }}
