@@ -2,7 +2,7 @@
   {% set name = clonee.repo.split('/')[-1].split('.')[0] %}
   {% set target = pillar['self_clone_dir'] + '/' + name %}
   {% set site = clonee.site | default('github.com') %}
-  {% set user = clonee.user | default(pillar['github_user']) %}
+  {% set user = clonee.user | default(pillar['user']) %}
   {% set url = 'git@{}:{}/{}.git'.format(site, user, clonee.repo) %}
 
 Clone self repo {{ name }}:
@@ -16,10 +16,12 @@ Clone self repo {{ name }}:
     - force_fetch: true
     - force_reset: true
     {% endif %}
+    - user: {{ user }}
   {% if clonee.git_crypt is defined and clonee.git_crypt %}
   cmd.run:
     - name: git crypt unlock
     - cwd: {{ target }}
+    - runas: {{ user }}
   {% endif %}
 
   {% if clonee.remotes is defined %}
@@ -30,6 +32,7 @@ Add remote {{ remote.name }} for {{ name }}:
     - cwd: {{ target }}
     - unless:
       - git remote | grep {{ remote.name }}
+    - runas: {{ user }}
   git.latest:
     - name: {{ remote.url }}
     - update_head: false
@@ -39,6 +42,7 @@ Add remote {{ remote.name }} for {{ name }}:
     - force_fetch: true
     - force_reset: true
     {% endif %}
+    - user: {{ user }}
     {% endfor %}
   {% endif %}
 
@@ -54,4 +58,5 @@ Clone {{ name }}:
   git.cloned:
     - name: {{ repo }}
     - target: {{ target }}
+    - user: {{ user }}
 {% endfor %}

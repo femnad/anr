@@ -5,7 +5,6 @@ base:
     - gcsfuse
     - passfuse-gcp
   self-dev:
-    - keyboardio
     - minikube
   sudo:
     - all
