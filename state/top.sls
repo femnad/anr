@@ -6,7 +6,7 @@ base:
     - passfuse-gcp
   self-dev:
     - minikube
-  sudo:
+  self:
     - all
     - all-sudo
     - archive-install

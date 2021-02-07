@@ -72,14 +72,6 @@ go_get_gopath:
     unless: fzf --version
 
 home_bins:
-  - url: https://github.com/femnad/loco/releases/download/0.3.4/bakl
-    hash: cee33e7caad5634afe6520de60d4a3680f5fafbe92ad3723dc8e01451e0d2dba
-  - url: https://github.com/femnad/loco/releases/download/0.3.4/tosm
-    hash: b954689a141ede5526de49d3200f36f0323b73922d9f745d3fe0e8b80c0901c0
-  - url: https://github.com/femnad/loco/releases/download/0.4.0/ysnp
-    hash: 4316aab0e137b980d96d86a643c5be5eef6f79fa7c0dbc7ea2cc0865c28b4e1d
-  - url: https://github.com/femnad/loco/releases/download/0.3.4/zenv
-    hash: 07640220819f7e16ad4438dd1e2b2b7cfa978333e2d5e21df98a7ee169fcd7b9
   - url: https://storage.googleapis.com/kubernetes-release/release/v1.19.0/bin/linux/amd64/kubectl
   - url: https://github.com/femnad/leth/releases/download/v0.2.0/leth
   - url: https://github.com/femnad/moih/releases/download/v0.2.0/moih
