@@ -1,6 +1,6 @@
 {% set firefox_version = '84.0.2' %}
 {% set crystal_version = '0.34.0' %}
-{% set gh_version = '1.4.0' %}
+{% set gh_version = '1.5.0' %}
 {% set goland_version = '2020.3' %}
 {% set pycharm_version = '2020.2.1' %}
 {% set tectonic_version = '0.4.1' %}
@@ -16,11 +16,6 @@
 package_dir: {{ package_dir }}
 
 archives:
-  - url: https://vscode-update.azurewebsites.net/{{ vscode_version }}/linux-x64/stable
-    exec: VSCode-linux-x64/bin/code
-    preclean: VSCode-linux-x64
-    format: tar
-    unless: test $(code --version | head -n 1) = {{ vscode_version }}
   # fedora: Undetermined weirdness with packaged Firefox ctrl+t behavior in Ratpoison/Stumpwm
   # debian: Only firefox-esr
   {% if is_fedora or is_debian %}
