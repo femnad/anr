@@ -1,4 +1,4 @@
-{% set firefox_version = '84.0.2' %}
+{% set firefox_version = '86.0.1' %}
 {% set crystal_version = '0.34.0' %}
 {% set gh_version = '1.5.0' %}
 {% set goland_version = '2020.3' %}

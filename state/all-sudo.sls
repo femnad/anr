@@ -6,42 +6,6 @@
 {% set is_fedora = pillar['is_fedora'] %}
 {% set is_ubuntu = pillar['is_ubuntu'] %}
 
-Pamixer compiled:
-  git.cloned:
-    - name: https://github.com/cdemoulins/pamixer.git
-    - target: {{ pillar['clone_dir'] }}/pamixer
-    - user: {{ pillar['user'] }}
-  pkg.installed:
-    - pkgs:
-    {% if pillar['is_arch'] %}
-        - boost
-        - boost-libs
-        - libpulse
-    {% elif is_fedora %}
-        - boost-devel
-        - boost-program-options
-        - pulseaudio-libs-devel
-    {% else %}
-        - libboost-program-options-dev
-        - libpulse-dev
-    {% endif %}
-  file.directory:
-    - name: /usr/local/man/man1
-    - makedirs: True
-  cmd.run:
-    - name: make
-    - runas: {{ pillar['user'] }}
-    - cwd: {{ pillar['clone_dir'] }}/pamixer
-    - unless:
-      - pamixer
-
-Pamixer installed:
-  cmd.run:
-    - name: make install
-    - cwd: {{ pillar['clone_dir'] }}/pamixer
-    - unless:
-      - pamixer
-
 {% if pillar['is_arch'] %}
 Ratpoison Session file:
   file.managed:
