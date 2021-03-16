@@ -26,6 +26,7 @@ Service {{ name }} enabled:
     - name: |
         systemctl --user daemon-reload
         systemctl --user enable {{ name }}
+    - runas: {{ user }}
     - unless:
         - test $(systemctl --user is-enabled {{ name }}) = enabled
   {% if user is not none %}
@@ -40,6 +41,7 @@ Service {{ name }} started:
     - name: |
         systemctl --user daemon-reload
         systemctl --user start {{ name }}
+    - runas: {{ user }}
     - unless:
         - test $(systemctl --user is-active {{ name }}) = active
   {% if user is not none %}

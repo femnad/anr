@@ -4,6 +4,7 @@
 {% set self_clone_dir = pillar['self_clone_dir'] %}
 {% set is_fedora = pillar['is_fedora'] %}
 {% set host = grains['host'] %}
+{% set user = pillar['user'] %}
 
 {% from 'macros.sls' import dirname %}
 {% from 'systemd-macros.sls' import systemd_user_service with context %}
@@ -85,35 +86,6 @@ Ensure xidlehook socket dir:
 
   {% endif %} # host not unlocked
 
-  {% set rossa_dir = clone_dir + '/rossa' %}
-Rossa compiled:
-  git.cloned:
-    - name: https://github.com/femnad/rossa.git
-    - target: {{ rossa_dir }}
-    - unless:
-        - rossa -v
-    - user: {{ user }}
-  cmd.run:
-    - name: make
-    - cwd: {{ rossa_dir }}
-    - unless:
-        - rossa -v
-    - runas: {{ user }}
-
-Rossa installed:
-  cmd.run:
-    - name: make install
-    - cwd: {{ rossa_dir }}
-    - unless:
-        - rossa -v
-    - runas: {{ user }}
-
-  {% set rossa_env = default_display_env %}
-  {% set rossa_options = {'Restart': 'always', 'RestartSec': 5} %}
-  {% set rossa_exec = home_bin + '/rossa' %}
-
-{{ systemd_user_service('rossa', 'Rossa daemon', rossa_exec, environment=rossa_env, options=rossa_options) }}
+{{ systemd_user_service('batt', 'Upower based battery monitoring script', home_bin + '/batt', environment=default_display_env) }}
 
 {% endif %} # is laptop
-
-
