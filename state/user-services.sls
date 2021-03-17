@@ -15,7 +15,7 @@ Clipmenu cloned:
     - target: {{ clone_dir }}/clipmenu
     - user: {{ user }}
 
-{% for bin in ['del', 'menu', 'menud'] %}
+{% for bin in ['ctl', 'del', 'menu', 'menud'] %}
 Link Clipmenu {{ bin }}:
   file.symlink:
     - name: {{home_bin}}/clip{{ bin }}
