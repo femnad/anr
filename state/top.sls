@@ -8,7 +8,6 @@ base:
     - minikube
   self:
     - all
-    - all-sudo
     - archive-install
     - cleanup
     - compile
