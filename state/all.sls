@@ -10,6 +10,7 @@
 
 {% set is_debian = grains['os'] == 'Debian' %}
 {% set is_fedora = pillar['is_fedora'] %}
+{% set is_ubuntu = pillar['is_ubuntu'] %}
 
 {% if pillar['is_arch'] %}
 Ratpoison Session file:
