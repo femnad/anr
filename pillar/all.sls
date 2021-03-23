@@ -36,9 +36,6 @@ is_laptop: {{ is_laptop }}
 is_ubuntu: {{ is_ubuntu }}
 is_debian_or_ubuntu: {{ is_debian or is_ubuntu }}
 
-go_install:
-  - https://github.com/zaquestion/lab
-
 go_path: {{ salt.sdb.get('sdb://osenv/HOME') + '/z/sc/go' }}
 
 go_get:
@@ -55,15 +52,12 @@ go_get:
     unless: hub --version
   - pkg: github.com/dustinkirkland/golang-petname/cmd/petname
     unless: petname
+  - name: twpayne/chezmoi
+    unless: chezmoi --version
 
 go_cloned_install:
   - name: mikefarah/yq
     unless: yq -V
-  - name: boz/kail
-    path: cmd/kail
-    unless: kail version
-  - name: twpayne/chezmoi
-    unless: chezmoi --version
   - name: charmbracelet/glow
     unless: glow -v
 

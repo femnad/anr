@@ -9,23 +9,6 @@
 
 {{ install_from_archive(pillar['go_release']) }}
 
-{% for pkg in pillar['go_install'] %}
-  {% set name = pkg.split('/')[-1].split('.')[0] %}
-  {% set target = pillar['clone_dir'] + '/' + name %}
-Install Go Package {{ name }}:
-  git.latest:
-    - name: {{ pkg }}
-    - target: {{ target }}
-    - force_reset: true
-    - user: {{ user }}
-  cmd.run:
-    - name: {{ go_bin}} install
-    - cwd: {{ target }}
-    - require:
-        - Install go
-    - runas: {{ user }}
-{% endfor %}
-
 {% for pkg in pillar['go_get'] %}
 Go get {{ pkg.pkg }}:
   cmd.run:
