@@ -110,6 +110,8 @@ Install Quicklisp package {{ pkg }}:
   - runas: {{ user }}
   - unless:
     - stumpwm --version
+  - require:
+    - Initialize chezmoi base
 {% endfor %}
 
 Stumpwm compiled:
@@ -124,6 +126,8 @@ Stumpwm compiled:
         make
     - cwd: {{ clone_dir }}/stumpwm
     - runas: {{ user }}
+    - require:
+      - Initialize chezmoi base
     {% if not pillar.get('stumpwm_update', False) %}
     - unless:
       - stumpwm --version
@@ -331,6 +335,8 @@ Apply chezmoi base:
   cmd.run:
     - name: {{ home }}/go/bin/chezmoi apply
     - runas: {{ user }}
+    - require:
+      - Initialize chezmoi base
 
 Tilix schemes:
 {% set target = pillar['clone_dir'] + '/Tilix-Themes' %}

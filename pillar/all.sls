@@ -52,7 +52,7 @@ go_get:
     unless: hub --version
   - pkg: github.com/dustinkirkland/golang-petname/cmd/petname
     unless: petname
-  - pkg: twpayne/chezmoi
+  - pkg: github.com/twpayne/chezmoi
     unless: chezmoi --version
 
 go_cloned_install:
