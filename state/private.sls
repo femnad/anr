@@ -7,6 +7,13 @@
 
 {% set user = pillar['user'] %}
 
+{% for host in ['github.com', 'gitlab.com'] %}
+Accept host key for {{ host }}:
+  cmd.script:
+    - source: salt://scripts/accept-host-keys.sh
+    - args: {{ host }}
+{% endfor %}
+
 Set git origin for base:
   cmd.script:
     - source: salt://scripts/https-to-git.sh
