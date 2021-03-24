@@ -338,24 +338,9 @@ Apply chezmoi base:
     - require:
       - Initialize chezmoi base
 
-Tilix schemes:
-{% set target = pillar['clone_dir'] + '/Tilix-Themes' %}
-  git.cloned:
-    - name: https://github.com/storm119/Tilix-Themes.git
-    - target: {{ target }}
-    - user: {{ user }}
-  file.directory:
-    - name: {{ home }}/.config/tilix/schemes
-    - makedirs: true
-    - user: {{ user }}
-    - group: {{ user }}
-  cmd.run:
-    - name: find {{ target }} -name '*.json' -exec cp '{}' {{ home }}/.config/tilix/schemes \;
-    - runas: {{ user }}
-
 {% for prefix in pillar['mutt_dirs'] %}
   {% for cache in ['header', 'message'] %}
-mutt init {{ prefix }} {{ cache }}:
+Mutt init cache directory {{ prefix }} {{ cache }}:
   file.directory:
     - name: {{ home }}/.mutt/{{ prefix }}{{ cache }}
     - makedirs: true
@@ -443,21 +428,6 @@ Initialize Jedi for Emacs:
     - name: emacs -nw --load ~/.emacs --batch --eval '(jedi:install-server)'
     - unless:
       - ls ~/.emacs.d/elpa/jedi-core* -d
-    - runas: {{ user }}
-
-{% set pass_helper_path = home + '/go/src/github.com/docker/docker-credential-helpers' %}
-Install Docker pass credential helper:
-  git.cloned:
-    - name: https://github.com/docker/docker-credential-helpers.git
-    - target: {{ pass_helper_path }}
-    - unless:
-      - {{ home_bin }}/docker-credential-pass version
-    - user: {{ user }}
-  cmd.run:
-    - name: {{ go_bin }} build -o {{ home_bin }}/docker-credential-pass pass/cmd/main_linux.go
-    - cwd: {{ pass_helper_path }}
-    - unless:
-      - {{ home_bin }}/docker-credential-pass version
     - runas: {{ user }}
 
 {% from 'macros.sls' import basename %}

@@ -1,8 +1,4 @@
 base:
-  latex:
-    - latex
-  self-dev:
-    - minikube
   self:
     - all
     - archive-install
@@ -17,11 +13,13 @@ base:
     - rust-packages
     - user-services
     - vim
-  sudo-dev:
-    - docker
-    - keyboardio-sudo
-    - libvirt
-    - qmk
   private:
     - private
     - clone
+  dev:
+    - docker
+    - keyboardio-sudo
+    - latex
+    - libvirt
+    - minikube
+    - qmk
