@@ -1,6 +1,6 @@
 {% set firefox_version = '86.0.1' %}
 {% set crystal_version = '0.34.0' %}
-{% set gh_version = '1.5.0' %}
+{% set gh_version = '1.7.0' %}
 {% set goland_version = '2020.3' %}
 {% set pycharm_version = '2020.2.1' %}
 {% set tectonic_version = '0.4.1' %}
