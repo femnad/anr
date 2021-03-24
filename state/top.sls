@@ -1,9 +1,6 @@
 base:
   latex:
     - latex
-  passfuser:
-    - gcsfuse
-    - passfuse-gcp
   self-dev:
     - minikube
   self:
@@ -28,7 +25,3 @@ base:
   private:
     - private
     - clone
-  shadow:
-    - shadow
-  steam:
-    - steam
