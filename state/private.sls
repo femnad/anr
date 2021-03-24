@@ -32,3 +32,7 @@ Apply chezmoi overlay {{ overlay_repo }}:
   cmd.run:
     - name: {{ home }}/go/bin/chezmoi apply -S {{ overlay_path }}
 {% endfor %}
+
+Fetch private key for host:
+  cmd.run:
+    - name: moih get --keysecret {{ pillar['moih_key_secret'] }} --bucketname {{ pillar['moih_bucket_name'] }}
