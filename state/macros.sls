@@ -71,12 +71,16 @@ Link {{ bin_link }}:
 
 {% endmacro %}
 
-{% macro clone_self_repo(clonee, user=None) %}
+{% macro clone_self_repo(clonee, user=None, http_clone=False) %}
   {% set name = clonee.repo.split('/')[-1].split('.')[0] %}
   {% set target = pillar['self_clone_dir'] + '/' + name %}
   {% set site = clonee.site | default('github.com') %}
   {% set user = clonee.user | default(pillar['github_user']) %}
-  {% set url = 'git@{}:{}/{}.git'.format(site, user, clonee.repo) %}
+  {% if http_clone %}
+    {% set url = 'https://{}/{}/{}.git'.format(site, user, clonee.repo) %}
+  {% else %}
+    {% set url = 'git@{}:{}/{}.git'.format(site, user, clonee.repo) %}
+  {% endif %}
 
 Clone repo {{ name }}:
   git.latest:

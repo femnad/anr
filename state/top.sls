@@ -1,7 +1,8 @@
 base:
   self:
-    - all
+    - packages
     - archive-install
+    - all
     - cleanup
     - compile
     {% if pillar['is_fedora'] %}
@@ -9,7 +10,6 @@ base:
     {% endif %}
     - go-packages
     - python-packages
-    - packages
     - rust-packages
     - user-services
     - vim
@@ -18,7 +18,7 @@ base:
     - clone
   dev:
     - docker
-    - keyboardio-sudo
+    - keyboardio
     - latex
     - libvirt
     - minikube

@@ -57,4 +57,4 @@ Clone and initialise Keyboardio hardware bundle:
 
 {% from 'macros.sls' import clone_self_repo with context %}
 
-{{ clone_self_repo(repo, user) }}
+{{ clone_self_repo(repo, user, http_clone=True) }}
