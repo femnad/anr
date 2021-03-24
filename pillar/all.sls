@@ -44,12 +44,6 @@ go_get:
     unless: rabn --version
   - pkg: github.com/aykamko/tag/...
     unless: tag -V
-  - pkg: github.com/googlecloudplatform/gcsfuse
-    unless: gcsfuse -v
-  - pkg: github.com/femnad/passfuse
-    unless: passfuse --version
-  - pkg: github.com/github/hub
-    unless: hub --version
   - pkg: github.com/dustinkirkland/golang-petname/cmd/petname
     unless: petname
   - pkg: github.com/twpayne/chezmoi
@@ -66,9 +60,8 @@ go_get_gopath:
     unless: fzf --version
 
 home_bins:
-  - url: https://storage.googleapis.com/kubernetes-release/release/v1.19.0/bin/linux/amd64/kubectl
   - url: https://github.com/femnad/leth/releases/download/v0.2.0/leth
-  - url: https://github.com/femnad/moih/releases/download/v0.2.0/moih
+  - url: https://github.com/femnad/moih/releases/download/v0.4.0/moih
 
 vim_dirs:
   - autoload
