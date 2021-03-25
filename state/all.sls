@@ -171,7 +171,18 @@ Install Spotify:
     - key_url: https://download.spotify.com/debian/pubkey.gpg
   pkg.installed:
     - name: spotify-client
-{% endif %}
+
+{% set backports = grains['oscodename'] + '-backports' %}
+Enable backports repo:
+  pkgrepo.managed:
+    - name: deb http://ftp.debian.org/debian {{ backports }} main contrib non-free
+    - file: /etc/apt/sources.list.d/backports.list
+
+Set default release:
+  file.managed:
+    - name: /etc/apt/apt.conf.d/10default-release.conf
+    - contents: 'APT::Default-Release "{{ backports }}";'
+{% endif %} # is Debian?
 
 {% if pillar['is_arch'] %}
 Enable lxdm:
