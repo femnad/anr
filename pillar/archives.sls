@@ -53,8 +53,8 @@ gcloud_package:
   name: gcloud
 
 {% set go = {
-  'version': '1.15',
-  'checksum': '2d75848ac606061efe52a8068d0e647b35ce487a15bb52272c427df485193602',
+  'version': '1.16.2',
+  'checksum': '542e936b19542e62679766194364f45141fde55169db2d8d01046555ca9eb4b8',
   }
 %}
 

@@ -26,30 +26,6 @@ Go get {{ pkg.pkg }}:
     - runas: {{ user }}
 {% endfor %}
 
-{% for pkg in pillar['go_get_gopath'] %}
-{% set name = pkg.pkg.split('/')[-1] %}
-{% set gopath = pillar['go_path'] %}
-Go get {{ pkg.pkg }}:
-  environ.setenv:
-    - name: GOPATH
-    - value: {{ gopath }}
-  cmd.run:
-    - name: {{ go_bin }} get -u {{ pkg.pkg }}
-    - require:
-      - Install go
-    {% if pkg.unless is defined %}
-    - unless:
-      - {{ pkg.unless }}
-    {% endif %}
-    - runas: {{ user }}
-{% endfor %}
-
-Unset Gopath:
-  environ.setenv:
-    - name: GOPATH
-    - value: false
-    - false_unsets: true
-
 {% for repo in pillar['go_cloned_install'] %}
   {% set host = repo.host | default('github.com') %}
   {% set url = 'https://' + host + '/' + repo.name + '.git' %}

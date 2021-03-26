@@ -51,12 +51,10 @@ go_get:
 
 go_cloned_install:
   - name: mikefarah/yq
-    unless: yq -V
+    unless: yq --version
   - name: charmbracelet/glow
     unless: glow -v
-
-go_get_gopath:
-  - pkg: github.com/junegunn/fzf
+  - name: junegunn/fzf
     unless: fzf --version
 
 home_bins:
