@@ -129,6 +129,7 @@ packages:
 
   {% if is_fedora %}
   - automake
+  - bpftrace
   - dnf-automatic
   - ffmpeg
   - flatpak

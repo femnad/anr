@@ -322,18 +322,13 @@ Remove {{ file }}:
 {% from 'macros.sls' import install_from_archive with context %}
 {% from 'macros.sls' import dirname %}
 
-{{ install_from_archive(pillar['gcloud_package'], user=user) }}
-
 Enable gsutil:
-  {% set gcloud_bin = dirname(pillar['gcloud_package'].exec) %}
   cmd.run:
     - name: {{ home_bin }}/gcloud components install gsutil
-    - require:
-      - Install gcloud
-    - unless: gcloud components list | grep -E 'Installed.*gsutil'
+    - unless: {{ home_bin }}/gcloud components list | grep -E 'Installed.*gsutil'
   file.symlink:
     - name: {{ home_bin }}/gsutil
-      target: {{ package_dir }}/{{ gcloud_bin }}/gsutil
+      target: {{ package_dir }}/google-cloud-sdk/bin/gsutil
 
 Initialize chezmoi base:
   cmd.run:
