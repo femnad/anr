@@ -62,7 +62,7 @@ Clipmenud cache directory:
 } %}
 {% set clipmenud_exec = home_bin + '/clipmenud' %}
 
-{{ systemd_user_service('clipmenud', 'Clipmenud daemon', clipmenud_exec, environment=clipmenud_env, options=clipmenud_options) }}
+{{ systemd_user_service('clipmenud', 'Clipmenud daemon', clipmenud_exec, user, environment=clipmenud_env, options=clipmenud_options) }}
 
 {% if pillar['is_laptop'] %}
 
@@ -82,10 +82,10 @@ Ensure xidlehook socket dir:
     - name: {{ dirname(xidlehook_socket) }}
     - makedirs: true
 
-{{ systemd_user_service('xidlehook', 'Xidlehook daemon', xidlehook_exec, environment=xidlehook_env, options=xidlehook_options) }}
+{{ systemd_user_service('xidlehook', 'Xidlehook daemon', xidlehook_exec, user, environment=xidlehook_env, options=xidlehook_options) }}
 
   {% endif %} # host not unlocked
 
-{{ systemd_user_service('batt', 'Upower based battery monitoring script', home_bin + '/batt', environment=default_display_env) }}
+{{ systemd_user_service('rojo', 'Upower based battery monitoring script', home_bin + '/rojo', user, environment=default_display_env) }}
 
 {% endif %} # is laptop

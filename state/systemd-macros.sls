@@ -1,6 +1,6 @@
 {% set home = pillar['home'] %}
 
-{% macro systemd_user_service(name, description, executable, user=None, unit={}, environment={}, options={}, enabled=True, started=True) %}
+{% macro systemd_user_service(name, description, executable, user, unit={}, environment={}, options={}, enabled=True, started=True) %}
 Ensure definition for service {{ name }}:
   file.managed:
     - name: {{ home }}/.config/systemd/user/{{ name }}.service
@@ -15,10 +15,8 @@ Ensure definition for service {{ name }}:
         wanted_by: default
         environment: {{ environment }}
         options: {{ options }}
-  {% if user is not none %}
     - user: {{ user }}
     - group: {{ user }}
-  {% endif %}
 
 {% if enabled %}
 Service {{ name }} enabled:
