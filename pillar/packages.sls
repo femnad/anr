@@ -53,6 +53,7 @@ packages:
   - w3m
   - wget
   - whois
+  - wireguard-tools
   - wireshark
   - xdotool
   - xsel
@@ -115,6 +116,7 @@ packages:
   - libxfixes-dev
   - libclang-dev
   - network-manager
+  - pavucontrol
   - python3-dev
   - resolvconf
   - sqlite3
@@ -159,7 +161,6 @@ packages:
   {% if grains['osmajorrelease'] > 32 %}
   - terminus-fonts-legacy-x11
   {% endif %}
-  - wireguard-tools
   - wmname
   - xorg-x11-apps
   - xorg-x11-utils

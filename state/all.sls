@@ -11,6 +11,7 @@
 {% set is_debian = grains['os'] == 'Debian' %}
 {% set is_fedora = pillar['is_fedora'] %}
 {% set is_ubuntu = pillar['is_ubuntu'] %}
+{% set is_debian_or_ubuntu = is_debian or is_ubuntu %}
 
 {% if pillar['is_arch'] %}
 Ratpoison Session file:
@@ -193,7 +194,11 @@ Enable lxdm:
 Ensure resolv.conf is a symlink:
   file.symlink:
     - name: /etc/resolv.conf
+    {% if is_fedora %}
     - target: /run/systemd/resolve/resolv.conf
+    {% elif is_ubuntu %}
+    - target: /run/resolvconf/resolv.conf
+    {% endif %}
 
 {% set hostname = grains['host'] %}
 
