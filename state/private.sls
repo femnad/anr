@@ -36,3 +36,7 @@ Apply chezmoi overlay {{ overlay_repo }}:
   cmd.run:
     - name: {{ home }}/bin/chezmoi apply -S {{ overlay_path }}
 {% endfor %}
+
+Sync Mullvad configs:
+  cmd.run:
+    - name: wgs

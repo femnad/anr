@@ -18,9 +18,6 @@ base:
     - clone
     - user-services
   dev:
-    - docker
     - keyboardio
     - latex
-    - libvirt
-    - minikube
     - qmk
