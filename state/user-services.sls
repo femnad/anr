@@ -89,3 +89,16 @@ Ensure xidlehook socket dir:
 {{ systemd_user_service('rojo', 'Upower based battery monitoring script', home_bin + '/rojo', user, environment=default_display_env) }}
 
 {% endif %} # is laptop
+
+{% if is_fedora %}
+Enable pulseaudio:
+  cmd.run:
+    - name: systemctl --user enable pulseaudio
+    - unless:
+        - test $(systemctl --user is-enabled pulseaudio) = enabled
+Start pulseaudio:
+  cmd.run:
+    - name: systemctl --user enable pulseaudio
+    - unless:
+        - test $(systemctl --user is-active pulseaudio) = active
+{% endif %}
