@@ -1,4 +1,5 @@
 {% set home = pillar['home'] %}
+{% set home_bin = home + '/bin' %}
 {% set homeshick_repos = home + '/.homesick/repos/' %}
 {% set homeshick_bin = homeshick_repos + 'homeshick/bin/homeshick' %}
 
@@ -9,7 +10,7 @@
 
 Fetch private key for host:
   cmd.run:
-    - name: {{ home }}/bin/moih get --keysecret {{ pillar['moih_key_secret'] }} --bucketname {{ pillar['moih_bucket_name'] }}
+    - name: {{ home_bin }}/moih get --keysecret {{ pillar['moih_key_secret'] }} --bucketname {{ pillar['moih_bucket_name'] }}
 
 {% for host in ['github.com', 'gitlab.com'] %}
 Accept host key for {{ host }}:
@@ -28,15 +29,11 @@ Set git origin for base:
 {% for overlay_repo, overlay_path in [(common_repo, common_path)] %}
 Initialize chezmoi overlay {{ overlay_repo }}:
   cmd.run:
-    - name: {{ home }}/bin/chezmoi init -S {{ overlay_path }} {{ overlay_repo }}
+    - name: {{ home_bin }}/chezmoi init -S {{ overlay_path }} {{ overlay_repo }}
     - unless:
       - ls {{ overlay_path }}
 
 Apply chezmoi overlay {{ overlay_repo }}:
   cmd.run:
-    - name: {{ home }}/bin/chezmoi apply -S {{ overlay_path }}
+    - name: {{ home_bin }}/chezmoi apply -S {{ overlay_path }}
 {% endfor %}
-
-Sync Mullvad configs:
-  cmd.run:
-    - name: wgs

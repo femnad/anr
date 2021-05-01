@@ -35,7 +35,6 @@ packages:
   - ripgrep
   - rofi
   - ranger
-  - ratpoison
   - rlwrap
   - ruby
   - sbcl
@@ -162,9 +161,12 @@ packages:
   - terminus-fonts-legacy-x11
   {% endif %}
   - wmname
-  - xorg-x11-apps
-  - xorg-x11-utils
+  - xev
+  - xmodmap
   - xorg-x11-proto-devel
+  - xprop
+  - xrandr
+  - xsetroot
   {% endif %}
 
   {% if not (is_fedora or is_debian)  %}

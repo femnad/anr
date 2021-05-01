@@ -403,13 +403,6 @@ Download {{ exec_name }}:
 
 {% endfor %}
 
-Build Ratpoison helpers:
-  cmd.run:
-    - name: {{ go_bin }} get github.com/femnad/ratilf/cmd/...
-    - onlyif:
-      - ratpoison -v
-    - runas: {{ user }}
-
 Stumpwm contrib:
   git.cloned:
     - name: https://github.com/stumpwm/stumpwm-contrib.git
