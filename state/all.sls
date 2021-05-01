@@ -334,7 +334,8 @@ Remove {{ file }}:
 Enable gsutil:
   cmd.run:
     - name: {{ home_bin }}/gcloud components install gsutil
-    - unless: {{ home_bin }}/gcloud components list | grep -E 'Installed.*gsutil'
+    - unless:
+        file: {{ package_dir }}/google-cloud-sdk/bin/gsutil
   file.symlink:
     - name: {{ home_bin }}/gsutil
       target: {{ package_dir }}/google-cloud-sdk/bin/gsutil
