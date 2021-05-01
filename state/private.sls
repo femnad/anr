@@ -7,6 +7,10 @@
 
 {% set user = pillar['user'] %}
 
+Fetch private key for host:
+  cmd.run:
+    - name: {{ home }}/bin/moih get --keysecret {{ pillar['moih_key_secret'] }} --bucketname {{ pillar['moih_bucket_name'] }}
+
 {% for host in ['github.com', 'gitlab.com'] %}
 Accept host key for {{ host }}:
   cmd.script:
@@ -24,15 +28,11 @@ Set git origin for base:
 {% for overlay_repo, overlay_path in [(common_repo, common_path)] %}
 Initialize chezmoi overlay {{ overlay_repo }}:
   cmd.run:
-    - name: {{ home }}/go/bin/chezmoi init -S {{ overlay_path }} {{ overlay_repo }}
+    - name: {{ home }}/bin/chezmoi init -S {{ overlay_path }} {{ overlay_repo }}
     - unless:
       - ls {{ overlay_path }}
 
 Apply chezmoi overlay {{ overlay_repo }}:
   cmd.run:
-    - name: {{ home }}/go/bin/chezmoi apply -S {{ overlay_path }}
+    - name: {{ home }}/bin/chezmoi apply -S {{ overlay_path }}
 {% endfor %}
-
-Fetch private key for host:
-  cmd.run:
-    - name: moih get --keysecret {{ pillar['moih_key_secret'] }} --bucketname {{ pillar['moih_bucket_name'] }}

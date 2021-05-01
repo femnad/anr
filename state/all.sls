@@ -73,14 +73,18 @@ Clipnotify installed:
   git.cloned:
     - name: https://github.com/cdown/clipnotify.git
     - target: {{ clone_dir }}/clipnotify
+    - user: {{ user }}
   cmd.run:
     - name: make
     - cwd: {{ clone_dir }}/clipnotify
     - unless:
       - which clipnotify
+    - runas: {{ user }}
   file.copy:
     - name: /usr/local/bin/clipnotify
     - source: {{ clone_dir }}/clipnotify/clipnotify
+    - user: {{ user }}
+    - group: {{ user }}
 
 {% set quicklisp = package_dir + '/quicklisp/quicklisp.lisp' %}
 Quicklisp installed:
@@ -344,7 +348,7 @@ Initialize chezmoi base:
 
 Apply chezmoi base:
   cmd.run:
-    - name: {{ home }}/go/bin/chezmoi apply
+    - name: {{ home }}/bin/chezmoi apply
     - runas: {{ user }}
     - require:
       - Initialize chezmoi base

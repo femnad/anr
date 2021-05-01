@@ -12,11 +12,11 @@ base:
     - python-packages
     - rust-packages
     - update
-    - user-services
     - vim
   private:
     - private
     - clone
+    - user-services
   dev:
     - docker
     - keyboardio

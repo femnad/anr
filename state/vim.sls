@@ -6,6 +6,8 @@ Initialize directory {{ dir }}:
   file.directory:
     - name: {{ home }}/.vim/{{ dir }}
     - makedirs: true
+    - user: {{ user }}
+    - group: {{ user }}
 {% endfor %}
 
 VimPlug:
