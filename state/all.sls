@@ -13,14 +13,6 @@
 {% set is_ubuntu = pillar['is_ubuntu'] %}
 {% set is_debian_or_ubuntu = is_debian or is_ubuntu %}
 
-{% if pillar['is_arch'] %}
-Ratpoison Session file:
-  file.managed:
-    - name: /usr/share/xsessions/ratpoison.desktop
-    - source: salt://xsessions/ratpoison.desktop
-    - makedirs: true
-{% endif %}
-
 {% if pillar['is_laptop'] %}
 Acpilight installed:
   git.cloned:

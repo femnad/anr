@@ -5,10 +5,6 @@
 {% set go_base = pillar['package_dir'] + '/go' %}
 {% set go_bin = go_base + '/bin/go' %}
 
-{% from 'macros.sls' import install_from_archive with context %}
-
-{{ install_from_archive(pillar['go_release']) }}
-
 {% for pkg in pillar['go_get'] %}
 Go get {{ pkg.pkg }}:
   cmd.run:
