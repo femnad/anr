@@ -1,20 +1,20 @@
 base:
-  self:
+  sudo:
     - packages
-    - archive-install
-    - all
+    - sudo
     - cleanup
-    - compile
     {% if pillar['is_fedora'] %}
     - flatpak
     {% endif %}
+  self:
+    - archives
+    - self
     - go-packages
     - python-packages
     - rust-packages
     - update
     - vim
-  user:
-    - key
+  private:
     - private
     - clone
     - user-services

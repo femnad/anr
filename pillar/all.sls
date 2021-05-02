@@ -87,10 +87,6 @@ cargo_clone: []
 github_user: {{ github_user }}
 github_keys: {{ salt.sdb.get('sdb://github-lookup/keys?user=' + github_user) | tojson }}
 
-clone_compile:
-  - repo: https://github.com/jpmens/jo.git
-    unless: jo -v
-
 rpmfusion_releases:
   - free
   - nonfree
