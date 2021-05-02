@@ -103,7 +103,7 @@ Enable {{ name }}:
         - test $(systemctl --user is-enabled {{ name }}) = enabled
 Start {{ name }}:
   cmd.run:
-    - name: systemctl --user enable {{ name }}
+    - name: systemctl --user start {{ name }}
     - unless:
         - test $(systemctl --user is-active {{ name }}) = active
 {% endmacro %}
