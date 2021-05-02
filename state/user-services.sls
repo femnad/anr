@@ -44,6 +44,3 @@ Ensure xidlehook socket dir:
 {% endif %}
 
 {{ ensure_user_service('clipmenud') }}
-
-{% set ssh_agent_env = {'SSH_AUTH_SOCK': '%t/ssh-agent.socket'} %}
-{{ systemd_user_service('ssh-agent', 'SSH authentication agent', '/usr/bin/ssh-agent -D -a $SSH_AUTH_SOCK', user, environment=ssh_agent_env) }}

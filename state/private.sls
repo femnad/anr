@@ -8,10 +8,6 @@
 
 {% set user = pillar['user'] %}
 
-Fetch private key for host:
-  cmd.run:
-    - name: {{ home_bin }}/moih get --keysecret {{ pillar['moih_key_secret'] }} --bucketname {{ pillar['moih_bucket_name'] }}
-
 {% for host in ['github.com', 'gitlab.com'] %}
 Accept host key for {{ host }}:
   cmd.script:

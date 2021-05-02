@@ -14,6 +14,7 @@ base:
     - update
     - vim
   user:
+    - key
     - private
     - clone
     - user-services
