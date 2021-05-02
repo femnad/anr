@@ -32,15 +32,10 @@ Acpilight installed:
         - brightness
     - remove_groups: False
   file.managed:
-    - name: /etc/udev/rules.d/90-backlight.rules
-    - source: salt://udev/backlight.rules
-    - mode: 0644
-
-Reload udevadm rules for apcilight:
-  cmd.run:
-    - name: udevadm control -R
-    - onchanges:
-        - Acpilight installed
+    - name: /sys/class/backlight/intel_backlight/brightness
+    - replace: false
+    - group: brightness
+    - mode: 0664
 
 Lock on suspend:
   pkg.installed:
@@ -314,12 +309,6 @@ Blacklist pcspeaker:
     - contents: blacklist pcspkr
 {% endif %}
 
-{% if is_ubuntu %}
-# Probably installed Xubuntu
-No Dbus service for xfce4 notifyd:
-  file.absent:
-    - name: /usr/share/dbus-1/services/org.xfce.xfce4-notifyd.Notifications.service
-{% endif %}
 {% for dir in pillar['home_dirs'] %}
 Home Dir {{ dir }}:
   file.directory:

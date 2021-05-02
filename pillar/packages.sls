@@ -150,6 +150,7 @@ packages:
   - pinentry-gtk
   - podman
   - pulseaudio-module-bluetooth
+  - pulseaudio-utils
   - python3-devel
   - python3-ipython
   - python3-virtualenv
