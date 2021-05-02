@@ -79,22 +79,27 @@ Libinput configured:
     - makedirs: true
 {% endif %}
 
+Clipmenu installed:
+  git.cloned:
+    - name: https://github.com/cdown/clipmenu
+    - target: {{ clone_dir }}/clipmenu
+    - user: {{ user }}
+  cmd.run:
+    - name: make install
+    - cwd: {{ clone_dir }}/clipmenu
+    - unless:
+      - which clipmenud
+
 Clipnotify installed:
   git.cloned:
     - name: https://github.com/cdown/clipnotify.git
     - target: {{ clone_dir }}/clipnotify
     - user: {{ user }}
   cmd.run:
-    - name: make
+    - name: make install
     - cwd: {{ clone_dir }}/clipnotify
     - unless:
       - which clipnotify
-    - runas: {{ user }}
-  file.copy:
-    - name: /usr/local/bin/clipnotify
-    - source: {{ clone_dir }}/clipnotify/clipnotify
-    - user: {{ user }}
-    - group: {{ user }}
 
 {% set quicklisp = package_dir + '/quicklisp/quicklisp.lisp' %}
 Quicklisp installed:

@@ -6,63 +6,10 @@
 {% set host = grains['host'] %}
 {% set user = pillar['user'] %}
 
-{% from 'macros.sls' import dirname %}
-{% from 'systemd-macros.sls' import systemd_user_service with context %}
-
-Clipmenu cloned:
-  git.cloned:
-    - name: https://github.com/cdown/clipmenu
-    - target: {{ clone_dir }}/clipmenu
-    - user: {{ user }}
-
-{% for bin in ['ctl', 'del', 'menu', 'menud'] %}
-Link Clipmenu {{ bin }}:
-  file.symlink:
-    - name: {{home_bin}}/clip{{ bin }}
-    - target: {{ clone_dir }}/clipmenu/clip{{ bin }}
-    - user: {{ user }}
-    - group: {{ user }}
-{% endfor %}
-
-{% if is_fedora %}
-  # unwilligness to investigate flock issues in Fedora
-  {% for bin in ['del', 'menu', 'menud'] %}
-Clipmenu {{ bin }} modified:
-  file.line:
-    - name: {{ clone_dir }}/clipmenu/clip{{ bin }}
-    - mode: insert
-    - content: CM_DIR={{ home }}/.cache/clipmenu
-    - after: '#!/usr/bin/env bash'
-    - user: {{ user }}
-    - group: {{ user }}
-  {% endfor %}
-
-Clipmenud cache directory:
-  file.directory:
-    - name: {{ home }}/.cache/clipmenu
-{% endif %}
-
 {% set default_display_env = {'DISPLAY': ':0'} %}
 
-{% if is_fedora %}
-  {% set clipmenud_env = {'DISPLAY': ':0', 'CM_DIR': home + '/.cache/clipmenu'} %}
-{% else %}
-  {% set clipmenud_env = default_display_env %}
-{% endif %}
-
-{% set clipmenud_options = {
-  'Restart': 'always',
-  'RestartSec': '500ms',
-  'MemoryDenyWriteExecute': 'yes',
-  'NoNewPrivileges': 'yes',
-  'ProtectControlGroups': 'yes',
-  'ProtectKernelTunables': 'yes',
-  'RestrictAddressFamilies': '',
-  'RestrictRealtime': 'yes',
-} %}
-{% set clipmenud_exec = home_bin + '/clipmenud' %}
-
-{{ systemd_user_service('clipmenud', 'Clipmenud daemon', clipmenud_exec, user, environment=clipmenud_env, options=clipmenud_options) }}
+{% from 'macros.sls' import dirname %}
+{% from 'systemd-macros.sls' import systemd_user_service with context %}
 
 {% if pillar['is_laptop'] %}
 
@@ -90,15 +37,10 @@ Ensure xidlehook socket dir:
 
 {% endif %} # is laptop
 
+{% from 'systemd-macros.sls' import ensure_user_service %}
+
 {% if is_fedora %}
-Enable pulseaudio:
-  cmd.run:
-    - name: systemctl --user enable pulseaudio
-    - unless:
-        - test $(systemctl --user is-enabled pulseaudio) = enabled
-Start pulseaudio:
-  cmd.run:
-    - name: systemctl --user enable pulseaudio
-    - unless:
-        - test $(systemctl --user is-active pulseaudio) = active
+{{ ensure_user_service('pulseaudio') }}
 {% endif %}
+
+{{ ensure_user_service('clipmenud') }}

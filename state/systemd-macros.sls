@@ -94,3 +94,16 @@ Timer {{ name }} started:
 {% endif %}
 
 {% endmacro %}
+
+{% macro ensure_user_service(name) %}
+Enable {{ name }}:
+  cmd.run:
+    - name: systemctl --user enable {{ name }}
+    - unless:
+        - test $(systemctl --user is-enabled {{ name }}) = enabled
+Start {{ name }}:
+  cmd.run:
+    - name: systemctl --user enable {{ name }}
+    - unless:
+        - test $(systemctl --user is-active {{ name }}) = active
+{% endmacro %}
