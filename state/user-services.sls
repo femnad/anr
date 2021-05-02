@@ -44,3 +44,4 @@ Ensure xidlehook socket dir:
 {% endif %}
 
 {{ ensure_user_service('clipmenud') }}
+{{ ensure_user_service('ssh-agent') }}
