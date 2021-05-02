@@ -9,8 +9,6 @@
 Go get {{ pkg.pkg }}:
   cmd.run:
     - name: {{ go_bin }} get -u {{ pkg.pkg }}
-    - require:
-      - Install go
     {% if pkg.unless is defined %}
     - unless:
       {% if pkg.version is defined %}
