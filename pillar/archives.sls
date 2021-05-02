@@ -34,7 +34,7 @@ archives:
   - url: https://dl.google.com/dl/cloudsdk/channels/rapid/google-cloud-sdk.tar.gz
     exec: google-cloud-sdk/bin/gcloud
     unless: gcloud --version
-  - url: https://dl.google.com/go/go{{ go.version }}.linux-amd64.tar.gz
+  - url: https://dl.google.com/go/go{{ go_version }}.linux-amd64.tar.gz
     exec: go/bin/go
     clean: true
 
