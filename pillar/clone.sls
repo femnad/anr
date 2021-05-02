@@ -8,5 +8,6 @@ self_clonees:
     git_crypt: true
   - repo: passfuse
   - repo: bors
+    git_crypt: true
   - repo: sqrt26.com
     submodule: true

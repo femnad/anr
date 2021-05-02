@@ -13,7 +13,7 @@ base:
     - rust-packages
     - update
     - vim
-  private:
+  user:
     - private
     - clone
     - user-services
