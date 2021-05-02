@@ -39,6 +39,16 @@ Acpilight installed:
     - groups:
         - brightness
     - remove_groups: False
+  file.managed:
+    - name: /etc/udev/rules.d/90-backlight.rules
+    - source: salt://udev/backlight.rules
+    - mode: 0644
+
+Reload udevadm rules for apcilight:
+  cmd.run:
+    - name: udevadm control -R
+    - onchanges:
+        - Acpilight installed
 
 Lock on suspend:
   pkg.installed:

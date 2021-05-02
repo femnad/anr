@@ -1,4 +1,4 @@
-{% set firefox_version = '87.0.0' %}
+{% set firefox_version = '88.0' %}
 {% set crystal_version = '0.34.0' %}
 {% set gh_version = '1.7.0' %}
 {% set goland_version = '2020.3' %}
@@ -24,17 +24,12 @@ archives:
   - url: https://download-installer.cdn.mozilla.net/pub/firefox/releases/{{ firefox_version }}/linux-x86_64/en-US/firefox-{{ firefox_version }}.tar.bz2
     exec: firefox/firefox
     clean: true
-    unless: which firefox
+    unless:
+      file: {{ package_dir }}/firefox/firefox
   {% endif %}
-  - url: https://download.jetbrains.com/idea/ideaIC-2020.2.1.tar.gz
-    exec: idea-IC-202.6948.69/bin/idea.sh
-    unless: stat {{ package_dir }}/idea-IC-202.6948.69/bin/idea.sh
   - url: https://download.jetbrains.com/go/goland-{{ goland_version }}.tar.gz
     exec: GoLand-{{ goland_version }}/bin/goland.sh
     unless: stat {{ package_dir }}/GoLand-{{ goland_version }}/bin/goland.sh
-  - url: https://download-cf.jetbrains.com/python/pycharm-community-{{ pycharm_version }}.tar.gz
-    exec: pycharm-community-{{ pycharm_version }}/bin/pycharm.sh
-    unless: stat {{ package_dir }}/pycharm-community-{{ pycharm_version }}/bin/pycharm.sh
   - url: https://github.com/cli/cli/releases/download/v{{ gh_version }}/gh_{{ gh_version }}_linux_amd64.tar.gz
     exec: gh_{{ gh_version }}_linux_amd64/bin/gh
     unless: test $(gh --version 2>/dev/null | grep 'gh version' | awk '{print $3}') = {{ gh_version }}
