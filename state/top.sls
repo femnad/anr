@@ -6,18 +6,18 @@ base:
     {% if pillar['is_fedora'] %}
     - flatpak
     {% endif %}
-  self:
+  user:
     - archives
-    - self
-    - go-packages
-    - python-packages
-    - rust-packages
+    - user
+    - go
+    - python
+    - rust
     - update
     - vim
+    - services
   private:
     - private
     - clone
-    - user-services
   dev:
     - keyboardio
     - latex

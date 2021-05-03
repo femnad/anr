@@ -1,8 +1,8 @@
 base:
-  L@self,user,dev:
+  L@sudo,user,private,dev:
     - all
     - archives
     - packages
-  user:
+  private:
     - clone
     - private
