@@ -26,29 +26,3 @@ chezmoi_common_path: |
   tEaiZXR4qTHV5HO+lF4hMKH7J/7awRGR
   =rwra
   -----END PGP MESSAGE-----
-moih_key_secret: |
-  -----BEGIN PGP MESSAGE-----
-
-  hQEMA0mMmO+c+TC1AQf/U6/JFzPUBBY6/TY2omBQl78Ilm8h6I7THJq/LsQ84+DW
-  jQdyNppzdaJsVgyO2Du60hF6sgjFBTqyE+b8eiwtrvUke98LmFU7kPrb7lGWKmSH
-  vzcwh41wyd4X0iEMypH72zFHwvj/bnrDNuxAayhGXrPk7F+qNi1Z8P3Ze07NtCpK
-  dwjV1uBK0IoHg8Qxo3HAvz90fyyDADRigyzoZfPWFgFrJ0moXaVTYpcK5Jwv4NEJ
-  p6cgD9uPVvPcgjMUTIQYVnAJ+Sz24plQD7HYmX8Nl30R8XoGVHvZwlJKYQrZAfvj
-  9/mPbLbZMcjjPanNH08S8wRWTpj3iGAG3zjF1lGzfdJOAUb+oHK9qGaTjDKr+1/n
-  7oY+sUOJF6t4r8OQdf8IRua5ySGWPRLm/6H31Blb2UsMpAKX7hVMkGyUpDf/t5Uc
-  lkSDEtB81zL+WS85ma/H
-  =JXSk
-  -----END PGP MESSAGE-----
-moih_bucket_name: |
-  -----BEGIN PGP MESSAGE-----
-
-  hQEMA0mMmO+c+TC1AQf/dl4sELTWcuz+Blrlyy1Np/FjzHhOO48wVSyR9NFPPwyP
-  hJIzerYpViwtrPQN38625caV6se4vadXanbf2MbaPJihHHT+Sv5A0xULyPaBo9a4
-  RvAWpTU6S01HCbM2i6gTWDmN7kmrXE78Lcks8la4VgKADShU62TBZc6UxeWfv8QD
-  apQ7gL0R6DQ+a1nCs/tfB4MZUpnikvao3lG23VW+enrpDZfIfL6ePXsa/4YY3QhV
-  Ouyl+olUX83U0huZM7lmbcJGdqbssr8vcV3rMHIgEqqTts1pKMzKuLh9yP+uqFfg
-  jglMv9wnRX/M5v78rXGCIjcxH5IlCu9Yy8atzZq20dJGAYizBDWIqAeP+921B/K3
-  sWKUdJiC+/72/tBEf/fOrOoZDYD23v3gvKIu3SSLJ0i39z/en5DH8rqNqa88NR/D
-  aVNDcC3zug==
-  =v2K7
-  -----END PGP MESSAGE-----
