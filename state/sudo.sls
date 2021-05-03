@@ -88,6 +88,13 @@ Clipnotify installed:
     - unless:
       - which clipnotify
 
+Initialize SBCL config:
+  file.managed:
+    - name: {{ home }}/.sbclrc
+    - user: {{ user }}
+    - group: {{ user }}
+    - source: salt://config/sbclrc
+
 {% set quicklisp = package_dir + '/quicklisp/quicklisp.lisp' %}
 Quicklisp installed:
   file.managed:
@@ -117,8 +124,6 @@ Install Quicklisp package {{ pkg }}:
   - runas: {{ user }}
   - unless:
     - stumpwm --version
-  - require:
-    - Initialize chezmoi base
 {% endfor %}
 
 Stumpwm compiled:
@@ -133,8 +138,6 @@ Stumpwm compiled:
         make
     - cwd: {{ clone_dir }}/stumpwm
     - runas: {{ user }}
-    - require:
-      - Initialize chezmoi base
     {% if not pillar.get('stumpwm_update', False) %}
     - unless:
       - stumpwm --version
