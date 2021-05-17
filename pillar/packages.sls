@@ -26,6 +26,7 @@ packages:
   - jq
   - maim
   - make
+  - mpv
   - most
   - mutt
   - pass
@@ -144,6 +145,7 @@ packages:
   - libevent-devel
   - libmnl-devel
   - libnotify-devel
+  - libtool
   - libX11-devel
   - libXfixes-devel
   - NetworkManager-tui
@@ -155,6 +157,7 @@ packages:
   - python3-ipython
   - python3-virtualenv
   - openssl-devel
+  - rubygem-irb
   - sqlite
   - vim-X11
   - terminus-fonts

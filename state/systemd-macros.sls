@@ -1,6 +1,7 @@
 {% set home = pillar['home'] %}
 
 {% macro systemd_user_service(name, description, executable, user, unit={}, environment={}, options={}, enabled=True, started=True) %}
+
 Ensure definition for service {{ name }}:
   file.managed:
     - name: {{ home }}/.config/systemd/user/{{ name }}.service
@@ -17,12 +18,15 @@ Ensure definition for service {{ name }}:
         options: {{ options }}
     - user: {{ user }}
     - group: {{ user }}
+  cmd.run:
+    - name: systemctl --user daemon-reload
+    - onchanges:
+      - file: {{ home }}/.config/systemd/user/{{ name }}.service
 
 {% if enabled %}
 Service {{ name }} enabled:
   cmd.run:
     - name: |
-        systemctl --user daemon-reload
         systemctl --user enable {{ name }}
     - runas: {{ user }}
     - unless:
@@ -37,7 +41,6 @@ Service {{ name }} enabled:
 Service {{ name }} started:
   cmd.run:
     - name: |
-        systemctl --user daemon-reload
         systemctl --user start {{ name }}
     - runas: {{ user }}
     - unless:
@@ -71,7 +74,6 @@ Ensure definition for timer {{ name }}:
 Timer {{ name }} enabled:
   cmd.run:
     - name: |
-        systemctl --user daemon-reload
         systemctl --user enable {{ name }}.timer
   {% if user is not none %}
     - runas: {{ user }}
@@ -84,7 +86,6 @@ Timer {{ name }} enabled:
 Timer {{ name }} started:
   cmd.run:
     - name: |
-        systemctl --user daemon-reload
         systemctl --user start {{ name }}.timer
   {% if user is not none %}
     - runas: {{ user }}

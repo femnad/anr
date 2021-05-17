@@ -33,7 +33,7 @@ Ensure xidlehook socket dir:
 
   {% endif %} # host not unlocked
 
-{{ systemd_user_service('rojo', 'Upower based battery monitoring script', home_bin + '/rojo', user, environment=default_display_env) }}
+{{ systemd_user_service('rojo', 'Upower based battery monitoring script', home_bin + '/rojo -v', user, environment=default_display_env) }}
 
 {% endif %} # is laptop
 
