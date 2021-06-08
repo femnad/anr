@@ -1,4 +1,4 @@
-{% set firefox_version = '88.0' %}
+{% set firefox_version = '89.0' %}
 {% set go_version = '1.16.3' %}
 {% set gh_version = '1.9.2' %}
 {% set goland_version = '2021.1.1' %}

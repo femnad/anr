@@ -28,8 +28,10 @@ Install Rust:
 Cargo install {{ crate.crate }}:
   cmd.run:
     - name: {{ cargo }} install {{ crate.crate }}{% if crate.bins is defined and crate.bins %} --bins{% endif %}
+    {% if not pillar.get('update', False) %}
     - unless:
         - {{ cargo_bin}}/{{ crate.unless | default(crate.crate + ' -V') }}
+    {% endif %}
     - runas: {{ user }}
 {% endfor %}
 
