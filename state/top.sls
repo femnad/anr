@@ -21,4 +21,5 @@ base:
   dev:
     - keyboardio
     - latex
+  sudo-dev:
     - qmk

@@ -189,7 +189,7 @@ qmk_packages:
   - clang
   - dfu-util
   - dfu-programmer
-  - glibc-headers
+  - hidapi
   - kernel-devel
   - kernel-headers
   - libusb-devel

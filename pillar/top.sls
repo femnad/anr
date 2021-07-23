@@ -1,5 +1,5 @@
 base:
-  L@sudo,user,private,dev:
+  L@sudo,user,private,dev,sudo-dev:
     - all
     - archives
     - packages
