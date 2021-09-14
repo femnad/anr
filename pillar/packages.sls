@@ -157,6 +157,7 @@ packages:
   - python3-ipython
   - python3-virtualenv
   - openssl-devel
+  - ruby-devel
   - rubygem-irb
   - sqlite
   - vim-X11
