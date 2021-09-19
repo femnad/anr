@@ -100,6 +100,7 @@ packages:
   - apt-listchanges
   - dconf-cli
   - dnsutils
+  - gettext
   - ipython3
   - libmnl-dev
   - libevent-dev
@@ -107,6 +108,8 @@ packages:
   - libnotify-bin
   - libpython3-dev
   - libssl-dev
+  - libtool
+  - libtool-bin
   - libx11-dev
   - libxcb-render0-dev
   - libxcb-screensaver0-dev
@@ -115,6 +118,7 @@ packages:
   - libxext-dev
   - libxfixes-dev
   - libclang-dev
+  - ncal
   - network-manager
   - pavucontrol
   - python3-dev

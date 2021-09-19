@@ -19,7 +19,7 @@ VimPlug:
     - user: {{ user }}
     - group: {{ user }}
   cmd.run:
-    - name: vim -c ":PlugInstall" -c ":quitall"
+    - name: vim +PlugInstall
     - unless:
       - ls {{ home }}/.vim/plugged/YouCompleteMe/third_party/ycmd
     - runas: {{ user }}
