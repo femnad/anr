@@ -154,9 +154,9 @@ packages:
   - libXfixes-devel
   - NetworkManager-tui
   - pinentry-gtk
+  - pipewire-pulseaudio
+  - pipewire-utils
   - podman
-  - pulseaudio-module-bluetooth
-  - pulseaudio-utils
   - python3-devel
   - python3-ipython
   - python3-virtualenv
