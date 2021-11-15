@@ -22,10 +22,10 @@ Home Dir {{ dir }}:
     - group: {{ user }}
 {% endfor %}
 
-{% for file in pillar['unwanted_files'] %}
-Remove {{ file }}:
+{% for path in pillar['unwanted_dirs'] %}
+Remove {{ path }}:
   file.absent:
-    - name: {{ home }}/{{ file }}
+    - name: {{ home }}/{{ path }}
 {% endfor %}
 
 {% from 'macros.sls' import install_from_archive with context %}

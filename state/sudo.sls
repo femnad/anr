@@ -64,7 +64,18 @@ Libinput configured:
     - name: /etc/X11/xorg.conf.d/30-touchpad.conf
     - source: salt://xorg/touchpad.conf
     - makedirs: true
-{% endif %}
+
+Add monitor monitor rule:
+  file.managed:
+    - name: /etc/udev/rules.d/60-monitor-monitor.rules
+    - source: salt://udev/monitor-monitor.rules.j2
+    - template: jinja
+
+Add monitor delegate script:
+  file.managed:
+    - name: {{ home }}/bin/rdsp-delegate
+    - target: /usr/local/bin/rdsp-delegate
+{% endif %} # is_laptop
 
 Clipmenu installed:
   git.cloned:
@@ -170,7 +181,7 @@ Enable bitmap fonts:
 Disable ptrace hardening:
   file.absent:
     - name: /etc/sysctl.d/10-ptrace.conf
-{% endif %}
+{% endif %} # is_ubuntu
 
 {% if pillar['is_debian'] %}
 Install Spotify:
@@ -192,7 +203,7 @@ Set default release:
   file.managed:
     - name: /etc/apt/apt.conf.d/10default-release.conf
     - contents: 'APT::Default-Release "{{ backports }}";'
-{% endif %} # is Debian?
+{% endif %} # is_debian
 
 {% if pillar['is_arch'] %}
 Enable lxdm:
@@ -233,7 +244,7 @@ Ensure unattended upgrades configuration:
     - name: /etc/apt/apt.conf.d/50unattended-upgrades
     - source: salt://config/{{ grains['osfullname'].lower() }}-unattended-upgrades.conf
 
-{% endif %}
+{% endif %} # is_debian_or_ubuntu
 
 Add user to wireshark group:
   group.present:
@@ -286,7 +297,12 @@ Bluetooth {{ module }} policies for pulseaudio:
     - text: load-module module-bluetooth-{{ module }}
 {% endfor %}
 
-{% endif %}
+Blacklist pcspeaker:
+  file.managed:
+    - name: /etc/modprobe.d/pcspkr-blacklist.conf
+    - contents: blacklist pcspkr
+
+{% endif %} # is_fedora
 
 Persistent Systemd storage enabled for user services:
   file.line:
@@ -294,20 +310,3 @@ Persistent Systemd storage enabled for user services:
     - match: '#Storage=(auto|volatile)'
     - mode: replace
     - content: Storage=persistent
-
-{% set host_specific_xorg_conf = pillar.get('xorg_conf', {}) %}
-{% if hostname in host_specific_xorg_conf %}
-  {% set config_file = host_specific_xorg_conf[hostname] %}
-Add host specific Xorg conf:
-  file.managed:
-    - name: /etc/X11/xorg.conf.d/{{ config_file }}
-    - source: salt://config/{{ config_file }}
-    - makedirs: true
-{% endif %}
-
-{% if is_fedora %}
-Blacklist pcspeaker:
-  file.managed:
-    - name: /etc/modprobe.d/pcspkr-blacklist.conf
-    - contents: blacklist pcspkr
-{% endif %}

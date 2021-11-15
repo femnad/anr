@@ -6,7 +6,6 @@ self_clonees:
   - repo: loco
   - repo: geheim
     git_crypt: true
-  - repo: passfuse
   - repo: bors
     git_crypt: true
   - repo: sqrt26.com

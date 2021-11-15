@@ -19,7 +19,6 @@ base:
     - private
     - clone
   dev:
-    - keyboardio
     - latex
   sudo-dev:
     - qmk
