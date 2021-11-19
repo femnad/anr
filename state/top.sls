@@ -3,9 +3,6 @@ base:
     - packages
     - sudo
     - cleanup
-    {% if pillar['is_fedora'] %}
-    - flatpak
-    {% endif %}
   user:
     - archives
     - user
