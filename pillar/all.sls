@@ -75,10 +75,8 @@ cargo:
   - crate: bat
   - crate: git-delta
     unless: delta -V
-  {% if is_laptop %}
   - crate: xidlehook
     bins: true
-  {% endif %}
   - crate: alacritty
     unless: alacritty -V
 
@@ -91,26 +89,10 @@ rpmfusion_releases:
   - free
   - nonfree
 
-unlocked:
-  kalium:
-  rubidium:
-  lithium:
-
 xidlehook_socket: {{ home }}/.local/share/xidlehook/xidlehook.sock
-
-skip_rpmfusion:
-  francium:
 
 clone_link:
   - repo: thameera/vimv
 
-services_to_disable:
-  {% if is_debian %}
-  - wicd
-  {% endif %}
-
 chezmoi_base_repo: https://gitlab.com/femnad/chezmoi.git
 chezmoi_base_path: .local/share/chezmoi
-
-xorg_conf:
-  francium: 10-monitor.conf

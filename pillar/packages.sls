@@ -8,6 +8,7 @@
 
 packages:
   - alsa-utils
+  - at
   - autoconf
   - ansible
   - cmake

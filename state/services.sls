@@ -11,18 +11,11 @@
 {% from 'macros.sls' import dirname %}
 {% from 'systemd-macros.sls' import systemd_user_service with context %}
 
-{% if pillar['is_laptop'] %}
+{% set xidlehook_socket = pillar['xidlehook_socket'] %}
 
-  {% set xidlehook_socket = pillar['xidlehook_socket'] %}
-
-  {% if host not in pillar['unlocked'] %}
-    {% set xidlehook_exec = home + "/.cargo/bin/xidlehook --timer 600 '" + home_bin + "/lock-me-maybe' ''" %}
-    {% set host_specific_options = pillar['xidlehook_options'].get(host, None) %}
-    {% if host_specific_options is not none %}
-      {% set xidlehook_exec = xidlehook_exec + ' ' + host_specific_options %}
-    {% endif %}
-    {% set xidlehook_env = default_display_env %}
-    {% set xidlehook_options = {'Restart': 'always', 'RestartSec': 5} %}
+{% set xidlehook_exec = home + "/.cargo/bin/xidlehook --timer 600 '" + home_bin + "/lock-me-maybe' ''" %}
+{% set xidlehook_env = default_display_env %}
+{% set xidlehook_options = {'Restart': 'always', 'RestartSec': 5} %}
 
 Ensure xidlehook socket dir:
   file.directory:
@@ -31,7 +24,7 @@ Ensure xidlehook socket dir:
 
 {{ systemd_user_service('xidlehook', 'Xidlehook daemon', xidlehook_exec, user, environment=xidlehook_env, options=xidlehook_options) }}
 
-  {% endif %} # host not unlocked
+{% if pillar['is_laptop'] %}
 
 {% set rojo_options = {'Restart': 'always', 'RestartSec': 5} %}
 {% set rojo_bin = home_bin + '/rojo -w 10 -c 5 -a poweroff' %}
