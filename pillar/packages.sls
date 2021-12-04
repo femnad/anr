@@ -139,6 +139,7 @@ packages:
   - bpftrace
   - dnf-automatic
   - ffmpeg
+  - flatpak
   - fontconfig-devel
   - gcc-c++
   - git-crypt
@@ -164,7 +165,6 @@ packages:
   - ruby-devel
   - rubygem-irb
   - sqlite
-  - snapd
   - vim-X11
   - terminus-fonts
   - terminus-fonts-legacy-x11
