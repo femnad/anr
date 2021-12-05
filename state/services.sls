@@ -12,8 +12,11 @@
 {% from 'systemd-macros.sls' import systemd_user_service with context %}
 
 {% set xidlehook_socket = pillar['xidlehook_socket'] %}
+{% set xidlehook_default_duration = pillar['xidlehook_default_duration'] %}
+{% set xidlehook_durations = pillar.get('xidlehook_durations', {}) %}
+{% set xidlehook_duration = xidlehook_durations.get(host, xidlehook_default_duration) %}
 
-{% set xidlehook_exec = home + "/.cargo/bin/xidlehook --timer 600 '" + home_bin + "/lock-me-maybe' ''" %}
+{% set xidlehook_exec = home + "/.cargo/bin/xidlehook --not-when-fullscreen --timer " + xidlehook_duration | string + " '" + home_bin + "/lock-me-maybe' ''" %}
 {% set xidlehook_env = default_display_env %}
 {% set xidlehook_options = {'Restart': 'always', 'RestartSec': 5} %}
 
