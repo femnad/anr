@@ -11,6 +11,7 @@ packages:
   - at
   - autoconf
   - ansible
+  - bpftrace
   - cmake
   - colordiff
   - curl
@@ -136,7 +137,6 @@ packages:
 
   {% if is_fedora %}
   - automake
-  - bpftrace
   - dnf-automatic
   - ffmpeg
   - flatpak
@@ -154,6 +154,7 @@ packages:
   - libX11-devel
   - libXfixes-devel
   - NetworkManager-tui
+  - neovim
   - pinentry-gtk
   - pipewire-pulseaudio
   - pipewire-utils
@@ -176,10 +177,6 @@ packages:
   - xprop
   - xrandr
   - xsetroot
-  {% endif %}
-
-  {% if not (is_fedora or is_debian)  %}
-  - firefox
   {% endif %}
 
 qmk_packages:
