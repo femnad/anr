@@ -48,3 +48,17 @@ Go clone install {{ repo.name}}:
     {% endif %}
     - runas: {{ user }}
 {% endfor %}
+
+{% for repo in pillar['go_install'] %}
+  {% set host = repo.host | default('github.com') %}
+  {% set url = host + '/' + repo.name %}
+  {% set version = repo.version | default('latest') %}
+Go install {{ repo.name}}:
+  cmd.run:
+    - name: {{ go_bin }} install {{ repo.name }}@{{ version }}
+    {% if repo.unless is defined %}
+    - unless:
+      - {{ repo.unless }}
+    {% endif %}
+    - runas: {{ user }}
+{% endfor %}
