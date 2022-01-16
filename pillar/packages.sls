@@ -31,6 +31,7 @@ packages:
   - mpv
   - most
   - mutt
+  - npm
   - pass
   - playerctl
   - pwgen

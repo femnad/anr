@@ -310,3 +310,9 @@ Persistent Systemd storage enabled for user services:
     - match: '#Storage=(auto|volatile)'
     - mode: replace
     - content: Storage=persistent
+
+{% for package in pillar['global_npm_packages'] %}
+Install NPM package {{ package }}:
+  cmd.run:
+    - name: npm install -g {{ package }}
+{% endfor %}
