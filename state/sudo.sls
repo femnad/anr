@@ -18,7 +18,7 @@ Acpilight installed:
   git.cloned:
     - name: https://gitlab.com/femnad/acpilight.git
     - target: {{ pillar['clone_dir'] }}/acpilight
-    - user: {{ pillar['user'] }}
+    - user: {{ user }}
   cmd.run:
     - name: make install
     - cwd: {{ pillar['clone_dir'] }}/acpilight
@@ -27,7 +27,7 @@ Acpilight installed:
   group.present:
     - name: brightness
   user.present:
-    - name: {{ pillar['user'] }}
+    - name: {{ user }}
     - groups:
         - brightness
     - remove_groups: False
@@ -37,11 +37,17 @@ Acpilight installed:
     - group: brightness
     - mode: 0664
 
+Add locker delegate script:
+  file.managed:
+    - name: /usr/local/bin/lmm-delegate
+    - source: {{ home }}/bin/lmm-delegate
+    - mode: 0755
+
 Lock on suspend:
   pkg.installed:
     - name: i3lock
   file.managed:
-    - name: /etc/systemd/system/suspend@.service
+    - name: /etc/systemd/system/i3lock-on-sleep.service
     - source: salt://services/service.j2
     - template: jinja
     - context:
@@ -49,15 +55,14 @@ Lock on suspend:
           unit:
             Before: sleep
           description: Lock on suspend
-          executable: /usr/bin/i3lock -e -c 000000
+          executable: /usr/local/bin/lmm-delegate {{ user }}
           wanted_by: sleep
           options:
-            User: '%I'
             Type: forking
           environment:
             DISPLAY: {{ pillar['display'] }}
   service.enabled:
-    - name: suspend@{{ user }}
+    - name: i3lock-on-sleep
 
 Libinput configured:
   file.managed:
@@ -73,8 +78,9 @@ Add monitor monitor rule:
 
 Add monitor delegate script:
   file.managed:
-    - name: {{ home }}/bin/rdsp-delegate
-    - target: /usr/local/bin/rdsp-delegate
+    - name: /usr/local/bin/rdsp-delegate
+    - source: {{ home }}/bin/rdsp-delegate
+    - mode: 0755
 {% endif %} # is_laptop
 
 Clipmenu installed:

@@ -2,6 +2,9 @@
 Description={{ service.description }}
 {%- if service.unit is defined %}
   {%- for option, value in service.unit.items() %}
+    {%- if option == 'Before' and not value.endswith('.target') %}
+      {%- set value = value + '.target' %}
+    {%- endif %}
 {{ option }}={{ value }}
   {%- endfor %}
 {%- endif %}
