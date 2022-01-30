@@ -1,5 +1,5 @@
 {% set home = pillar['home'] %}
-{% set home_bin = home + '/bin' %}
+{% set home_bin = home + '/bin/' %}
 {% set clone_dir = pillar['clone_dir'] %}
 {% set self_clone_dir = pillar['self_clone_dir'] %}
 {% set is_fedora = pillar['is_fedora'] %}
@@ -16,7 +16,7 @@
 {% set xidlehook_durations = pillar.get('xidlehook_durations', {}) %}
 {% set xidlehook_duration = xidlehook_durations.get(host, xidlehook_default_duration) %}
 
-{% set xidlehook_exec = home + "/.cargo/bin/xidlehook --not-when-fullscreen --timer " + xidlehook_duration | string + " '" + home_bin + "/lock-me-maybe' ''" %}
+{% set xidlehook_exec = home + "/.cargo/bin/xidlehook --not-when-fullscreen --timer " + xidlehook_duration | string + " '" + home_bin + "lock-me-maybe' ''" %}
 {% set xidlehook_env = default_display_env %}
 {% set xidlehook_options = {'Restart': 'always', 'RestartSec': 5} %}
 
@@ -30,7 +30,7 @@ Ensure xidlehook socket dir:
 {% if pillar['is_laptop'] %}
 
 {% set rojo_options = {'Restart': 'always', 'RestartSec': 5} %}
-{% set rojo_bin = home_bin + '/rojo -w 10 -c 5 -a poweroff' %}
+{% set rojo_bin = home_bin + 'rojo -w 15 -c 5 -a poweroff' %}
 {{ systemd_user_service('rojo', 'Upower based battery monitoring script', rojo_bin, user, environment=default_display_env, options=rojo_options) }}
 
 {% endif %} # is laptop

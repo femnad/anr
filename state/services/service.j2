@@ -2,7 +2,7 @@
 Description={{ service.description }}
 {%- if service.unit is defined %}
   {%- for option, value in service.unit.items() %}
-    {%- if option == 'Before' and not value.endswith('.target') %}
+    {%- if option in ['After', 'Before'] and not value.endswith('.target') %}
       {%- set value = value + '.target' %}
     {%- endif %}
 {{ option }}={{ value }}
@@ -18,7 +18,7 @@ Environment={{ key }}={{ value }}
 {%- endif %}
 {%- if service.options is defined %}
   {%- for key, value in service.options.items() %}
-{{ key }}={{ value }}
+{{ key.capitalize() }}={{ value }}
   {%- endfor %}
 {%- endif %}
 

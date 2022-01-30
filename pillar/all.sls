@@ -104,4 +104,5 @@ chezmoi_base_repo: https://gitlab.com/femnad/chezmoi.git
 chezmoi_base_path: .local/share/chezmoi
 
 global_npm_packages:
-  - pyright
+  - name: pyright
+    unless: --version

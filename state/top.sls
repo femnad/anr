@@ -1,7 +1,7 @@
 base:
   sudo:
+    - main
     - packages
-    - sudo
     - cleanup
     {% if pillar['is_fedora'] %}
     - flatpak

@@ -81,6 +81,32 @@ Add monitor delegate script:
     - name: /usr/local/bin/rdsp-delegate
     - source: {{ home }}/bin/rdsp-delegate
     - mode: 0755
+
+Add generic delegate script:
+  file.managed:
+    - name: /usr/local/bin/user-bin-delegate
+    - source: {{ home }}/bin/user-bin-delegate
+    - mode: 0755
+
+# Don't ask
+Check for IPv4 on wakeup:
+  file.managed:
+    - name: /etc/systemd/system/has-ip.service
+    - source: salt://services/service.j2
+    - template: jinja
+    - context:
+        service:
+          unit:
+            After: suspend
+          description: Check for IPv4 on wakeup
+          executable: /usr/local/bin/user-bin-delegate {{ user }} has-ip
+          wanted_by: suspend
+          options:
+            Type: oneshot
+          environment:
+            DISPLAY: {{ pillar['display'] }}
+  service.enabled:
+    - name: has-ip
 {% endif %} # is_laptop
 
 Clipmenu installed:
@@ -318,7 +344,10 @@ Persistent Systemd storage enabled for user services:
     - content: Storage=persistent
 
 {% for package in pillar['global_npm_packages'] %}
-Install NPM package {{ package }}:
+Install NPM package {{ package.name }}:
   cmd.run:
-    - name: npm install -g {{ package }}
+    - name: npm install -g {{ package.name }}
+    {% if package.unless is defined %}
+    - unless: {{ package.name }} {{ package.unless }}
+    {% endif %}
 {% endfor %}
