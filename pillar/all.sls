@@ -93,7 +93,7 @@ rpmfusion_releases:
   - nonfree
 
 xidlehook_socket: {{ home }}/.local/share/xidlehook/xidlehook.sock
-xidlehook_default_duration: 60
+xidlehook_default_duration: 600
 xidlehook_durations:
   natrium: 3600
 

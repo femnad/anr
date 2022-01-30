@@ -69,6 +69,8 @@ Add monitor monitor rule:
     - name: /etc/udev/rules.d/60-monitor-monitor.rules
     - source: salt://udev/monitor-monitor.rules.j2
     - template: jinja
+    - context:
+        user: {{ user }}
 
 Add generic delegate script:
   file.managed:
