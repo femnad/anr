@@ -37,12 +37,6 @@ Acpilight installed:
     - group: brightness
     - mode: 0664
 
-Add locker delegate script:
-  file.managed:
-    - name: /usr/local/bin/lmm-delegate
-    - source: {{ home }}/bin/lmm-delegate
-    - mode: 0755
-
 Lock on suspend:
   pkg.installed:
     - name: i3lock
@@ -55,7 +49,7 @@ Lock on suspend:
           unit:
             Before: sleep
           description: Lock on suspend
-          executable: /usr/local/bin/lmm-delegate {{ user }}
+          executable: /usr/local/bin/user-bin-delegate {{ user }} lmm
           wanted_by: sleep
           options:
             Type: forking
@@ -75,12 +69,6 @@ Add monitor monitor rule:
     - name: /etc/udev/rules.d/60-monitor-monitor.rules
     - source: salt://udev/monitor-monitor.rules.j2
     - template: jinja
-
-Add monitor delegate script:
-  file.managed:
-    - name: /usr/local/bin/rdsp-delegate
-    - source: {{ home }}/bin/rdsp-delegate
-    - mode: 0755
 
 Add generic delegate script:
   file.managed:
