@@ -19,7 +19,7 @@ Ensure definition for service {{ name }}:
     - user: {{ user }}
     - group: {{ user }}
   cmd.run:
-    - name: systemctl --user daemon-reload
+    - name: systemctl --user daemon-reload{% if started %}; systemctl --user restart {{ name }}{% endif %}
     - onchanges:
       - file: {{ home }}/.config/systemd/user/{{ name }}.service
 
