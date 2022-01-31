@@ -97,6 +97,8 @@ xidlehook_default_duration: 600
 xidlehook_durations:
   natrium: 3600
   lithium: 3600
+xidlehook_args:
+  natrium: --not-when-fullscreen --not-when-audio
 
 clone_link:
   - repo: thameera/vimv
