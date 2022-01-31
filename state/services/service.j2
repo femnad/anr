@@ -18,7 +18,10 @@ Environment={{ key }}={{ value }}
 {%- endif %}
 {%- if service.options is defined %}
   {%- for key, value in service.options.items() %}
-{{ key.capitalize() }}={{ value }}
+    {%- if key == key.lower() %}
+        {%- set key = key.capitalize() %}
+    {%- endif %}
+{{ key }}={{ value }}
   {%- endfor %}
 {%- endif %}
 
