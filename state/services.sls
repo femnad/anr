@@ -20,7 +20,7 @@
 {% set xidlehook_host_args = pillar.get('xidlehook_args', {}) %}
 {% set xidlehook_args = xidlehook_host_args.get(host, xidlehook_default_args) %}
 
-{% set xidlehook_exec = home + "/.cargo/bin/xidlehook " + xidlehook_args + " --timer " + xidlehook_duration | string + " '" + home_bin + "lock-me-maybe' ''" %}
+{% set xidlehook_exec = home + "/.cargo/bin/xidlehook --not-when-fullscreen --timer " + xidlehook_duration | string + " '" + home_bin + "lmm' ''" %}
 {% set xidlehook_env = default_display_env %}
 {% set xidlehook_options = {'Restart': 'always', 'RestartSec': 5} %}
 
