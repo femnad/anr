@@ -190,12 +190,6 @@ Stumpwm installed:
     - makedirs: true
 
 {% if pillar['is_ubuntu'] %}
-Install Spotify:
-  cmd.run:
-    - name: snap install spotify
-    - unless:
-      - snap list | grep spotify
-
 Enable bitmap fonts:
   file.absent:
     - name: /etc/fonts/conf.d/70-no-bitmaps.conf
@@ -205,7 +199,7 @@ Disable ptrace hardening:
     - name: /etc/sysctl.d/10-ptrace.conf
 {% endif %} # is_ubuntu
 
-{% if pillar['is_debian'] %}
+{% if is_debian or is_ubuntu %}
 Install Spotify:
   pkgrepo.managed:
     - humanname: spotify
@@ -214,6 +208,9 @@ Install Spotify:
     - key_url: https://download.spotify.com/debian/pubkey.gpg
   pkg.installed:
     - name: spotify-client
+{% endif %}
+
+{% if is_debian %}
 
 {% set backports = grains['oscodename'] + '-backports' %}
 Enable backports repo:
