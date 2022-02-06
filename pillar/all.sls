@@ -85,7 +85,6 @@ cargo:
 
 cargo_clone: []
 
-github_user: {{ github_user }}
 github_keys: {{ salt.sdb.get('sdb://github-lookup/keys?user=' + github_user) | tojson }}
 
 rpmfusion_releases:
@@ -97,8 +96,6 @@ xidlehook_default_duration: 600
 xidlehook_durations:
   natrium: 3600
   lithium: 3600
-xidlehook_args:
-  natrium: --not-when-fullscreen --not-when-audio
 
 clone_link:
   - repo: thameera/vimv
@@ -109,3 +106,6 @@ chezmoi_base_path: .local/share/chezmoi
 global_npm_packages:
   - name: pyright
     unless: --version
+
+python_pkgs:
+  - name: yapf
