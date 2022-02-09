@@ -1,11 +1,11 @@
-{% set user = pillar['user'] %}
+{% set home = pillar['home'] %}
+{% set home_bin = home + '/bin/' %}
+{% set cargo_bin = home + '/.cargo/bin' %}
 
 Update Rust:
   cmd.run:
-    - name: rustup update stable
-    - runas: {{ user }}
+    - name: {{ cargo_bin }}/rustup update stable
 
 Update gcloud:
   cmd.run:
-    - name: gcloud components update
-    - runas: {{ user }}
+    - name: {{ home_bin }}/gcloud components update

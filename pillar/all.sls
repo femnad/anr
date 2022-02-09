@@ -82,6 +82,8 @@ cargo:
     bins: true
   - crate: alacritty
     unless: alacritty -V
+  - crate: bottom
+    unless: btm -V
 
 cargo_clone: []
 
