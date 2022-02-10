@@ -7,7 +7,7 @@ Break dependency cycles:
       - ffmpeg
 {% endif %}
 
-{% if pillar['is_fedora'] and grains['host'] not in pillar['skip_rpmfusion'] %}
+{% if pillar['is_fedora'] %}
 {% for release in pillar['rpmfusion_releases'] %}
 Add Rpmfusion release {{ release }}:
   cmd.run:
