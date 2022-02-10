@@ -7,6 +7,7 @@
 {% set is_debian_or_ubuntu = is_debian or is_ubuntu %}
 
 packages:
+  - acpi
   - alsa-utils
   - at
   - autoconf
@@ -66,13 +67,6 @@ packages:
 
   {% if not is_arch %}
   - gnupg2
-  - python3-boto
-  - python3-botocore
-  - python3-boto3
-  {% endif %}
-
-  {% if is_laptop %}
-  - acpi
   {% endif %}
 
   {% if is_arch %}
@@ -95,11 +89,6 @@ packages:
   {% endif %}
 
   {% if is_debian or is_ubuntu %}
-
-    {% if is_laptop %}
-  - libnotify-dev
-    {% endif %}
-
   - apt-listchanges
   - dconf-cli
   - dnsutils
@@ -109,6 +98,7 @@ packages:
   - libevent-dev
   - libfontconfig1-dev
   - libnotify-bin
+  - libnotify-dev
   - libpython3-dev
   - libssl-dev
   - libtool
@@ -133,7 +123,6 @@ packages:
   - x11proto-dev
   - x11-utils
   - xfonts-terminus
-
   {% endif %}
 
   {% if is_fedora %}

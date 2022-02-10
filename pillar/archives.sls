@@ -2,6 +2,7 @@
 {% set go_version = '1.17.6' %}
 {% set gh_version = '2.5.0' %}
 {% set goland_version = '2021.3.3' %}
+{% set tectonic_version = '0.8.0' %}
 {% set terraform_version = '1.1.5' %}
 
 {% set is_debian = grains['os'] == 'Debian' %}
@@ -35,6 +36,8 @@ archives:
     unless: gcloud --version
   - url: https://dl.google.com/go/go{{ go_version }}.linux-amd64.tar.gz
     exec: go/bin/go
+  - url: https://github.com/tectonic-typesetting/tectonic/releases/download/tectonic%400.4.1/tectonic-0.4.1-x86_64-unknown-linux-gnu.tar.gz
+    unless: test $(tectonic --version | awk '{print $2}') = {{ tectonic_version }}
     clean: true
 
 binary_only_archives:
