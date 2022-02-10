@@ -109,3 +109,5 @@ global_npm_packages:
 python_pkgs:
   - name: yapf
   - name: pyinfra
+    reqs:
+      - pyyaml
