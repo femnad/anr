@@ -1,9 +1,8 @@
-{% set firefox_version = '89.0' %}
-{% set go_version = '1.16.3' %}
-{% set gh_version = '1.9.2' %}
-{% set goland_version = '2021.1.1' %}
-{% set tectonic_version = '0.4.1' %}
-{% set terraform_version = '0.15.1' %}
+{% set firefox_version = '97.0' %}
+{% set go_version = '1.17.6' %}
+{% set gh_version = '2.5.0' %}
+{% set goland_version = '2021.3.3' %}
+{% set terraform_version = '1.1.5' %}
 
 {% set is_debian = grains['os'] == 'Debian' %}
 {% set is_fedora = grains['os'] == 'Fedora' %}
@@ -42,5 +41,3 @@ binary_only_archives:
   - url: https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip
     unless: test $(terraform version | awk '{print $2}') == 'v{{ terraform_version }}'
     name: terraform
-  - url: https://github.com/tectonic-typesetting/tectonic/releases/download/tectonic%400.4.1/tectonic-0.4.1-x86_64-unknown-linux-gnu.tar.gz
-    unless: test $(tectonic --version | awk '{print $2}') = {{ tectonic_version }}

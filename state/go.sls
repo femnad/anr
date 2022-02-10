@@ -49,7 +49,7 @@ Go clone install {{ repo.name}}:
     - runas: {{ user }}
 {% endfor %}
 
-{% for repo in pillar['go_install'] %}
+{% for repo in pillar.get('go_install', []) %}
   {% set host = repo.host | default('github.com') %}
   {% set url = host + '/' + repo.name %}
   {% set version = repo.version | default('latest') %}

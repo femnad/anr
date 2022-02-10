@@ -49,7 +49,7 @@ Initialize chezmoi base:
 
 Apply chezmoi base:
   cmd.run:
-    - name: {{ home }}/bin/chezmoi apply
+    - name: {{ home }}/bin/chezmoi apply --force
     - runas: {{ user }}
     - require:
       - Initialize chezmoi base
