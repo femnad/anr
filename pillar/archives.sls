@@ -36,11 +36,11 @@ archives:
     unless: gcloud --version
   - url: https://dl.google.com/go/go{{ go_version }}.linux-amd64.tar.gz
     exec: go/bin/go
-  - url: https://github.com/tectonic-typesetting/tectonic/releases/download/tectonic%400.4.1/tectonic-0.4.1-x86_64-unknown-linux-gnu.tar.gz
-    unless: test $(tectonic --version | awk '{print $2}') = {{ tectonic_version }}
-    clean: true
 
 binary_only_archives:
   - url: https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip
     unless: test $(terraform version | awk '{print $2}') == 'v{{ terraform_version }}'
     name: terraform
+  - url: https://github.com/tectonic-typesetting/tectonic/releases/download/tectonic%40{{ tectonic_version }}/tectonic-{{ tectonic_version }}-x86_64-unknown-linux-gnu.tar.gz
+    unless: test $(tectonic --version | awk '{print $2}') = {{ tectonic_version }}
+    name: tectonic

@@ -65,26 +65,6 @@ Mutt init cache directory {{ prefix }} {{ cache }}:
   {% endfor %}
 {% endfor %}
 
-{% for archive in pillar['binary_only_archives'] %}
-Download binary archive {{ archive.name | default(archive.url) }}:
-  archive.extracted:
-    - name: {{ home_bin }}
-    - source: {{ archive.url }}
-    {% if archive.hash is defined %}
-    - source_hash: {{ archive.hash }}
-    - source_hash_update: true
-    {% else %}
-    - skip_verify: true
-    {% endif %}
-    - enforce_toplevel: false
-    - overwrite: true
-    {% if archive.unless is defined %}
-    - unless: {{ archive.unless }}
-    {% endif %}
-    - user: {{ user }}
-    - group: {{ user }}
-{% endfor %}
-
 {% for bin in pillar['home_bins'] %}
   {% set exec_name = bin.url.split('/')[-1] %}
 Download {{ exec_name }}:
