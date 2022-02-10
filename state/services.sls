@@ -41,10 +41,6 @@ Ensure xidlehook socket dir:
 
 {% from 'systemd-macros.sls' import ensure_user_service %}
 
-{% if is_fedora %}
-{{ ensure_user_service('pulseaudio') }}
-{% endif %}
-
 {{ ensure_user_service('clipmenud') }}
 {{ ensure_user_service('ssh-agent') }}
 {% set ssh_agent_env = {'SSH_AUTH_SOCK': '%t/ssh-agent.socket'} %}

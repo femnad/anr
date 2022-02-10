@@ -38,19 +38,17 @@ is_debian_or_ubuntu: {{ is_debian or is_ubuntu }}
 
 go_path: {{ salt.sdb.get('sdb://osenv/HOME') + '/z/sc/go' }}
 
-go_get:
-  - pkg: github.com/femnad/stuff/cmd/...
-  - pkg: github.com/femnad/rabn/cmd/rabn
+go_install:
+  - name: femnad/stuff/cmd/fred
+  - name: femnad/rabn/cmd/rabn
     unless: rabn --version
-  - pkg: github.com/aykamko/tag/...
+  - name: aykamko/tag/...
     unless: tag -V
-  - pkg: github.com/dustinkirkland/golang-petname/cmd/petname
+  - name: dustinkirkland/golang-petname/cmd/petname
     unless: petname
-  - pkg: github.com/twpayne/chezmoi
+  - name: twpayne/chezmoi
     unless: chezmoi --version
-
-go_cloned_install:
-  - name: mikefarah/yq
+  - name: mikefarah/yq/v4
     unless: yq --version
   - name: charmbracelet/glow
     unless: glow -v
@@ -81,8 +79,6 @@ cargo:
     unless: alacritty -V
   - crate: bottom
     unless: btm -V
-
-cargo_clone: []
 
 github_keys: {{ salt.sdb.get('sdb://github-lookup/keys?user=' + github_user) | tojson }}
 
