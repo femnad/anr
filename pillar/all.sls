@@ -57,9 +57,6 @@ go_cloned_install:
   - name: junegunn/fzf
     unless: fzf --version
 
-go_install:
-  - name: github.com/gokcehan/lf
-
 home_bins:
   - url: https://github.com/femnad/leth/releases/download/v0.2.0/leth
   - url: https://github.com/femnad/moih/releases/download/v0.4.0/moih
@@ -111,3 +108,4 @@ global_npm_packages:
 
 python_pkgs:
   - name: yapf
+  - name: pyinfra
