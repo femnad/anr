@@ -36,8 +36,6 @@ is_laptop: {{ is_laptop }}
 is_ubuntu: {{ is_ubuntu }}
 is_debian_or_ubuntu: {{ is_debian or is_ubuntu }}
 
-go_path: {{ salt.sdb.get('sdb://osenv/HOME') + '/z/sc/go' }}
-
 go_install:
   - name: femnad/stuff/cmd/fred
   - name: femnad/rabn/cmd/rabn
@@ -86,7 +84,6 @@ rpmfusion_releases:
   - free
   - nonfree
 
-xidlehook_socket: {{ home }}/.local/share/xidlehook/xidlehook.sock
 xidlehook_default_duration: 600
 xidlehook_durations:
   natrium: 3600

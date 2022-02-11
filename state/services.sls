@@ -11,7 +11,6 @@
 {% from 'macros.sls' import dirname %}
 {% from 'systemd-macros.sls' import systemd_user_service with context %}
 
-{% set xidlehook_socket = pillar['xidlehook_socket'] %}
 {% set xidlehook_default_duration = pillar['xidlehook_default_duration'] %}
 {% set xidlehook_durations = pillar.get('xidlehook_durations', {}) %}
 {% set xidlehook_duration = xidlehook_durations.get(host, xidlehook_default_duration) %}
@@ -23,11 +22,6 @@
 {% set xidlehook_exec = home + "/.cargo/bin/xidlehook " + xidlehook_args + " --timer " + xidlehook_duration | string + " '" + home_bin + "lmm' ''" %}
 {% set xidlehook_env = default_display_env %}
 {% set xidlehook_options = {'Restart': 'always', 'RestartSec': 5} %}
-
-Ensure xidlehook socket dir:
-  file.directory:
-    - name: {{ dirname(xidlehook_socket) }}
-    - makedirs: true
 
 {{ systemd_user_service('xidlehook', 'Xidlehook daemon', xidlehook_exec, user, environment=xidlehook_env, options=xidlehook_options) }}
 

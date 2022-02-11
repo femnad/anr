@@ -1,5 +1,4 @@
 {% set firefox_version = '97.0' %}
-{% set go_version = '1.17.6' %}
 {% set gh_version = '2.5.0' %}
 {% set goland_version = '2021.3.3' %}
 {% set tectonic_version = '0.8.0' %}
@@ -34,8 +33,6 @@ archives:
   - url: https://dl.google.com/dl/cloudsdk/channels/rapid/google-cloud-sdk.tar.gz
     exec: google-cloud-sdk/bin/gcloud
     unless: gcloud --version
-  - url: https://dl.google.com/go/go{{ go_version }}.linux-amd64.tar.gz
-    exec: go/bin/go
 
 binary_only_archives:
   - url: https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip

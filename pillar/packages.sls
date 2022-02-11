@@ -93,6 +93,7 @@ packages:
   - dconf-cli
   - dnsutils
   - gettext
+  - golang
   - ipython3
   - libmnl-dev
   - libevent-dev
