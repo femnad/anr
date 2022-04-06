@@ -13,7 +13,6 @@ base:
     - python
     - rust
     - update
-    - vim
     - services
   private:
     - private

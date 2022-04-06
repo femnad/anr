@@ -2,7 +2,7 @@
 {% set gh_version = '2.5.0' %}
 {% set goland_version = '2021.3.3' %}
 {% set tectonic_version = '0.8.0' %}
-{% set terraform_version = '1.1.5' %}
+{% set terraform_version = '1.1.7' %}
 
 {% set is_debian = grains['os'] == 'Debian' %}
 {% set is_fedora = grains['os'] == 'Fedora' %}
