@@ -13,328 +13,138 @@
 {% set is_ubuntu = pillar['is_ubuntu'] %}
 {% set is_debian_or_ubuntu = is_debian or is_ubuntu %}
 
-{% if pillar['is_laptop'] %}
-Acpilight installed:
-  git.cloned:
-    - name: https://gitlab.com/femnad/acpilight.git
-    - target: {{ pillar['clone_dir'] }}/acpilight
-    - user: {{ user }}
-  cmd.run:
-    - name: make install
-    - cwd: {{ pillar['clone_dir'] }}/acpilight
-    - unless:
-      - xbacklight -list
-  group.present:
-    - name: brightness
-  user.present:
-    - name: {{ user }}
-    - groups:
-        - brightness
-    - remove_groups: False
-  file.managed:
-    - name: /sys/class/backlight/intel_backlight/brightness
-    - replace: false
-    - group: brightness
-    - mode: 0664
-
-Lock on suspend:
-  pkg.installed:
-    - name: i3lock
-  file.managed:
-    - name: /etc/systemd/system/i3lock-on-sleep.service
-    - source: salt://services/service.j2
-    - template: jinja
-    - context:
-        service:
-          unit:
-            Before: sleep
-          description: Lock on suspend
-          executable: /usr/local/bin/user-bin-delegate {{ user }} lmm
-          wanted_by: sleep
-          options:
-            Type: forking
-          environment:
-            DISPLAY: {{ pillar['display'] }}
-  service.enabled:
-    - name: i3lock-on-sleep
-
-Libinput configured:
-  file.managed:
-    - name: /etc/X11/xorg.conf.d/30-touchpad.conf
-    - source: salt://xorg/touchpad.conf
+{% for dir in pillar['home_dirs'] %}
+Home Dir {{ dir }}:
+  file.directory:
+    - name: {{ home }}/{{ dir }}
     - makedirs: true
-
-Add monitor monitor rule:
-  file.managed:
-    - name: /etc/udev/rules.d/60-monitor-monitor.rules
-    - source: salt://udev/monitor-monitor.rules.j2
-    - template: jinja
-    - context:
-        user: {{ user }}
-
-Add generic delegate script:
-  file.managed:
-    - name: /usr/local/bin/user-bin-delegate
-    - source: {{ home }}/bin/user-bin-delegate
-    - mode: 0755
-
-# Don't ask
-Check for IPv4 on wakeup:
-  file.managed:
-    - name: /etc/systemd/system/has-ip.service
-    - source: salt://services/service.j2
-    - template: jinja
-    - context:
-        service:
-          unit:
-            After: suspend
-          description: Check for IPv4 on wakeup
-          executable: /usr/local/bin/user-bin-delegate {{ user }} has-ip
-          wanted_by: suspend
-          options:
-            Type: oneshot
-          environment:
-            DISPLAY: {{ pillar['display'] }}
-  service.enabled:
-    - name: has-ip
-{% endif %} # is_laptop
-
-Clipmenu installed:
-  git.cloned:
-    - name: https://github.com/cdown/clipmenu
-    - target: {{ clone_dir }}/clipmenu
-    - user: {{ user }}
-  cmd.run:
-    - name: make install
-    - cwd: {{ clone_dir }}/clipmenu
-    - unless:
-      - which clipmenud
-
-Clipnotify installed:
-  git.cloned:
-    - name: https://github.com/cdown/clipnotify.git
-    - target: {{ clone_dir }}/clipnotify
-    - user: {{ user }}
-  cmd.run:
-    - name: make install
-    - cwd: {{ clone_dir }}/clipnotify
-    - unless:
-      - which clipnotify
-
-Initialize SBCL config:
-  file.managed:
-    - name: {{ home }}/.sbclrc
     - user: {{ user }}
     - group: {{ user }}
-    - source: salt://config/sbclrc
-
-{% set quicklisp = package_dir + '/quicklisp/quicklisp.lisp' %}
-Quicklisp installed:
-  file.managed:
-    - name: {{ quicklisp }}
-    - user: {{ user }}
-    - group: {{ user }}
-    - source: https://beta.quicklisp.org/quicklisp.lisp
-    - source_hash: 4a7a5c2aebe0716417047854267397e24a44d0cce096127411e9ce9ccfeb2c17
-    - makedirs: True
-  cmd.run:
-    - name: "sbcl --load '{{ quicklisp }}' --eval '(quicklisp-quickstart:install)' --non-interactive"
-    - runas: {{ user }}
-    - unless:
-      - ls {{ home }}/.quicklisp
-
-Hide Quicklisp package dir:
-  file.rename:
-    - name: '{{ home }}/.quicklisp'
-    - source: '{{ home }}/quicklisp'
-    - unless:
-      - ls {{ home }}/.quicklisp
-
-{% for pkg in ['alexandria', 'clx', 'cl-ppcre'] %}
-Install Quicklisp package {{ pkg }}:
-  cmd.run:
-  - name: sbcl --eval '(ql:quickload "{{ pkg }}")' --non-interactive
-  - runas: {{ user }}
-  - unless:
-    - stumpwm --version
 {% endfor %}
 
-Stumpwm compiled:
-  git.cloned:
-    - name: https://github.com/stumpwm/stumpwm.git
-    - target: {{ clone_dir }}/stumpwm
-    - user: {{ user }}
-  cmd.run:
-    - name: |
-        ./autogen.sh
-        ./configure
-        make
-    - cwd: {{ clone_dir }}/stumpwm
-    - runas: {{ user }}
-    {% if not pillar.get('stumpwm_update', False) %}
-    - unless:
-      - stumpwm --version
-    {% endif %}
-
-Stumpwm installed:
-  cmd.run:
-    - name: make install
-    - cwd: {{ clone_dir }}/stumpwm
-    {% if not pillar.get('stumpwm_update', False) %}
-    - unless:
-      - stumpwm --version
-    {% endif %}
-  file.managed:
-    - name: /usr/share/xsessions/stumpwm.desktop
-    - source: salt://xsessions/stumpwm.desktop
-    - makedirs: true
-
-{% if pillar['is_ubuntu'] %}
-Enable bitmap fonts:
+{% for path in pillar['unwanted_dirs'] %}
+Remove {{ path }}:
   file.absent:
-    - name: /etc/fonts/conf.d/70-no-bitmaps.conf
+    - name: {{ home }}/{{ path }}
+{% endfor %}
 
-Disable ptrace hardening:
-  file.absent:
-    - name: /etc/sysctl.d/10-ptrace.conf
-{% endif %} # is_ubuntu
+{% from 'macros.sls' import install_from_archive with context %}
+{% from 'macros.sls' import dirname %}
 
-{% if is_debian or is_ubuntu %}
-Install Spotify:
-  pkgrepo.managed:
-    - humanname: spotify
-    - name: deb http://repository.spotify.com stable non-free
-    - files: /etc/apt/sources.list.d/spotify.list
-    - key_url: https://download.spotify.com/debian/pubkey.gpg
-  pkg.installed:
-    - name: spotify-client
-{% endif %}
-
-{% if is_debian %}
-
-{% set backports = grains['oscodename'] + '-backports' %}
-Enable backports repo:
-  pkgrepo.managed:
-    - name: deb http://ftp.debian.org/debian {{ backports }} main contrib non-free
-    - file: /etc/apt/sources.list.d/backports.list
-
-Set default release:
-  file.managed:
-    - name: /etc/apt/apt.conf.d/10default-release.conf
-    - contents: 'APT::Default-Release "{{ backports }}";'
-{% endif %} # is_debian
-
-{% if pillar['is_arch'] %}
-Enable lxdm:
-  service.enabled:
-    - name: lxdm
-{% endif %}
-
-Ensure resolv.conf is a symlink:
+Enable gsutil:
+  cmd.run:
+    - name: {{ home_bin }}/gcloud components install gsutil
+    - unless:
+        file: {{ package_dir }}/google-cloud-sdk/bin/gsutil
   file.symlink:
-    - name: /etc/resolv.conf
-    {% if is_fedora %}
-    - target: /run/systemd/resolve/resolv.conf
-    {% elif is_ubuntu %}
-    - target: /run/resolvconf/resolv.conf
+    - name: {{ home_bin }}/gsutil
+      target: {{ package_dir }}/google-cloud-sdk/bin/gsutil
+
+Initialize chezmoi base:
+  cmd.run:
+    - name: {{ home }}/go/bin/chezmoi init {{ pillar['chezmoi_base_repo'] }}
+    - unless:
+      - ls {{ home + '/' + pillar['chezmoi_base_path'] }}
+    - runas: {{ user }}
+
+Apply chezmoi base:
+  cmd.run:
+    - name: {{ home }}/bin/chezmoi apply --force
+    - runas: {{ user }}
+    - require:
+      - Initialize chezmoi base
+
+{% for prefix in pillar['mutt_dirs'] %}
+  {% for cache in ['header', 'message'] %}
+Mutt init cache directory {{ prefix }} {{ cache }}:
+  file.directory:
+    - name: {{ home }}/.mutt/{{ prefix }}{{ cache }}
+    - makedirs: true
+    - user: {{ user }}
+    - group: {{ user }}
+  {% endfor %}
+{% endfor %}
+
+{% for bin in pillar['home_bins'] %}
+  {% set exec_name = bin.url.split('/')[-1] %}
+Download {{ exec_name }}:
+  file.managed:
+    - name: {{ home_bin }}/{{ exec_name }}
+    - source: {{ bin.url }}
+    {% if bin.hash is defined %}
+    - source_hash: {{ bin.hash }}
+    {% else %}
+    - skip_verify: true
     {% endif %}
+    - makedirs: true
+    - mode: 0755
+    - user: {{ user }}
+    - group: {{ user }}
 
-{% set hostname = grains['host'] %}
+{% endfor %}
 
-Start and Enable System Resolved:
-  service.running:
-    - name: systemd-resolved
-    - enable: true
+Stumpwm contrib:
+  git.cloned:
+    - name: https://github.com/stumpwm/stumpwm-contrib.git
+    - target: {{ clone_dir }}/stumpwm-contrib
+    - user: {{ user }}
+  file.symlink:
+    - name: {{ home_bin }}/stumpish
+    - target: {{ clone_dir }}/stumpwm-contrib/util/stumpish/stumpish
+    - user: {{ user }}
+    - group: {{ user }}
 
-{% if pillar['is_debian_or_ubuntu'] %}
-Set default Python:
+Clone Tmux plugin manager:
+  git.cloned:
+    - name: https://github.com/tmux-plugins/tpm
+    - target: {{ home }}/.tmux/plugins/tpm
+    - user: {{ user }}
+  {% if pillar['tmux'].startswith('/tmp/tmux-') %}
   cmd.run:
-    - name: update-alternatives --install /usr/bin/python python $(which python3) 1
-    - unless:
-      - test $(update-alternatives --display python | tail -n 1 | awk '{print $1}') = $(which python3)
-
-Configure auto upgrades:
-  file.managed:
-    - name: /etc/apt/apt.conf.d/20auto-upgrades
-    - source: salt://config/auto-upgrades
-
-Ensure unattended upgrades configuration:
-  file.managed:
-    - name: /etc/apt/apt.conf.d/50unattended-upgrades
-    - source: salt://config/{{ grains['osfullname'].lower() }}-unattended-upgrades.conf
-
-{% endif %} # is_debian_or_ubuntu
-
-Add user to wireshark group:
-  group.present:
-    - name: wireshark
-  user.present:
-    - name: {{ user }}
-    - groups:
-        - wireshark
-    - remove_groups: False
-  {% if pillar['is_debian_or_ubuntu'] %}
-  file.managed:
-    - name: /usr/bin/dumpcap
-    - group: wireshark
-  cmd.run:
-    - name: /usr/sbin/setcap cap_net_raw,cap_net_admin+eip /usr/bin/dumpcap
-    - unless:
-      - /usr/sbin/setcap -v cap_net_raw,cap_net_admin+eip /usr/bin/dumpcap
+    - name: tmux run-shell {{ home }}/.tmux/plugins/tpm/bin/install_plugins
+    - runas: {{ user }}
   {% endif %}
 
-Set Inotify watch limit:
-  sysctl.present:
-    - name: fs.inotify.max_user_watches
-    - value: 524288
-    - config: /etc/sysctl.d/83-inotify-max.conf
-
-{% if is_fedora %}
-Vimx as the vim provider:
-  pkg.removed:
-    - name: vim-enhanced
-  file.symlink:
-    - name: /usr/bin/vim
-    - target: /usr/bin/vimx
-
-Enable automated installing of updates:
-  file.line:
-    - name: /etc/dnf/automatic.conf
-    - match: apply_updates = no
-    - mode: replace
-    - content: apply_updates = yes
-
-Enable dnf automatic:
-  service.running:
-    - name: dnf-automatic.timer
-    - enable: true
-
-{% for module in ['policy', 'discover'] %}
-Bluetooth {{ module }} policies for pulseaudio:
+{% for key in pillar['github_keys'] %}
+Add GitHub key {{ key.id }} as authorized:
   file.append:
-    - name: /etc/pulse/system.pa
-    - text: load-module module-bluetooth-{{ module }}
+    - name: {{ home }}/.ssh/authorized_keys
+    - text: {{ key.key }}
 {% endfor %}
 
-Blacklist pcspeaker:
-  file.managed:
-    - name: /etc/modprobe.d/pcspkr-blacklist.conf
-    - contents: blacklist pcspkr
-
-{% endif %} # is_fedora
-
-Persistent Systemd storage enabled for user services:
-  file.line:
-    - name: /etc/systemd/journald.conf
-    - match: '#Storage=(auto|volatile)'
-    - mode: replace
-    - content: Storage=persistent
-
-{% for package in pillar['global_npm_packages'] %}
-Install NPM package {{ package.name }}:
+Initialize Jedi for Emacs:
   cmd.run:
-    - name: npm install -g {{ package.name }}
-    {% if package.unless is defined %}
-    - unless: {{ package.name }} {{ package.unless }}
-    {% endif %}
+    - name: emacs -nw --load ~/.emacs --batch --eval '(jedi:install-server)'
+    - unless:
+      - ls ~/.emacs.d/elpa/jedi-core* -d
+    - runas: {{ user }}
+
+{% from 'macros.sls' import basename %}
+
+{% for item in pillar['clone_link'] %}
+{% set target = clone_dir + '/' + basename(item.repo) %}
+{% set link = item.link | default(basename(item.repo)) %}
+Clone and link {{ item.repo }}:
+  git.latest:
+    - name: https://{{ item.host | default('github.com') }}/{{ item.repo }}.git
+    - target: {{ target }}
+    - user: {{ user }}
+  file.symlink:
+    - name: {{ home_bin }}/{{ link }}
+    - target: {{ target }}/{{ link }}
+    - mode: 0755
+    - user: {{ user }}
+    - group: {{ user }}
 {% endfor %}
+
+# fedora: Undetermined weirdness with packaged Firefox ctrl+t behavior in Ratpoison/Stumpwm
+# debian: Only firefox-esr
+{% if is_fedora or is_debian %}
+Copy Firefox desktop file:
+  file.managed:
+    - name: {{ home }}/.local/share/applications/firefox.desktop
+    - source: salt://desktop/firefox.desktop
+    - makedirs: true
+    - user: {{ user }}
+    - group: {{ user }}
+{% endif %}

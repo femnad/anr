@@ -1,6 +1,6 @@
 base:
   sudo:
-    - main
+    - base
     - packages
     - cleanup
     {% if pillar['is_fedora'] %}
@@ -8,7 +8,7 @@ base:
     {% endif %}
   user:
     - archives
-    - user
+    - main
     - go
     - python
     - rust
