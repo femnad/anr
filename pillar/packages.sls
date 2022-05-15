@@ -13,6 +13,7 @@ packages:
   - autoconf
   - ansible
   - bpftrace
+  - brightnessctl
   - cmake
   - colordiff
   - curl
@@ -134,8 +135,8 @@ packages:
   - fontconfig-devel
   - gcc-c++
   - git-crypt
-  - java-11-openjdk
-  - java-11-openjdk-devel
+  - java-17-openjdk
+  - java-17-openjdk-devel
   - kernel-devel
   - kernel-headers
   - libevent-devel
