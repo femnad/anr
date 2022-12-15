@@ -197,6 +197,12 @@ Enable bitmap fonts:
 Disable ptrace hardening:
   file.absent:
     - name: /etc/sysctl.d/10-ptrace.conf
+
+Enable hibernate as regular user:
+  file.managed:
+    - name: /etc/polkit-1/localauthority/50-local.d/60-user-hibernate.conf
+    - source: salt://config/user-hibernate.conf
+
 {% endif %} # is_ubuntu
 
 {% if is_debian or is_ubuntu %}
