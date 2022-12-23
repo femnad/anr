@@ -78,25 +78,10 @@ Add generic delegate script:
     - source: {{ home }}/bin/user-bin-delegate
     - mode: 0755
 
-# Don't ask
-Check for IPv4 on wakeup:
+Set console keymap:
   file.managed:
-    - name: /etc/systemd/system/has-ip.service
-    - source: salt://services/service.j2
-    - template: jinja
-    - context:
-        service:
-          unit:
-            After: suspend
-          description: Check for IPv4 on wakeup
-          executable: /usr/local/bin/user-bin-delegate {{ user }} has-ip
-          wanted_by: suspend
-          options:
-            Type: oneshot
-          environment:
-            DISPLAY: {{ pillar['display'] }}
-  service.enabled:
-    - name: has-ip
+    - name: /etc/vconsole.conf
+    - content: KEYMAP=dvorak
 {% endif %} # is_laptop
 
 Clipmenu installed:
